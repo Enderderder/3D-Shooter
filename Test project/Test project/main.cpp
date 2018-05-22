@@ -21,3 +21,8 @@ void ToDoRichard()
 {
 	std::cout << "Hi this is Richard";
 }
+
+void TodoJacob()
+{
+	std::cout << "Hello this is jacob";
+}
