@@ -1,6 +1,9 @@
 #include <iostream>
 #include <conio.h>
 
+void ToDoRichard();
+void TodoJacob();
+
 int main()
 {
 	std::cout << "Hello World" << std::endl;
