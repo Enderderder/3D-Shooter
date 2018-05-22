@@ -16,3 +16,8 @@ int main()
 	_getche();
 	return 0;
 }
+
+void TodoJacob()
+{
+	std::cout << "Hello this is jacob";
+}
