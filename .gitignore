@@ -197,6 +197,8 @@ ipch/
 
 *.VC.VC.opendb
 
+*.VC.opendb
+
 
 
 # Visual Studio profiler
