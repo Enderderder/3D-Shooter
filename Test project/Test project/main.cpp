@@ -8,7 +8,7 @@ int main()
 	std::cout << "nani?";
 
 	std::cout << "Richard Branch changed";
-  std::cout << "Jacob Branch changed";
+	std::cout << "Jacob Branch changed";
   
 	_getche();
 	return 0;
