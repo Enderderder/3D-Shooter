@@ -37,7 +37,7 @@ void Update()
 
 void ResizeWindow(int _width, int _height)
 {
-	//glutReshapeWindow(int(Util::SCR_WIDTH), int(Util::SCR_HEIGHT));
+	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
 }
 
 int main(int argc, char **argv)
