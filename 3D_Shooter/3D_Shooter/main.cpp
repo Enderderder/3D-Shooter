@@ -14,31 +14,11 @@
 
 // Global Include
 #include "Utility.h"
+
 void Init();
 void Render();
 void Update();
-
-void Init()
-{
-	//SceneMgr::GetInstance();
-	//Input::GetInstance()->Init();
-}
-
-void Render()
-{
-	//SceneMgr::GetInstance().RenderCurrentScene();
-}
-
-void Update()
-{
-	//SceneMgr::GetInstance().UpdateCurrentScene();
-	glutPostRedisplay();
-}
-
-void ResizeWindow(int _width, int _height)
-{
-	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
-}
+void ResizeWindow(int _width, int _height);
 
 int main(int argc, char **argv)
 {
@@ -68,4 +48,26 @@ int main(int argc, char **argv)
 	glutCloseFunc([]() {}); /// Modification needed
 
 	glutMainLoop(); // Must be called last
+}
+
+void Init()
+{
+	//SceneMgr::GetInstance();
+	//Input::GetInstance()->Init();
+}
+
+void Render()
+{
+	//SceneMgr::GetInstance().RenderCurrentScene();
+}
+
+void Update()
+{
+	//SceneMgr::GetInstance().UpdateCurrentScene();
+	glutPostRedisplay();
+}
+
+void ResizeWindow(int _width, int _height)
+{
+	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
 }
