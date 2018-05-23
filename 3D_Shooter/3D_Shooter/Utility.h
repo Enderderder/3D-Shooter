@@ -33,7 +33,21 @@
 
 #include <vld.h> // Memory Leak Detector
 
+// Static Include ******************************************************************************
+#include "ShaderLoader.h"
+
 //**********************************************************************************************
+
+namespace util
+{
+	// Define the screen size
+	static int SCR_WIDTH = 1366;
+	static int SCR_HEIGHT = 768;
+	//static float PIXELUNIT = 1.0f; // 2D Useage
+
+	static ShaderLoader shaderLoader;
+}
+
 
 
 // Define Struct *******************************************************************************

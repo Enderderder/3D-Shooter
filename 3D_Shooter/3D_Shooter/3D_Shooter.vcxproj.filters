@@ -15,10 +15,22 @@
     <Filter Include="Utility">
       <UniqueIdentifier>{bf7ca480-7d91-440d-9fc4-cd98084fc3a1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FrameWork\SceneMgr">
+      <UniqueIdentifier>{4d8049dc-d189-4b64-ba86-6286d93af238}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FrameWork\ShaderLoader">
+      <UniqueIdentifier>{c508f753-0bc4-4843-9b18-7c2b323f35e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>FrameWork\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLoader.cpp">
+      <Filter>FrameWork\ShaderLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +41,12 @@
   <ItemGroup>
     <ClInclude Include="Utility.h">
       <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>FrameWork\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLoader.h">
+      <Filter>FrameWork\ShaderLoader</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

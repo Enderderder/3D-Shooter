@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
 	glutInitWindowPosition(500, 500);
-	//glutInitWindowSize(int(Util::SCR_WIDTH), int(Util::SCR_HEIGHT));
+	glutInitWindowSize(util::SCR_WIDTH, util::SCR_HEIGHT);
 	glutCreateWindow("3D Shooter");
 	glEnable(GL_MULTISAMPLE);
 
