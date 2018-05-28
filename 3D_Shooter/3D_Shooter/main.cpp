@@ -23,8 +23,6 @@ void ResizeWindow(int _width, int _height);
 
 int main(int argc, char **argv)
 {
-	// Hello there
-
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
