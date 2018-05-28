@@ -6,10 +6,10 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : SceneMgr.cpp
+// File Name    : 
 // Description	: 
-// Author       : Richard Wulansari & Jacob (Last Name?)
-// Mail         : richard.wul7481@mediadesign.school.nz (Email?)
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
 

@@ -6,10 +6,10 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : main.cpp
+// File Name    : 
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
-// Mail         : richard.wul7481@mediadesign.school.nz (Email?)
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
 // Global Include
@@ -25,7 +25,7 @@ int main(int argc, char **argv)
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
-	glutInitWindowPosition(500, 500);
+	glutInitWindowPosition(150, 200);
 	glutInitWindowSize(util::SCR_WIDTH, util::SCR_HEIGHT);
 	glutCreateWindow("3D Shooter");
 	glEnable(GL_MULTISAMPLE);
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glClearColor(0.5, 1.0, 1.0, 1.0); // Make the background color Black
+	glClearColor(0.0, 1.0, 0.0, 1.0); // Make the background color GREEN
 
 	glewInit();
 	Init();
@@ -58,7 +58,10 @@ void Init()
 
 void Render()
 {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
 	//SceneMgr::GetInstance().RenderCurrentScene();
+	glutSwapBuffers();
 }
 
 void Update()

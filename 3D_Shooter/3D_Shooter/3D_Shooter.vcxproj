@@ -143,6 +143,7 @@
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt" />
@@ -150,7 +151,12 @@
   <ItemGroup>
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="TextLabel.h" />
     <ClInclude Include="Utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Text.fs" />
+    <None Include="Text.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
