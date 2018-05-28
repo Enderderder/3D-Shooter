@@ -31,7 +31,7 @@
 #include <chrono>
 #include <string>
 
-#include <vld.h> // Memory Leak Detector
+//#include <vld.h> // Memory Leak Detector
 
 // Static Include ******************************************************************************
 #include "ShaderLoader.h"
