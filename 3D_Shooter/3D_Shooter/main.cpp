@@ -14,6 +14,7 @@
 
 // Global Include
 #include "Utility.h"
+#include "SceneMgr.h"
 
 void Init();
 void Render();
@@ -22,8 +23,6 @@ void ResizeWindow(int _width, int _height);
 
 int main(int argc, char **argv)
 {
-	// Hello there
-
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
@@ -54,18 +53,18 @@ int main(int argc, char **argv)
 
 void Init()
 {
-	//SceneMgr::GetInstance();
+	//CSceneMgr::GetInstance().Initialise();
 	//Input::GetInstance()->Init();
 }
 
 void Render()
 {
-	//SceneMgr::GetInstance().RenderCurrentScene();
+	//CSceneMgr::GetInstance().RenderCurrentScene();
 }
 
 void Update()
 {
-	//SceneMgr::GetInstance().UpdateCurrentScene();
+	//CSceneMgr::GetInstance().UpdateCurrentScene();
 	glutPostRedisplay();
 }
 

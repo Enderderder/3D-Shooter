@@ -13,7 +13,7 @@
 //
 
 #ifndef UTILITY_H
-#define UTILITY
+#define UTILITY_H
 
 // OpenGL Include *****************************************************************************
 #include <glew.h>
@@ -72,8 +72,14 @@ struct DebugTimer
 	}
 };
 
+enum ESCENES
+{
+	MAINMENU = 0,
+	GAME,
+};
+
 //**********************************************************************************************
 
 
 
-#endif // !UTILITY_H
+#endif // !_UTILITY_H

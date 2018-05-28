@@ -32,6 +32,9 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>FrameWork\ShaderLoader</Filter>
     </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>FrameWork\SceneMgr</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt">
@@ -47,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>FrameWork\ShaderLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>FrameWork\SceneMgr</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
