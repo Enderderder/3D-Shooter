@@ -6,7 +6,7 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : 
+// File Name    : main.cpp
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz

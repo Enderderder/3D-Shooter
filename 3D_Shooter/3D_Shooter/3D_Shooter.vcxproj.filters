@@ -1,74 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Shader Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="FrameWork">
-      <UniqueIdentifier>{6b54b4d8-86f8-43b4-bcc8-46929590c91b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{bf7ca480-7d91-440d-9fc4-cd98084fc3a1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FrameWork\SceneMgr">
-      <UniqueIdentifier>{4d8049dc-d189-4b64-ba86-6286d93af238}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FrameWork\ShaderLoader">
-      <UniqueIdentifier>{c508f753-0bc4-4843-9b18-7c2b323f35e6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="FrameWork\TextLabel">
-      <UniqueIdentifier>{e57cb591-1264-416b-b940-a80920914cb3}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SceneMgr.cpp">
-      <Filter>FrameWork\SceneMgr</Filter>
+      <Filter>Framework\SceneMgr</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderLoader.cpp">
-      <Filter>FrameWork\ShaderLoader</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Framework\SceneMgr</Filter>
     </ClCompile>
     <ClCompile Include="TextLabel.cpp">
-      <Filter>FrameWork\TextLabel</Filter>
-    <ClCompile Include="Scene.cpp">
-      <Filter>FrameWork\SceneMgr</Filter>
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderLoader.cpp">
+      <Filter>Framework\ShaderLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Commenting Header.txt">
-      <Filter>Source Files</Filter>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Utility.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
     <ClInclude Include="SceneMgr.h">
-      <Filter>FrameWork\SceneMgr</Filter>
+      <Filter>Framework\SceneMgr</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderLoader.h">
-      <Filter>FrameWork\ShaderLoader</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Framework\SceneMgr</Filter>
     </ClInclude>
     <ClInclude Include="TextLabel.h">
-      <Filter>FrameWork\TextLabel</Filter>
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderLoader.h">
+      <Filter>Framework\ShaderLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Utility</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Text.vs">
-      <Filter>Shader Files</Filter>
+      <Filter>Shader</Filter>
     </None>
     <None Include="Text.fs">
-      <Filter>Shader Files</Filter>
+      <Filter>Shader</Filter>
     </None>
-    <ClInclude Include="Scene.h">
-      <Filter>FrameWork\SceneMgr</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{7e9feb6c-e9e5-4d2f-aa33-f1eb003f57b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SceneMgr">
+      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\TextLoader">
+      <UniqueIdentifier>{12698f8a-f6a0-4a8a-b8d8-a775c16d7af3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{077aa6da-10e0-4730-99a9-61ac025c8cfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{f26d6350-36c1-4c07-88af-a9d157fbe1ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\ShaderLoader">
+      <UniqueIdentifier>{ceea2a32-eae0-447f-b81d-21e457d40473}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{590e30d1-16df-4a46-a09d-5b1dae0153fc}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Commenting Header.txt">
+      <Filter>Source</Filter>
+    </Text>
   </ItemGroup>
 </Project>
