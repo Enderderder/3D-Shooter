@@ -8,7 +8,7 @@
 //
 // File Name    : main.cpp
 // Description	: 
-// Author       : Richard Wulansari & Jacob (Last Name?)
+// Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz (Email?)
 //
 
