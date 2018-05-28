@@ -39,7 +39,7 @@ void CSceneMgr::DestroyInstance()
 
 void CSceneMgr::Initialise()
 {
-	m_CurrentScene = MAINMENU;
+	m_eCurrentScene = MAINMENU;
 
 }
 
@@ -47,23 +47,23 @@ void CSceneMgr::RenderCurrentScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	m_vScenes[m_CurrentScene]->RenderScene();
+	m_vScenes[m_eCurrentScene]->RenderScene();
 }
 
 void CSceneMgr::UpdateCurrentScene()
 {
-	m_vScenes[m_CurrentScene]->UpdateScene();
+	m_vScenes[m_eCurrentScene]->UpdateScene();
 }
 
 void CSceneMgr::SwapScene(ESCENES _eSceneNum)
 {
 	// Reset the current scene
-	delete m_vScenes[m_CurrentScene];
-	m_vScenes[m_CurrentScene] = new CScene(m_CurrentScene);
+	delete m_vScenes[m_eCurrentScene];
+	m_vScenes[m_eCurrentScene] = new CScene(m_eCurrentScene);
 
 	// Jump to another scene and initialise it
-	m_CurrentScene = _eSceneNum;
-	m_vScenes[m_CurrentScene]->InitialiseScene();
+	m_eCurrentScene = _eSceneNum;
+	m_vScenes[m_eCurrentScene]->InitialiseScene();
 }
 
 CSceneMgr::CSceneMgr()

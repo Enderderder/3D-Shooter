@@ -54,7 +54,7 @@ private:
 	// Member Variable
 	std::vector<CScene*> m_vScenes; // Scene Container
 
-	ESCENES m_CurrentScene; // Current scene thats displaying and updating
+	ESCENES m_eCurrentScene; // Current scene thats displaying and updating
 };
 
 #endif // !_SCENEMGR_H
