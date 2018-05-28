@@ -14,6 +14,7 @@
 
 // Global Include
 #include "Utility.h"
+#include "SceneMgr.h"
 
 void Init();
 void Render();
@@ -52,21 +53,19 @@ int main(int argc, char **argv)
 
 void Init()
 {
-	//SceneMgr::GetInstance();
+	//CSceneMgr::GetInstance().Initialise();
 	//Input::GetInstance()->Init();
 }
 
 void Render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	//SceneMgr::GetInstance().RenderCurrentScene();
-	glutSwapBuffers();
+	//CSceneMgr::GetInstance().RenderCurrentScene();
+  glutSwapBuffers();
 }
 
 void Update()
 {
-	//SceneMgr::GetInstance().UpdateCurrentScene();
+	//CSceneMgr::GetInstance().UpdateCurrentScene();
 	glutPostRedisplay();
 }
 

@@ -37,6 +37,8 @@
     </ClCompile>
     <ClCompile Include="TextLabel.cpp">
       <Filter>FrameWork\TextLabel</Filter>
+    <ClCompile Include="Scene.cpp">
+      <Filter>FrameWork\SceneMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -65,5 +67,8 @@
     <None Include="Text.fs">
       <Filter>Shader Files</Filter>
     </None>
+    <ClInclude Include="Scene.h">
+      <Filter>FrameWork\SceneMgr</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
