@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SceneMgr.cpp">
-      <Filter>Framework\SceneMgr</Filter>
+      <Filter>Framework\SceneScene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\SceneMgr</Filter>
+      <Filter>Framework\SceneScene</Filter>
     </ClCompile>
     <ClCompile Include="TextLabel.cpp">
       <Filter>Framework\TextLoader</Filter>
@@ -28,10 +28,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
-      <Filter>Framework\SceneMgr</Filter>
+      <Filter>Framework\SceneScene</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\SceneMgr</Filter>
+      <Filter>Framework\SceneScene</Filter>
     </ClInclude>
     <ClInclude Include="TextLabel.h">
       <Filter>Framework\TextLoader</Filter>
@@ -64,9 +64,6 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{7e9feb6c-e9e5-4d2f-aa33-f1eb003f57b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\SceneMgr">
-      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Framework\TextLoader">
       <UniqueIdentifier>{12698f8a-f6a0-4a8a-b8d8-a775c16d7af3}</UniqueIdentifier>
     </Filter>
@@ -91,10 +88,13 @@
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{62615cfd-85ea-4f1a-a4c5-406442d883b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\SceneScene">
+      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt">
-      <Filter>Source</Filter>
+      <Filter>Utility</Filter>
     </Text>
   </ItemGroup>
 </Project>
