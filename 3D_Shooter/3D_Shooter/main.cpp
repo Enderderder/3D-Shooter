@@ -53,19 +53,19 @@ int main(int argc, char **argv)
 
 void Init()
 {
-	//CSceneMgr::GetInstance().Initialise();
+	CSceneMgr::GetInstance().Initialise();
 	//Input::GetInstance()->Init();
 }
 
 void Render()
 {
-	//CSceneMgr::GetInstance().RenderCurrentScene();
+	CSceneMgr::GetInstance().RenderCurrentScene();
   glutSwapBuffers();
 }
 
 void Update()
 {
-	//CSceneMgr::GetInstance().UpdateCurrentScene();
+	CSceneMgr::GetInstance().UpdateCurrentScene();
 	glutPostRedisplay();
 }
 
