@@ -22,9 +22,7 @@
     <ClCompile Include="CubeMesh.cpp">
       <Filter>Framework\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Framework\Camera</Filter>
-    </ClCompile>
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -48,9 +46,7 @@
     <ClInclude Include="CubeMesh.h">
       <Filter>Framework\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Framework\Camera</Filter>
-    </ClInclude>
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Text.fs">
