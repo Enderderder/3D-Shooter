@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Scene.cpp
 // Description	: 
@@ -24,11 +24,13 @@ ShaderLoader ShadeL;
 
 CScene::CScene(ESCENES _eSceneNum)
 {
+	/*
+	
 	//Main Menu
 	if (_eSceneNum == 0)
 	{
-		FragmentShader = "Text.fs";
-		VertexShader - "Text.vs";
+		//FragmentShader = "Text.fs";
+		//VertexShader - "Text.vs";
 	}
 
 	//levels
@@ -36,7 +38,10 @@ CScene::CScene(ESCENES _eSceneNum)
 	{
 
 	}
-	
+
+	*/
+
+	InitialiseScene(_eSceneNum);
 }
 
 CScene::~CScene()
@@ -44,18 +49,42 @@ CScene::~CScene()
 
 }
 
-void CScene::InitialiseScene()
+void CScene::InitialiseScene(ESCENES _eSceneNum)
 {
+	switch (_eSceneNum)
+	{
+	case MAINMENU:
+	{
+		std::vector<std::string> cubeMapPaths = {
+			"right.jpg",
+			"left.jpg",
+			"top.jpg",
+			"bottom.jpg",
+			"back.jpg",
+			"front.jpg"
+		};
+		m_cCubeMap = new CCubeMap(cubeMapPaths);
+		break;
+	}
+
+
+	default: break;
+	}
+
+
 	//Shaders used
-	Program = ShadeL.CreateProgram(VertexShader, FragmentShader);
-	glUseProgram(Program);
+	//Program = ShadeL.CreateProgram(VertexShader, FragmentShader);
+	//glUseProgram(Program);
 }
 
 void CScene::RenderScene()
 {
+	m_cCubeMap->Render(&m_cCam);
+
 
 	/////////Don't know wether to use this here///////////////////////////////////////////////////
 
+	/////////              NO. XD              ///////////////////////////////////////////////////
 
 	/*glBindVertexArray(vao);
 

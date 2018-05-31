@@ -15,6 +15,8 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include "Utility.h"
+
 class CMesh
 {
 public:
