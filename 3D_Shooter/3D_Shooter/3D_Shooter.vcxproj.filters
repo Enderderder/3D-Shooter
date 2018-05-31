@@ -33,6 +33,26 @@
     </ClCompile>
     <ClCompile Include="CubeMap.cpp">
       <Filter>Framework\Mesh</Filter>
+    <ClCompile Include="client.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="consoletools.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="inputlinebuffer.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="socket.cpp">
+      <Filter>Framework\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="CSound.cpp">
+      <Filter>Framework\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +88,32 @@
     </ClInclude>
     <ClInclude Include="CubeMap.h">
       <Filter>Framework\Mesh</Filter>
+    <ClInclude Include="client.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="consoletools.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLineBuffer.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="networkentity.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="socket.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkQueue.h">
+      <Filter>Framework\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="CSound.h">
+      <Filter>Framework\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +181,12 @@
     </Filter>
     <Filter Include="Framework\GameObj">
       <UniqueIdentifier>{2dfb6356-fc38-408e-a079-91a8b0650323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Network">
+      <UniqueIdentifier>{7b3b532e-c08e-4444-becf-64a99bf3d981}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Sound">
+      <UniqueIdentifier>{7ea69ae8-db1e-42a2-94a9-c368d5e84008}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

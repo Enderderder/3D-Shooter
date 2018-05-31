@@ -39,6 +39,9 @@ public:
 
 private:
 
+	const char* FragmentShader;
+	const char* VertexShader;
+
 	//std::vector<GameObject*> m_vGameObj;
 	CCamera m_cCam;
 	CCubeMap* m_cCubeMap;
