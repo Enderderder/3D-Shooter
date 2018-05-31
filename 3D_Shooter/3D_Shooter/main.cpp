@@ -61,6 +61,7 @@ void Render()
 {
 	CSceneMgr::GetInstance().RenderCurrentScene();
   glutSwapBuffers();
+
 }
 
 void Update()
