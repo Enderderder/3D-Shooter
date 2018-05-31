@@ -16,6 +16,9 @@
 #include "Utility.h"
 #include "SceneMgr.h"
 
+// make sure the winsock lib is included...
+#pragma comment(lib,"ws2_32.lib")
+
 void Init();
 void Render();
 void Update();
