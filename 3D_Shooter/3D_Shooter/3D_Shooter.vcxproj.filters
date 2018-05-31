@@ -59,6 +59,24 @@
     <None Include="Text.vs">
       <Filter>Shader\TextLabel</Filter>
     </None>
+    <None Include="Shaders\Ex_10.fs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shaders\Ex_10.vs">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shaders\CubeMap.vs">
+      <Filter>Shader\CubeMap</Filter>
+    </None>
+    <None Include="Shaders\CubeMap.fs">
+      <Filter>Shader\CubeMap</Filter>
+    </None>
+    <None Include="Shaders\DiffuseLight.fs">
+      <Filter>Shader\DiffuseLight</Filter>
+    </None>
+    <None Include="Shaders\DiffuseLight.vs">
+      <Filter>Shader\DiffuseLight</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -90,6 +108,12 @@
     </Filter>
     <Filter Include="Framework\SceneScene">
       <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\CubeMap">
+      <UniqueIdentifier>{f2e122df-a8c0-41c2-aa15-0d0a8f0fd17f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\DiffuseLight">
+      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

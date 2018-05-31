@@ -163,6 +163,12 @@
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\CubeMap.fs" />
+    <None Include="Shaders\CubeMap.vs" />
+    <None Include="Shaders\DiffuseLight.fs" />
+    <None Include="Shaders\DiffuseLight.vs" />
+    <None Include="Shaders\Ex_10.fs" />
+    <None Include="Shaders\Ex_10.vs" />
     <None Include="Text.fs" />
     <None Include="Text.vs" />
   </ItemGroup>

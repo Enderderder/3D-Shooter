@@ -52,7 +52,7 @@ protected:
 
 private:
 	// Member Variable
-	std::vector<CScene> m_vScenes; // Scene Container
+	std::vector<CScene*> m_vScenes; // Scene Container
 
 	ESCENES m_eCurrentScene; // Current scene thats displaying and updating
 };
