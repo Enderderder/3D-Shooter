@@ -200,6 +200,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 					m_ClientAddress = it->second.m_ClientAddress;
 
 					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					strcpy_s(charNameptr, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, charNameptr);
 					SendData(_packetToSend.PacketData);
 				}
@@ -272,6 +273,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 						m_ClientAddress = it->second.m_ClientAddress;
 
 						std::string stringtemp = stringaNametemp + " has quit the chat";
+						strcpy_s(charNameptr, stringtemp.c_str());
 						_packetToSend.Serialize(DATA, charNameptr);
 						SendData(_packetToSend.PacketData);
 
@@ -301,6 +303,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 						m_ClientAddress = It->second.m_ClientAddress;
 						
 						std::string stringtemp = it->second.m_strName + "> " + _packetRecvd.MessageContent;
+						strcpy_s(charNameptr, stringtemp.c_str());
 						_packetToSend.Serialize(DATA, charNameptr);
 						SendData(_packetToSend.PacketData);
 					}
@@ -352,6 +355,7 @@ void CServer::CurrentUsers(TPacket _packetToSend)
 	{
 		if (it->first != ToString(m_ClientAddress))
 		{
+			strcpy_s(charNameptr, it->second.m_strName.c_str());
 			_packetToSend.Serialize(DATA, charNameptr);
 			SendData(_packetToSend.PacketData);
 		}
