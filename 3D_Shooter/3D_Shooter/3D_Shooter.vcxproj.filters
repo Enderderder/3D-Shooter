@@ -42,10 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Text.vs">
-      <Filter>Resources</Filter>
+      <Filter>Resources\Shaders</Filter>
     </None>
     <None Include="Text.fs">
-      <Filter>Resources</Filter>
+      <Filter>Resources\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +60,9 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{3348cf13-48d7-42aa-a10a-4b7b7ca7a7b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Shaders">
+      <UniqueIdentifier>{c24348fb-adc8-4ac8-a3a2-9e8d6a2fa4a4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

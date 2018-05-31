@@ -42,24 +42,6 @@ void CScene::InitialiseScene()
 void CScene::RenderScene()
 {
 
-	/////////Don't know wether to use this here///////////////////////////////////////////////////
-
-
-	/*glBindVertexArray(vao);
-
-	GLint MVPLoc = glGetUniformLocation(Program, "MVP");
-	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(m_MVPMatrix));
-
-	GLfloat currentTime = glutGet(GLUT_ELAPSED_TIME);// Get current time. 
-	currentTime = currentTime / 1000.0f;  // Convert millisecond to seconds 
-
-	GLint currentTimeLoc = glGetUniformLocation(Program, "currentTime");
-	glUniform1f(currentTimeLoc, currentTime);// set value
-
-	glDrawElements(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0); //GL_POINTS, GL_LINES
-	glBindVertexArray(0);*/
-	
-	//////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 void CScene::UpdateScene()
