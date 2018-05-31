@@ -23,7 +23,7 @@ class CGameObject
 {
 public:
 	CGameObject() = default;
-	CGameObject();
+	//CGameObject();
 
 	~CGameObject();
 

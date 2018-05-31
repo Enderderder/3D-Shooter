@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="consoletools.cpp" />
     <ClCompile Include="CSound.cpp" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="consoletools.h" />
     <ClInclude Include="CSound.h" />

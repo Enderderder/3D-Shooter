@@ -31,6 +31,8 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Framework\Mesh</Filter>
     </ClCompile>
+    <ClCompile Include="CubeMap.cpp">
+      <Filter>Framework\Mesh</Filter>
     <ClCompile Include="client.cpp">
       <Filter>Framework\Network</Filter>
     </ClCompile>
@@ -84,6 +86,8 @@
     <ClInclude Include="Mesh.h">
       <Filter>Framework\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="CubeMap.h">
+      <Filter>Framework\Mesh</Filter>
     <ClInclude Include="client.h">
       <Filter>Framework\Network</Filter>
     </ClInclude>
