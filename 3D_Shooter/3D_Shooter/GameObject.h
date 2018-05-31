@@ -23,13 +23,21 @@ class CGameObject
 {
 public:
 	CGameObject() = default;
-	//CGameObject();
+	CGameObject(CMesh* _mesh, GLuint* _texture);
+
+	void RenderObject(GLuint* _program);
 
 	~CGameObject();
 
 private:
 	CMesh* m_ObjMesh;
-	GLuint* m_textureID;
+	GLuint* m_TextureID;
+
+	glm::vec3 m_Position;
+	glm::vec3 m_Scale;
+	glm::vec3 m_Rotation;
+
+
 };
 
 #endif // !GAMEOBJECT_Hs
