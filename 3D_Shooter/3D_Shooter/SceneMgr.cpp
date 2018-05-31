@@ -39,8 +39,9 @@ void CSceneMgr::DestroyInstance()
 
 void CSceneMgr::Initialise()
 {
-	m_eCurrentScene = MAINMENU;
-
+		m_eCurrentScene = MAINMENU;
+		m_vScenes.push_back(new CScene);
+	
 }
 
 void CSceneMgr::RenderCurrentScene()
