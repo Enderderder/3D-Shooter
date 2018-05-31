@@ -19,6 +19,7 @@
 #include <vector>
 
 // Local Include
+#include "TextLabel.h"
 #include "Camera.h"
 
 // Forward Declaration
@@ -36,7 +37,6 @@ public:
 	void UpdateScene();
 
 private:
-
 	//std::vector<GameObject*> m_vGameObj;
 	CCamera m_cCam;
 };

@@ -35,7 +35,6 @@ CCamera::CCamera(glm::vec3 _Position, glm::vec3 _Facing, glm::vec3 _Normal)
 	SetProjectionMatrix();
 }
 
-
 CCamera::~CCamera()
 {
 }
@@ -81,6 +80,7 @@ glm::vec3 CCamera::GetCameraPosition() const
 	return(m_CameraPosition);
 }
 void CCamera::SetCameraPosition(glm::vec3 _Position)
+
 {
 	m_CameraPosition = _Position;
 }
