@@ -18,10 +18,6 @@
 // Local Include
 #include "MeshMgr.h"
 
-CGameObject::CGameObject()
-{
-	
-}
 
 
 CGameObject::~CGameObject()

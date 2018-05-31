@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Scene.h
 // Description	: 
@@ -21,6 +21,7 @@
 // Local Include
 #include "TextLabel.h"
 #include "Camera.h"
+#include "CubeMap.h"
 
 // Forward Declaration
 enum ESCENES;
@@ -32,13 +33,15 @@ public:
 	CScene(ESCENES _eSceneNum);
 	~CScene();
 
-	void InitialiseScene();
+	void InitialiseScene(ESCENES _eSceneNum);
 	void RenderScene();
 	void UpdateScene();
 
 private:
+
 	//std::vector<GameObject*> m_vGameObj;
 	CCamera m_cCam;
+	CCubeMap* m_cCubeMap;
 };
 
 #endif // !_SCENE_H
