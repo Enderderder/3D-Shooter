@@ -37,6 +37,10 @@ public:
 	void UpdateScene();
 
 private:
+
+	const char* FragmentShader;
+	const char* VertexShader;
+
 	//std::vector<GameObject*> m_vGameObj;
 	CCamera m_cCam;
 };
