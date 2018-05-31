@@ -4,28 +4,25 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name    : CubeMesh.h
+// File Name    : GameObject.cpp
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef CUBEMESH_H
-#define CUBEMESH_H
+// This Include
+#include "GameObject.h"
 
 // Local Include
-#include "Utility.h"
-#include "Mesh.h"
+#include "MeshMgr.h"
 
-class CCubeMesh : public CMesh
+CGameObject::CGameObject()
 {
-public:
-	CCubeMesh();
-	~CCubeMesh();
+	
+}
 
-	virtual void RenderMesh();
-};
 
-#endif // !CUBEMESH_H
+CGameObject::~CGameObject()
+{}

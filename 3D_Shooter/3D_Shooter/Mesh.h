@@ -6,26 +6,25 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : CubeMesh.h
+// File Name    : Mesh.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef CUBEMESH_H
-#define CUBEMESH_H
+#ifndef MESH_H
+#define MESH_H
 
-// Local Include
-#include "Utility.h"
-#include "Mesh.h"
-
-class CCubeMesh : public CMesh
+class CMesh
 {
 public:
-	CCubeMesh();
-	~CCubeMesh();
+	CMesh();
+	~CMesh();
 
-	virtual void RenderMesh();
+	virtual void Render() = 0;
+
+protected:
+	GLuint VAO;
 };
 
-#endif // !CUBEMESH_H
+#endif // !MESH_H

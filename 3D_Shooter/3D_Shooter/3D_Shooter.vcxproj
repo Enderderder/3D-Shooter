@@ -142,6 +142,8 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
@@ -155,6 +157,8 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CubeMesh.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMgr.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
