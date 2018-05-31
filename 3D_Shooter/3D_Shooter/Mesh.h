@@ -24,6 +24,7 @@ public:
 	virtual void Render() = 0;
 
 protected:
+	//HEY THIS IS A CHANGE
 	GLuint VAO;
 };
 
