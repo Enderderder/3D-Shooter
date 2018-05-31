@@ -141,6 +141,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshMgr.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="main.cpp" />
@@ -152,6 +156,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMesh.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshMgr.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="ShaderLoader.h" />
@@ -159,6 +167,12 @@
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\CubeMap.fs" />
+    <None Include="Shaders\CubeMap.vs" />
+    <None Include="Shaders\DiffuseLight.fs" />
+    <None Include="Shaders\DiffuseLight.vs" />
+    <None Include="Shaders\Ex_10.fs" />
+    <None Include="Shaders\Ex_10.vs" />
     <None Include="Text.fs" />
     <None Include="Text.vs" />
   </ItemGroup>

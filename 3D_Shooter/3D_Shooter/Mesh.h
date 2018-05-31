@@ -5,18 +5,26 @@
 // New Zealand
 //
 // (c) 2016 Media Design School
-// (c) 2018 Media Design School
 //
-// File Name    : 
+// File Name    : Mesh.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
+#ifndef MESH_H
+#define MESH_H
 
-/*
-Author		: 
-Parameter	: 
-ReturnType	: 
-Description	: 
-*/
+class CMesh
+{
+public:
+	CMesh();
+	~CMesh();
+
+	virtual void Render() = 0;
+
+protected:
+	GLuint VAO;
+};
+
+#endif // !MESH_H

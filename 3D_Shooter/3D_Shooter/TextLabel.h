@@ -8,6 +8,7 @@
 #include <gtc\type_ptr.hpp>
 
 #include "ShaderLoader.h";
+#include "ShaderLoader.h"
 #include "Utility.h"
 
 #include <ft2build.h>
@@ -21,8 +22,11 @@ struct Character
 {
 	GLuint        TextureID;	// Texture ID 
 	glm::ivec2  Size;	// Size of glyph
+	GLuint      TextureID;	// Texture ID 
+	glm::ivec2	Size;		// Size of glyph
 	glm::ivec2  Bearing;	// Positon of glyph 
 	GLuint        Advance;	// How far to move for the next character
+	GLuint      Advance;	// How far to move for the next character
 };
 
 class TextLabel {
