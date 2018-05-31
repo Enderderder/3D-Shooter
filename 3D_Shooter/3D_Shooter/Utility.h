@@ -6,7 +6,7 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : 
+// File Name    : Utility.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
@@ -15,7 +15,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-// OpenGL Include *****************************************************************************
+// OpenGL Include ------------------------------------------------------------------------------
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>
@@ -24,7 +24,7 @@
 #include <gtc\type_ptr.hpp>
 #include <fmod.hpp>
 
-// Library Include *****************************************************************************
+// Library Include -----------------------------------------------------------------------------
 #include <iostream>
 #include <string>
 #include <vector>
@@ -33,24 +33,19 @@
 
 //#include <vld.h> // Memory Leak Detector
 
-// Static Include ******************************************************************************
-#include "ShaderLoader.h"
+//----------------------------------------------------------------------------------------------
 
-//**********************************************************************************************
 
 namespace util
 {
 	// Define the screen size
 	static int SCR_WIDTH = 1366;
 	static int SCR_HEIGHT = 768;
-	//static float PIXELUNIT = 1.0f; // 2D Useage
-
-	static ShaderLoader shaderLoader;
 }
 
 
 
-// Define Struct *******************************************************************************
+// Define Struct -------------------------------------------------------------------------------
 
 struct DebugTimer
 {
@@ -78,8 +73,12 @@ enum ESCENES
 	GAME,
 };
 
-//**********************************************************************************************
+enum EMESH
+{
+	CUBE,
+};
 
+//----------------------------------------------------------------------------------------------
 
 
 #endif // !_UTILITY_H
