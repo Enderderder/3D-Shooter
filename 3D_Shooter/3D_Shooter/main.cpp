@@ -15,6 +15,7 @@
 // Global Include
 #include "Utility.h"
 #include "SceneMgr.h"
+#include "CNetworkMgr.h"
 
 // make sure the winsock lib is included...
 #pragma comment(lib,"ws2_32.lib")

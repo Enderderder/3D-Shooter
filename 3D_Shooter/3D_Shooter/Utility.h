@@ -31,6 +31,10 @@
 #include <chrono>
 #include <WS2tcpip.h>
 #include <strstream>
+#include <Windows.h>
+#include <cassert>
+#include <thread>
+#include "CSound.h"
 
 //#include <vld.h> // Memory Leak Detector
 
