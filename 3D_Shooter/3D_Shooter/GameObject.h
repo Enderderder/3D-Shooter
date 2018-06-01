@@ -19,13 +19,16 @@
 #include "Mesh.h"
 #include "Utility.h"
 
+// Forward Declare
+class CCamera;
+
 class CGameObject
 {
 public:
 	CGameObject() = default;
 	CGameObject(CMesh* _mesh, GLuint* _texture);
 
-	void RenderObject(GLuint* _program);
+	void RenderObject(GLuint* _program, CCamera* _camera);
 
 	~CGameObject();
 
@@ -35,7 +38,7 @@ private:
 
 	glm::vec3 m_Position;
 	glm::vec3 m_Scale;
-	glm::vec3 m_Rotation;
+	float m_Rotation;
 
 
 };
