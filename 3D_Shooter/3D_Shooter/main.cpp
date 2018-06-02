@@ -15,6 +15,7 @@
 // Global Include
 #include "Utility.h"
 #include "SceneMgr.h"
+#include "MeshMgr.h"
 
 void Init();
 void Render();
@@ -53,6 +54,9 @@ int main(int argc, char **argv)
 
 void Init()
 {
+	CMeshMgr::GetInstance().InitialiseMeshes();
+
+
 	CSceneMgr::GetInstance().Initialise();
 	//Input::GetInstance()->Init();
 }

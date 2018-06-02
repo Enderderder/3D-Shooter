@@ -20,11 +20,12 @@
 
 // Local Include
 #include "TextLabel.h"
-#include "Camera.h"
 #include "CubeMap.h"
 
 // Forward Declaration
 enum ESCENES;
+class CGameObject;
+class CCamera;
 
 class CScene
 {
@@ -39,8 +40,8 @@ public:
 
 private:
 
-	//std::vector<GameObject*> m_vGameObj;
-	CCamera m_cCam;
+	std::vector<CGameObject*> m_vGameObj;
+	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
 };
 

@@ -16,23 +16,24 @@
 #define GAMEOBJECT_H
 
 // Local Includes
-#include "Mesh.h"
 #include "Utility.h"
 
 // Forward Declare
 class CCamera;
+class CMesh;
 
 class CGameObject
 {
 public:
 	CGameObject() = default;
-	CGameObject(CMesh* _mesh, GLuint* _texture);
+	CGameObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
 
-	void RenderObject(GLuint* _program, CCamera* _camera);
+	void RenderObject(CCamera* _camera);
 
 	~CGameObject();
 
 private:
+	GLuint* m_Program;
 	CMesh* m_ObjMesh;
 	GLuint* m_TextureID;
 
