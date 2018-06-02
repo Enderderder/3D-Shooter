@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Mesh.h
 // Description	: 
@@ -15,6 +15,7 @@
 #ifndef MESH_H
 #define MESH_H
 
+// Local Include
 #include "Utility.h"
 
 class CMesh
@@ -23,7 +24,7 @@ public:
 	CMesh();
 	~CMesh();
 
-	virtual void Render() = 0;
+	virtual void RenderMesh() = 0;
 
 protected:
 	//HEY THIS IS A CHANGE

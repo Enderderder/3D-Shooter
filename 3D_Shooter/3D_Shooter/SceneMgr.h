@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : SceneMgr.h
 // Description	: 
@@ -31,7 +31,7 @@ public:
 	static CSceneMgr& GetInstance();
 	static void DestroyInstance();
 
-	// Member Function
+	// Member Functions
 	void Initialise();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
@@ -51,7 +51,7 @@ protected:
 	static CSceneMgr* s_pSceneMgr;
 
 private:
-	// Member Variable
+	// Member Variables
 	std::vector<CScene*> m_vScenes; // Scene Container
 
 	ESCENES m_eCurrentScene; // Current scene thats displaying and updating
