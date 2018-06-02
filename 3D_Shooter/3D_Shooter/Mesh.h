@@ -27,6 +27,7 @@ public:
 	virtual void RenderMesh() = 0;
 
 protected:
+	//HEY THIS IS A CHANGE
 	GLuint VAO;
 };
 

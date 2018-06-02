@@ -1,145 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="SceneMgr.cpp">
-      <Filter>Framework\SceneScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Framework\SceneScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TextLabel.cpp">
-      <Filter>Framework\TextLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ShaderLoader.cpp">
-      <Filter>Framework\ShaderLoader</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshMgr.cpp">
-      <Filter>Framework\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeMesh.cpp">
-      <Filter>Framework\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Framework\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Framework\GameObj</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Framework\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="CubeMap.cpp">
-      <Filter>Framework\Mesh</Filter>
-    </ClCompile>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="consoletools.cpp" />
+    <ClCompile Include="CSound.cpp" />
+    <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="inputlinebuffer.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshMgr.cpp" />
+    <ClCompile Include="network.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneMgr.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="server.cpp" />
+    <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="socket.cpp" />
+    <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="CNetworkMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SceneMgr.h">
-      <Filter>Framework\SceneScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Framework\SceneScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TextLabel.h">
-      <Filter>Framework\TextLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderLoader.h">
-      <Filter>Framework\ShaderLoader</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>Utility</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshMgr.h">
-      <Filter>Framework\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeMesh.h">
-      <Filter>Framework\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Framework\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Framework\GameObj</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Framework\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="CubeMap.h">
-      <Filter>Framework\Mesh</Filter>
-    </ClInclude>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMap.h" />
+    <ClInclude Include="client.h" />
+    <ClInclude Include="consoletools.h" />
+    <ClInclude Include="CSound.h" />
+    <ClInclude Include="CubeMesh.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputLineBuffer.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshMgr.h" />
+    <ClInclude Include="network.h" />
+    <ClInclude Include="networkentity.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="server.h" />
+    <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="socket.h" />
+    <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="WorkQueue.h" />
+    <ClInclude Include="CNetworkMgr.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Text.fs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
-    <None Include="Text.vs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
-    <None Include="Shaders\Ex_10.fs">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shaders\Ex_10.vs">
-      <Filter>Shader</Filter>
-    </None>
-    <None Include="Shaders\CubeMap.vs">
-      <Filter>Shader\CubeMap</Filter>
-    </None>
-    <None Include="Shaders\CubeMap.fs">
-      <Filter>Shader\CubeMap</Filter>
-    </None>
-    <None Include="Shaders\DiffuseLight.fs">
-      <Filter>Shader\DiffuseLight</Filter>
-    </None>
-    <None Include="Shaders\DiffuseLight.vs">
-      <Filter>Shader\DiffuseLight</Filter>
-    </None>
+    <None Include="Shaders\CubeMap.fs" />
+    <None Include="Shaders\CubeMap.vs" />
+    <None Include="Shaders\DiffuseLight.fs" />
+    <None Include="Shaders\DiffuseLight.vs" />
+    <None Include="Shaders\Ex_10.fs" />
+    <None Include="Shaders\Ex_10.vs" />
+    <None Include="Text.fs" />
+    <None Include="Text.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Framework">
-      <UniqueIdentifier>{7e9feb6c-e9e5-4d2f-aa33-f1eb003f57b3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\TextLoader">
-      <UniqueIdentifier>{12698f8a-f6a0-4a8a-b8d8-a775c16d7af3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source">
-      <UniqueIdentifier>{077aa6da-10e0-4730-99a9-61ac025c8cfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader">
-      <UniqueIdentifier>{f26d6350-36c1-4c07-88af-a9d157fbe1ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\ShaderLoader">
-      <UniqueIdentifier>{ceea2a32-eae0-447f-b81d-21e457d40473}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Utility">
-      <UniqueIdentifier>{590e30d1-16df-4a46-a09d-5b1dae0153fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Mesh">
-      <UniqueIdentifier>{4d153523-d75f-4a55-95f7-76daad62b29e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\TextLabel">
-      <UniqueIdentifier>{398a51f8-9b10-4fa8-8b32-56ad23b289bd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\Camera">
-      <UniqueIdentifier>{62615cfd-85ea-4f1a-a4c5-406442d883b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\SceneScene">
-      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\CubeMap">
-      <UniqueIdentifier>{f2e122df-a8c0-41c2-aa15-0d0a8f0fd17f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\DiffuseLight">
-      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Framework\GameObj">
-      <UniqueIdentifier>{2dfb6356-fc38-408e-a079-91a8b0650323}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Commenting Header.txt">
-      <Filter>Utility</Filter>
-    </Text>
+    <Text Include="Commenting Header.txt" />
   </ItemGroup>
 </Project>

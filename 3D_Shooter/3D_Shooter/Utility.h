@@ -29,9 +29,42 @@
 #include <string>
 #include <vector>
 #include <chrono>
-#include <string>
+#include <WS2tcpip.h>
+#include <strstream>
+#include <Windows.h>
+#include <cassert>
+#include <thread>
+#include "CSound.h"
 
 //#include <vld.h> // Memory Leak Detector
+
+
+// Converting IP Adresses to string and Networking ----------------------------------------------
+
+#define VALIDATE(a) if (!a) return (false)
+
+namespace {
+	std::string ToString(sockaddr_in _sockAddress)
+	{
+		//INET_ADDRSTRLEN - maximum length for IPv4 addresses
+		char _pcAddress[INET_ADDRSTRLEN];
+		inet_ntop(AF_INET, &_sockAddress.sin_addr, _pcAddress, INET_ADDRSTRLEN);
+
+		std::string _strAddress = _pcAddress;
+		std::string _strPort = std::to_string(ntohs(_sockAddress.sin_port));
+		std::string _strAddressPort = _strAddress + ':' + _strPort;
+
+		return _strAddressPort;
+	}
+}
+
+template<typename T>
+std::string ToString(const T& _value)
+{
+	std::strstream theStream;
+	theStream << _value << std::ends;
+	return (theStream.str());
+}
 
 //----------------------------------------------------------------------------------------------
 
@@ -42,8 +75,6 @@ namespace util
 	static int SCR_WIDTH = 1366;
 	static int SCR_HEIGHT = 768;
 }
-
-
 
 // Define Struct -------------------------------------------------------------------------------
 
@@ -78,7 +109,26 @@ enum EMESH
 	CUBE,
 };
 
+enum InputState 
+{
+	INPUT_FIRST_RELEASE, // First frame of Up state 
+	INPUT_RELEASED, // Default State (Up) 
+	INPUT_FIRST_PRESS, // First frame of Down state 
+	INPUT_HOLD, // Key is held Down 
+};
+
+enum InputMouse 
+{ 
+	MOUSE_LEFT, 
+	MOUSE_MIDDLE, 
+	MOUSE_RIGHT 
+};
+
 //----------------------------------------------------------------------------------------------
+
+
+
+
 
 
 #endif // !_UTILITY_H

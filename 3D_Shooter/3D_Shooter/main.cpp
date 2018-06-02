@@ -16,11 +16,22 @@
 #include "Utility.h"
 #include "SceneMgr.h"
 #include "MeshMgr.h"
+#include "CNetworkMgr.h"
+
+// make sure the winsock lib is included...
+#pragma comment(lib,"ws2_32.lib")
+
+//Class Pointers
+CNetworkMgr m_pNetworkMgr;
 
 void Init();
 void Render();
 void Update();
 void ResizeWindow(int _width, int _height);
+void KeyBoard_Down(unsigned char key, int x, int y);
+void KeyBoard_Up(unsigned char key, int x, int y);
+
+unsigned char KeyState[255];
 
 int main(int argc, char **argv)
 {
@@ -40,6 +51,12 @@ int main(int argc, char **argv)
 
 	glewInit();
 	Init();
+
+	
+
+	//keyboard inputs
+	glutKeyboardFunc(KeyBoard_Down);
+	glutKeyboardUpFunc(KeyBoard_Up);
 
 	//register callbacks
 	glutReshapeFunc(ResizeWindow);
@@ -71,10 +88,30 @@ void Render()
 void Update()
 {
 	CSceneMgr::GetInstance().UpdateCurrentScene();
+
+	if (KeyState[(unsigned char)'p'] == INPUT_HOLD)
+	{
+		std::thread Thread_obj(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
+
+			Thread_obj.join();
+		
+		
+	}
+
 	glutPostRedisplay();
 }
 
 void ResizeWindow(int _width, int _height)
 {
 	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
+}
+
+void KeyBoard_Down(unsigned char key, int x, int y)
+{
+	KeyState[key] = INPUT_HOLD;
+}
+
+void KeyBoard_Up(unsigned char key, int x, int y)
+{
+	KeyState[key] = INPUT_RELEASED;
 }

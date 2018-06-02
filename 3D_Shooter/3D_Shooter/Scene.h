@@ -39,7 +39,7 @@ public:
 	void UpdateScene();
 
 private:
-
+  
 	std::vector<CGameObject*> m_vGameObj;
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
