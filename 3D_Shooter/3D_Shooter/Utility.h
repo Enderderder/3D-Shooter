@@ -76,8 +76,6 @@ namespace util
 	static int SCR_HEIGHT = 768;
 }
 
-
-
 // Define Struct -------------------------------------------------------------------------------
 
 struct DebugTimer
@@ -111,7 +109,26 @@ enum EMESH
 	CUBE,
 };
 
+enum InputState 
+{
+	INPUT_FIRST_RELEASE, // First frame of Up state 
+	INPUT_RELEASED, // Default State (Up) 
+	INPUT_FIRST_PRESS, // First frame of Down state 
+	INPUT_HOLD, // Key is held Down 
+};
+
+enum InputMouse 
+{ 
+	MOUSE_LEFT, 
+	MOUSE_MIDDLE, 
+	MOUSE_RIGHT 
+};
+
 //----------------------------------------------------------------------------------------------
+
+
+
+
 
 
 #endif // !_UTILITY_H

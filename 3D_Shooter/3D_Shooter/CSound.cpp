@@ -56,6 +56,8 @@ const bool CSound::LoadAudio()
 	result = audioMgr->createSound(" ", FMOD_DEFAULT, 0, &bgmTheme);
 
 	bgmTheme->setMode(FMOD_LOOP_NORMAL);
+
+	return(true);
 }
 
 void CSound::PlaySound()
@@ -64,9 +66,9 @@ void CSound::PlaySound()
 	LoadAudio();
 
 	FMOD::Channel* channel;
-	channel->setVolume(m_intMasterVolume);	//master volume
-
+	
 	audioMgr->playSound(bgmTheme, 0, false, &channel);	//main theme loop
+	channel->setVolume(m_intMasterVolume);	//master volume
 
 	for (int i = 0; i < m_pSoundPointers.size(); i++)
 	{
