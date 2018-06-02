@@ -15,6 +15,7 @@
 // Global Include
 #include "Utility.h"
 #include "SceneMgr.h"
+#include "MeshMgr.h"
 #include "CNetworkMgr.h"
 
 // make sure the winsock lib is included...
@@ -70,6 +71,9 @@ int main(int argc, char **argv)
 
 void Init()
 {
+	CMeshMgr::GetInstance().InitialiseMeshes();
+
+
 	CSceneMgr::GetInstance().Initialise();
 	//Input::GetInstance()->Init();
 }

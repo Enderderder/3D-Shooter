@@ -40,6 +40,7 @@ void CSceneMgr::DestroyInstance()
 void CSceneMgr::Initialise()
 {
 	m_vScenes.push_back(new CScene(MAINMENU));
+	m_vScenes.push_back(new CScene(GAME));
 
 	m_eCurrentScene = MAINMENU;
 }
@@ -53,8 +54,7 @@ void CSceneMgr::RenderCurrentScene()
 
 void CSceneMgr::UpdateCurrentScene()
 {
-
-
+	// Only Proccess the current running scene
 	m_vScenes[m_eCurrentScene]->UpdateScene();
 }
 
