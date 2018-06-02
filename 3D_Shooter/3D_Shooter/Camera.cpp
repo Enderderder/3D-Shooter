@@ -17,7 +17,7 @@
 
 CCamera::CCamera()
 {
-	m_CameraPosition = glm::vec3(0.0f, 0.0f, 3.0f);
+	m_CameraPosition = glm::vec3(2.0f, 2.0f, 6.0f);
 	m_CameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
 	m_CameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
 
