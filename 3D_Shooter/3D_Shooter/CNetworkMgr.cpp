@@ -139,7 +139,7 @@ void CNetworkMgr::StartNetwork()
 		_rNetwork.DestroyInstance();
 
 		delete[] _pcPacketData;
-	}
+}
 
 void CNetworkMgr::SetAsServer()
 {

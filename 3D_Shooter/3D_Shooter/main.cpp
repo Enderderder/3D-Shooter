@@ -83,12 +83,17 @@ void Render()
 
 void Update()
 {
+	CSceneMgr::GetInstance().UpdateCurrentScene();
+
 	if (KeyState[(unsigned char)'p'] == INPUT_HOLD)
 	{
-		m_pNetworkMgr.StartNetwork();
+		std::thread Thread_obj(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
+
+			Thread_obj.join();
+		
+		
 	}
 
-	CSceneMgr::GetInstance().UpdateCurrentScene();
 	glutPostRedisplay();
 }
 
