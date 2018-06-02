@@ -53,6 +53,8 @@ void CSceneMgr::RenderCurrentScene()
 
 void CSceneMgr::UpdateCurrentScene()
 {
+
+
 	m_vScenes[m_eCurrentScene]->UpdateScene();
 }
 

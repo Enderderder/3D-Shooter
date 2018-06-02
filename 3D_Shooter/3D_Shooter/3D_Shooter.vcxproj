@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CNetworkMgr.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="consoletools.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CNetworkMgr.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="consoletools.h" />
