@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : 
 // Description	: 
@@ -39,8 +39,9 @@ void CSceneMgr::DestroyInstance()
 
 void CSceneMgr::Initialise()
 {
-	m_eCurrentScene = MAINMENU;
+	m_vScenes.push_back(new CScene(MAINMENU));
 
+	m_eCurrentScene = MAINMENU;
 }
 
 void CSceneMgr::RenderCurrentScene()
@@ -52,6 +53,8 @@ void CSceneMgr::RenderCurrentScene()
 
 void CSceneMgr::UpdateCurrentScene()
 {
+
+
 	m_vScenes[m_eCurrentScene]->UpdateScene();
 }
 
@@ -63,7 +66,7 @@ void CSceneMgr::SwapScene(ESCENES _eSceneNum)
 
 	// Jump to another scene and initialise it
 	m_eCurrentScene = _eSceneNum;
-	m_vScenes[m_eCurrentScene]->InitialiseScene();
+	m_vScenes[m_eCurrentScene]->InitialiseScene(m_eCurrentScene);
 }
 
 CSceneMgr::CSceneMgr()
