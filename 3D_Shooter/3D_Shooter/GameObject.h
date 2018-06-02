@@ -33,6 +33,8 @@ public:
 	~CGameObject();
 
 private:
+
+	// Member Variables
 	GLuint* m_Program;
 	CMesh* m_ObjMesh;
 	GLuint* m_TextureID;
@@ -40,8 +42,6 @@ private:
 	glm::vec3 m_Position;
 	glm::vec3 m_Scale;
 	float m_Rotation;
-
-
 };
 
 #endif // !GAMEOBJECT_Hs
