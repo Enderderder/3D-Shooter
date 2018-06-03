@@ -6,7 +6,7 @@
 //
 // (c) 2016 Media Design School
 //
-// File Name    : 
+// File Name    : Utility.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
@@ -15,7 +15,7 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 
-// OpenGL Include *****************************************************************************
+// OpenGL Include ------------------------------------------------------------------------------
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>
@@ -24,33 +24,59 @@
 #include <gtc\type_ptr.hpp>
 #include <fmod.hpp>
 
-// Library Include *****************************************************************************
+// Library Include -----------------------------------------------------------------------------
 #include <iostream>
 #include <string>
 #include <vector>
 #include <chrono>
-#include <string>
+#include <WS2tcpip.h>
+#include <strstream>
+#include <Windows.h>
+#include <cassert>
+#include <thread>
+#include "CSound.h"
 
 //#include <vld.h> // Memory Leak Detector
 
-// Static Include ******************************************************************************
-#include "ShaderLoader.h"
 
-//**********************************************************************************************
+// Converting IP Adresses to string and Networking ----------------------------------------------
+
+#define VALIDATE(a) if (!a) return (false)
+
+namespace {
+	std::string ToString(sockaddr_in _sockAddress)
+	{
+		//INET_ADDRSTRLEN - maximum length for IPv4 addresses
+		char _pcAddress[INET_ADDRSTRLEN];
+		inet_ntop(AF_INET, &_sockAddress.sin_addr, _pcAddress, INET_ADDRSTRLEN);
+
+		std::string _strAddress = _pcAddress;
+		std::string _strPort = std::to_string(ntohs(_sockAddress.sin_port));
+		std::string _strAddressPort = _strAddress + ':' + _strPort;
+
+		return _strAddressPort;
+	}
+}
+
+template<typename T>
+std::string ToString(const T& _value)
+{
+	std::strstream theStream;
+	theStream << _value << std::ends;
+	return (theStream.str());
+}
+
+//----------------------------------------------------------------------------------------------
+
 
 namespace util
 {
 	// Define the screen size
 	static int SCR_WIDTH = 1366;
 	static int SCR_HEIGHT = 768;
-	//static float PIXELUNIT = 1.0f; // 2D Useage
-
-	static ShaderLoader shaderLoader;
 }
 
-
-
-// Define Struct *******************************************************************************
+// Define Struct -------------------------------------------------------------------------------
 
 struct DebugTimer
 {
@@ -78,7 +104,30 @@ enum ESCENES
 	GAME,
 };
 
-//**********************************************************************************************
+enum EMESH
+{
+	CUBE,
+};
+
+enum InputState 
+{
+	INPUT_FIRST_RELEASE, // First frame of Up state 
+	INPUT_RELEASED, // Default State (Up) 
+	INPUT_FIRST_PRESS, // First frame of Down state 
+	INPUT_HOLD, // Key is held Down 
+};
+
+enum InputMouse 
+{ 
+	MOUSE_LEFT, 
+	MOUSE_MIDDLE, 
+	MOUSE_RIGHT 
+};
+
+//----------------------------------------------------------------------------------------------
+
+
+
 
 
 

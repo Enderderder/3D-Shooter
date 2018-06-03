@@ -94,7 +94,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -121,7 +121,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>opengl32.lib;freeglut.lib;glew32.lib;SOIL.lib;fmod_vc.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,23 +140,59 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CNetworkMgr.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
+    <ClCompile Include="client.cpp" />
+    <ClCompile Include="consoletools.cpp" />
+    <ClCompile Include="CSound.cpp" />
+    <ClCompile Include="CubeMesh.cpp" />
+    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="inputlinebuffer.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshMgr.cpp" />
+    <ClCompile Include="network.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneMgr.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="socket.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CNetworkMgr.h" />
+    <ClInclude Include="CubeMap.h" />
+    <ClInclude Include="client.h" />
+    <ClInclude Include="consoletools.h" />
+    <ClInclude Include="CSound.h" />
+    <ClInclude Include="CubeMesh.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InputLineBuffer.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshMgr.h" />
+    <ClInclude Include="network.h" />
+    <ClInclude Include="networkentity.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="server.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="socket.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="Utility.h" />
+    <ClInclude Include="WorkQueue.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\CubeMap.fs" />
+    <None Include="Shaders\CubeMap.vs" />
+    <None Include="Shaders\DiffuseLight.fs" />
+    <None Include="Shaders\DiffuseLight.vs" />
+    <None Include="Shaders\Ex_10.fs" />
+    <None Include="Shaders\Ex_10.vs" />
     <None Include="Text.fs" />
     <None Include="Text.vs" />
   </ItemGroup>
