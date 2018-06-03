@@ -14,7 +14,6 @@ uniform vec3 lightPos = glm::vec3(3.0f, 3.0f, 0.5f);
 uniform float lightSpecStr = 0.5f;
 uniform vec3 camPos;
 uniform float shininess = 32.0f;
-uniform vec3 rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
 
 void main()
 {
@@ -31,17 +30,9 @@ void main()
 
 	// Specular Highlight
 	vec3 negViewDir = normalize(camPos - fragPos);
-	//vec3 reflectDir = reflect(lightDir, norm);
-	//float spec = pow(max(dot(negViewDir, reflectDir), 0.0f), shininess);
 	vec3 halfwayVec = normalize(-lightDir + negViewDir);
 	float spec = pow(max(dot(norm, halfwayVec), 0.0f), shininess);
 	vec3 specular = lightSpecStr * spec * lightColor;
-
-	// Rim Lighting
-	float rimFactor = 1.0 - dot(norm, negViewDir);
-	rimFactor = smoothstep(0.0, 1.0, rimFactor);
-	rimFactor = pow(rimFactor, 1);
-	vec3 rim = rimFactor * rimColor * lightColor;
 
 	color = vec4(ambient + diffuse + specular /* + rim */, 1.0f) * texture(tex, fragTexCoord);
 }

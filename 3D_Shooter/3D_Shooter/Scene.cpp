@@ -80,7 +80,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		SOIL_free_image_data(image);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-
+		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
 			"right.jpg",
 			"left.jpg",
@@ -89,7 +89,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 			"back.jpg",
 			"front.jpg"
 		};
-		//m_cCubeMap = new CCubeMap(cubeMapPaths);
+		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
 		m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
 		
@@ -103,7 +103,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 void CScene::RenderScene()
 {
-	//m_cCubeMap->Render(m_cCam);
+	m_cCubeMap->Render(m_cCam);
 
 	for (auto obj : m_vGameObj)
 	{
