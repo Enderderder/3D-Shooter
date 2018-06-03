@@ -18,6 +18,7 @@
 // Global Include
 #include "Utility.h"
 #include "GameObject.h"
+#include "Player.h"
 #include "MeshMgr.h"
 #include "Camera.h"
 
@@ -93,8 +94,14 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		};
 		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
-		m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
-		
+		m_vGameObj.push_back(new CPlayer(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
+		//m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
+
+		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram);
+		platform->SetScale(glm::vec3(20.0f, 0.1f, 20.0f));
+
+		Instantiate(platform);
+
 		break;
 	}
 
@@ -115,5 +122,13 @@ void CScene::RenderScene()
 
 void CScene::UpdateScene()
 {
+	for (auto obj : m_vGameObj)
+	{
+		obj->UpdateGameObeject();
+	}
+}
 
+void CScene::Instantiate(CGameObject * _gameobj)
+{
+	m_vGameObj.push_back(_gameobj);
 }
