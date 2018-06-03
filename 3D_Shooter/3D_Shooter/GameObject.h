@@ -26,11 +26,14 @@ class CGameObject
 {
 public:
 	CGameObject() = default;
-	CGameObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
-
-	void RenderObject(CCamera* _camera);
-
 	~CGameObject();
+
+	CGameObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
+	void RenderObject(CCamera* _camera);
+	virtual void UpdateGameObeject() = 0;
+
+protected:
+	void InitializeObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
 
 private:
 
@@ -44,4 +47,4 @@ private:
 	float m_Rotation;
 };
 
-#endif // !GAMEOBJECT_Hs
+#endif // !GAMEOBJECT_H

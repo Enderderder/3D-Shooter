@@ -9,6 +9,7 @@ out vec3 fragNormal;
 out vec2 fragTexCoord;
 
 uniform mat4 model;
+uniform mat3 normalMat;
 uniform mat4 MVP;
 
 void main(void)
@@ -16,5 +17,5 @@ void main(void)
 	gl_Position = MVP * vec4(position, 1.0);
 	fragPos = vec3(model * vec4(position, 1.0));
 	fragTexCoord = texCoord;
-	fragNormal = mat3(transpose(inverse(model))) * normal;
+	fragNormal = normalMat * normal;
 }
