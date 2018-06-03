@@ -58,6 +58,9 @@
     <ClCompile Include="network.cpp">
       <Filter>Framework\Network\NetEntity</Filter>
     </ClCompile>
+    <ClCompile Include="CAIMgr.cpp">
+      <Filter>Framework\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -122,6 +125,9 @@
     </ClInclude>
     <ClInclude Include="WorkQueue.h">
       <Filter>Framework\Network\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="CAIMgr.h">
+      <Filter>Framework\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,6 +219,9 @@
     </Filter>
     <Filter Include="Framework\Network\NetEntity">
       <UniqueIdentifier>{aefe0686-b3c9-4366-966e-9c9bb180450a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\AI">
+      <UniqueIdentifier>{1c712f8f-6556-42de-81b5-7cc11096e31a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CAIMgr.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CNetworkMgr.cpp" />
     <ClCompile Include="CubeMap.cpp" />
@@ -164,6 +165,7 @@
     <Text Include="Commenting Header.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAIMgr.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CNetworkMgr.h" />
     <ClInclude Include="CubeMap.h" />
