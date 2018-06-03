@@ -71,6 +71,8 @@ void CNetworkMgr::StartNetwork()
 
 		while (_rNetwork.IsOnline())
 		{
+
+			/////////////////////////////Put in sperate void to multithread/////////////////////////////////
 			if (_eNetworkEntityType == CLIENT) //if network entity is a client
 			{
 				_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
