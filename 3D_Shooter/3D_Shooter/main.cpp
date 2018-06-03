@@ -38,7 +38,7 @@ int main(int argc, char **argv)
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
-	glutInitWindowPosition(600, 600);
+	glutInitWindowPosition(400, 200);
 	glutInitWindowSize(util::SCR_WIDTH, util::SCR_HEIGHT);
 	glutCreateWindow("3D Shooter");
 	glEnable(GL_MULTISAMPLE);
@@ -91,11 +91,9 @@ void Update()
 
 	if (KeyState[(unsigned char)'p'] == INPUT_HOLD)
 	{
-		std::thread Thread_obj(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
-
-			Thread_obj.join();
+		std::thread Thread_obj1(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
 		
-		
+		Thread_obj1.join();
 	}
 
 	glutPostRedisplay();
