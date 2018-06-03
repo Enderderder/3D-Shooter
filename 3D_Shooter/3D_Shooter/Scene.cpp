@@ -34,6 +34,7 @@ CScene::~CScene()
 {
 	// Clean up the memory allocated variables inside the class
 
+	// ========================================================
 	delete m_cCam;
 	delete m_cCubeMap;
 
@@ -41,6 +42,7 @@ CScene::~CScene()
 	{
 		delete obj;
 	}
+	// ========================================================
 }
 
 void CScene::InitialiseScene(ESCENES _eSceneNum)
@@ -52,7 +54,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	case MAINMENU:
 	{
 		static ShaderLoader shaderLoader;
-		diffuseProgram = shaderLoader.CreateProgram("Shaders/DiffuseLight.vs", "Shaders/DiffuseLight.fs");
+		diffuseProgram = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -109,8 +111,6 @@ void CScene::RenderScene()
 	{
 		obj->RenderObject(m_cCam);
 	}
-
-
 }
 
 void CScene::UpdateScene()

@@ -34,5 +34,5 @@ void main()
 	float spec = pow(max(dot(norm, halfwayVec), 0.0f), shininess);
 	vec3 specular = lightSpecStr * spec * lightColor;
 
-	color = vec4(ambient + diffuse + specular /* + rim */, 1.0f) * texture(tex, fragTexCoord);
+	color = vec4(ambient + diffuse + specular, 1.0f) * texture(tex, fragTexCoord);
 }

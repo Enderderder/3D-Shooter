@@ -4,19 +4,26 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name    : Mesh.cpp
+// File Name    : Player.cpp
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
 // This Include
-#include "Mesh.h"
+#include "Player.h"
 
-CMesh::CMesh()
+CPlayer::CPlayer(CMesh* _mesh, GLuint* _texture, GLuint* _program)
+{
+	this->InitializeObject(_mesh, _texture, _program);
+}
+
+CPlayer::~CPlayer()
 {}
 
-CMesh::~CMesh()
-{}
+void CPlayer::UpdateGameObeject()
+{
+
+}
