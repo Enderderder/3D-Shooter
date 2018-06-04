@@ -16,29 +16,27 @@
 #include "Camera.h"
 
 CCamera::CCamera() :
-	m_CameraPosition(glm::vec3(0.0f, 5.0f, 20.0f)),
-	m_CameraFacing(glm::vec3(0.0f, 0.0f, -1.0f)),
+	m_CameraPosition(glm::vec3(0.0f, 20.0f, 30.0f)),
+	m_CameraFacing(glm::vec3(0.0f, -0.8f, -1.0f)),
 	m_CameraNormal(glm::vec3(0.0f, 1.0f, 0.0f))
 {
 	CalcViewMatrix();
 	SetProjectionMatrix();
 }
 
-CCamera::CCamera(glm::vec3 _Position, glm::vec3 _Facing, glm::vec3 _Normal)
+CCamera::CCamera(glm::vec3 _Position, glm::vec3 _Facing, glm::vec3 _Normal) :
+	m_CameraPosition(_Position),
+	m_CameraFacing(_Facing),
+	m_CameraNormal(_Normal)
 {
-	SetCameraPosition(_Position);
-	SetCameraFacing(_Facing);
-	SetCameraNormal(_Normal);
-
 	CalcViewMatrix();
 	SetProjectionMatrix();
 }
 
 CCamera::~CCamera()
-{
-}
+{}
 
-void CCamera::Update()
+void CCamera::UpdateCamera()
 {
 
 }
@@ -55,13 +53,6 @@ void CCamera::CalcViewMatrix()
 		m_CameraPosition + m_CameraFacing, 
 		m_CameraNormal);
 }
-void CCamera::CalcViewMatrix(glm::vec3 _Position, glm::vec3 _Facing, glm::vec3 _Normal)
-{
-	m_ViewMatrix = glm::lookAt(
-		_Position, 
-		_Position + _Facing, 
-		_Normal);
-}
 
 glm::mat4 CCamera::GetProjectionMatrix() const
 {
@@ -70,6 +61,12 @@ glm::mat4 CCamera::GetProjectionMatrix() const
 void CCamera::SetProjectionMatrix()
 {
 	m_ProjectionMatrix = glm::perspective(45.0f, 
+		(float)util::SCR_WIDTH / (float)util::SCR_HEIGHT, 0.1f, 3000.0f);
+}
+
+void CCamera::SetProjectionMatrix(float _fov)
+{
+	m_ProjectionMatrix = glm::perspective(_fov,
 		(float)util::SCR_WIDTH / (float)util::SCR_HEIGHT, 0.1f, 3000.0f);
 }
 

@@ -39,6 +39,9 @@ public:
 	void UpdateScene();
 
 	void Instantiate(CGameObject* _gameobj);
+	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos);
+	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale);
+	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, float _rotate);
 
 private:
   
