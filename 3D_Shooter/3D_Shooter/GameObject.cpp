@@ -75,3 +75,33 @@ void CGameObject::InitializeObject(CMesh * _mesh, GLuint * _texture, GLuint * _p
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
 	m_Rotation = 0.0f;
 }
+
+void CGameObject::AddPosition(glm::vec3 _pos)
+{
+	m_Position += _pos;
+}
+
+void CGameObject::AddScale(glm::vec3 _scale)
+{
+	m_Scale += _scale;
+}
+
+void CGameObject::AddRotation(float _rotation)
+{
+	m_Rotation += _rotation;
+}
+
+void CGameObject::SetPosition(glm::vec3 _pos)
+{
+	m_Position = _pos;
+}
+
+void CGameObject::SetScale(glm::vec3 _scale)
+{
+	m_Scale = _scale;
+}
+
+void CGameObject::SetRotation(float _rotation)
+{
+	m_Rotation = _rotation;
+}
