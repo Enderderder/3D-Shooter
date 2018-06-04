@@ -64,6 +64,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="CAIMgr.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CAIMgr.h">
+      <Filter>Game\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -234,6 +240,9 @@
     </Filter>
     <Filter Include="Game\Player">
       <UniqueIdentifier>{5648a6bb-4c5c-4045-84ec-d81be00da4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{5bc652a1-05d7-4b89-96f9-db50b09fa749}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
