@@ -26,7 +26,7 @@ public:
 
 	~CPlayer();
 
-	virtual void UpdateGameObeject();
+	void UpdateGameObeject() override;
 
 private:
 

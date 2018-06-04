@@ -95,7 +95,6 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
 		m_vGameObj.push_back(new CPlayer(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
-		//m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
 
 		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram);
 		platform->SetScale(glm::vec3(20.0f, 0.1f, 20.0f));
@@ -130,5 +129,25 @@ void CScene::UpdateScene()
 
 void CScene::Instantiate(CGameObject * _gameobj)
 {
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos)
+{
+	_gameobj->SetPosition(_pos);
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, glm::vec3 _scale)
+{
+	_gameobj->SetPosition(_pos);
+	_gameobj->SetScale(_scale);
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, float _rotate)
+{
+	_gameobj->SetPosition(_pos);
+	_gameobj->SetRotation(_rotate);
 	m_vGameObj.push_back(_gameobj);
 }
