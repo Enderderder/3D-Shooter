@@ -18,6 +18,7 @@
 // Global Include
 #include "Utility.h"
 #include "GameObject.h"
+#include "Player.h"
 #include "MeshMgr.h"
 #include "Camera.h"
 
@@ -34,6 +35,7 @@ CScene::~CScene()
 {
 	// Clean up the memory allocated variables inside the class
 
+	// ========================================================
 	delete m_cCam;
 	delete m_cCubeMap;
 
@@ -41,6 +43,7 @@ CScene::~CScene()
 	{
 		delete obj;
 	}
+	// ========================================================
 }
 
 void CScene::InitialiseScene(ESCENES _eSceneNum)
@@ -52,7 +55,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	case MAINMENU:
 	{
 		static ShaderLoader shaderLoader;
-		diffuseProgram = shaderLoader.CreateProgram("Shaders/DiffuseLight.vs", "Shaders/DiffuseLight.fs");
+		diffuseProgram = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -91,8 +94,14 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		};
 		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
-		m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
-		
+		m_vGameObj.push_back(new CPlayer(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
+		//m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
+
+		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram);
+		platform->SetScale(glm::vec3(20.0f, 0.1f, 20.0f));
+
+		Instantiate(platform);
+
 		break;
 	}
 
@@ -109,11 +118,17 @@ void CScene::RenderScene()
 	{
 		obj->RenderObject(m_cCam);
 	}
-
-
 }
 
 void CScene::UpdateScene()
 {
+	for (auto obj : m_vGameObj)
+	{
+		obj->UpdateGameObeject();
+	}
+}
 
+void CScene::Instantiate(CGameObject * _gameobj)
+{
+	m_vGameObj.push_back(_gameobj);
 }

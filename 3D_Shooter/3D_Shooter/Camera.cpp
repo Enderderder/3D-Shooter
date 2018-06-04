@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Camera.cpp
 // Description	: 
@@ -15,12 +15,11 @@
 // This Include
 #include "Camera.h"
 
-CCamera::CCamera()
+CCamera::CCamera() :
+	m_CameraPosition(glm::vec3(0.0f, 5.0f, 20.0f)),
+	m_CameraFacing(glm::vec3(0.0f, 0.0f, -1.0f)),
+	m_CameraNormal(glm::vec3(0.0f, 1.0f, 0.0f))
 {
-	m_CameraPosition = glm::vec3(2.0f, 2.0f, 6.0f);
-	m_CameraFacing = glm::vec3(0.0f, 0.0f, -1.0f);
-	m_CameraNormal = glm::vec3(0.0f, 1.0f, 0.0f);
-
 	CalcViewMatrix();
 	SetProjectionMatrix();
 }
@@ -70,7 +69,6 @@ glm::mat4 CCamera::GetProjectionMatrix() const
 }
 void CCamera::SetProjectionMatrix()
 {
-	//m_ProjectionMatrix = glm::ortho((float)-util::SCR_WIDTH / 2.0f, (float)util::SCR_WIDTH / 2.0f, (float)-util::SCR_HEIGHT / 2.0f, (float)util::SCR_HEIGHT / 2.0f, 0.1f, 100.0f);
 	m_ProjectionMatrix = glm::perspective(45.0f, 
 		(float)util::SCR_WIDTH / (float)util::SCR_HEIGHT, 0.1f, 3000.0f);
 }

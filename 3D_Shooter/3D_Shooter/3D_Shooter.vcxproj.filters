@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SceneMgr.cpp">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TextLabel.cpp">
       <Filter>Framework\TextLoader</Filter>
@@ -58,16 +58,24 @@
     <ClCompile Include="network.cpp">
       <Filter>Framework\Network\NetEntity</Filter>
     </ClCompile>
+
+    <ClCompile Include="Input.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Player</Filter>
+
     <ClCompile Include="CAIMgr.cpp">
       <Filter>Framework\AI</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TextLabel.h">
       <Filter>Framework\TextLoader</Filter>
@@ -126,8 +134,16 @@
     <ClInclude Include="WorkQueue.h">
       <Filter>Framework\Network\Tools</Filter>
     </ClInclude>
+<
+    <ClInclude Include="Input.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Player</Filter>
+
     <ClInclude Include="CAIMgr.h">
       <Filter>Framework\AI</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,11 +165,11 @@
     <None Include="Shaders\CubeMap.fs">
       <Filter>Shader\CubeMap</Filter>
     </None>
-    <None Include="Shaders\DiffuseLight.fs">
-      <Filter>Shader\DiffuseLight</Filter>
+    <None Include="Shaders\BlinnPhong.fs">
+      <Filter>Shader\BlinnPhong</Filter>
     </None>
-    <None Include="Shaders\DiffuseLight.vs">
-      <Filter>Shader\DiffuseLight</Filter>
+    <None Include="Shaders\BlinnPhong.vs">
+      <Filter>Shader\BlinnPhong</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -184,14 +200,8 @@
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{62615cfd-85ea-4f1a-a4c5-406442d883b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\SceneScene">
-      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\CubeMap">
       <UniqueIdentifier>{f2e122df-a8c0-41c2-aa15-0d0a8f0fd17f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\DiffuseLight">
-      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\GameObj">
       <UniqueIdentifier>{2dfb6356-fc38-408e-a079-91a8b0650323}</UniqueIdentifier>
@@ -220,8 +230,25 @@
     <Filter Include="Framework\Network\NetEntity">
       <UniqueIdentifier>{aefe0686-b3c9-4366-966e-9c9bb180450a}</UniqueIdentifier>
     </Filter>
+
+    <Filter Include="Shader\BlinnPhong">
+      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{5d54924d-e17f-4b7c-9aa5-6182e053d84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b9652252-8a95-4431-bfd3-2ff10885a055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{5648a6bb-4c5c-4045-84ec-d81be00da4b8}</UniqueIdentifier>
+
     <Filter Include="Framework\AI">
       <UniqueIdentifier>{1c712f8f-6556-42de-81b5-7cc11096e31a}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>

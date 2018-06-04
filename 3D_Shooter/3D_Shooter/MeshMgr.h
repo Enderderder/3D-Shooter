@@ -27,7 +27,7 @@ public:
 	static void DestroyInstance();
 
 	// Member Functions
-	void InitialiseMeshes();
+	void InitializeMeshes();
 	CMesh* GetCubeMesh() const;
 
 

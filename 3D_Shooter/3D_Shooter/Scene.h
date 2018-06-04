@@ -38,6 +38,8 @@ public:
 	void RenderScene();
 	void UpdateScene();
 
+	void Instantiate(CGameObject* _gameobj);
+
 private:
   
 	std::vector<CGameObject*> m_vGameObj;
