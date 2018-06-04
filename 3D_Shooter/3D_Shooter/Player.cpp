@@ -34,19 +34,19 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
-	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS)
 	{
 		this->AddPosition(glm::vec3(0.0f, 0.0f, -m_movementSpd));
 	}
-	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
 	{
 		this->AddPosition(glm::vec3(0.0f, 0.0f, m_movementSpd));
 	}
-	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS)
 	{
 		this->AddPosition(glm::vec3(-m_movementSpd, 0.0f, 0.0f));
 	}
-	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS)
 	{
 		this->AddPosition(glm::vec3(m_movementSpd, 0.0f, 0.0f));
 	}

@@ -32,8 +32,11 @@ void Render();
 void Update();
 void ResizeWindow(int _width, int _height);
 
+bool bIsFS;
+
 int main(int argc, char **argv)
 {
+	bIsFS = false;
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
@@ -52,7 +55,7 @@ int main(int argc, char **argv)
 	InititializeProgram();
 
 	//register callbacks
-	glutReshapeFunc(ResizeWindow);
+	//glutReshapeFunc(ResizeWindow);
 	glutDisplayFunc(Render);
 	glutIdleFunc(Update);
 
@@ -81,12 +84,23 @@ void Update()
 {
 	cSceneMgr->UpdateCurrentScene();
 
-	if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
 	{
 
 		std::thread Thread_obj1(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
 		
 		Thread_obj1.join();
+	}
+
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
+	{
+
+		glutFullScreenToggle();
+		bIsFS = true;
+	}
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_RELEASED && bIsFS == true)
+	{
+		bIsFS = false;
 	}
 
 	glutPostRedisplay();

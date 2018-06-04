@@ -44,15 +44,28 @@ void CInput::DestroyInstance()
 
 void CInput::InitializeInput()
 {
+	//g_cKeyState[255] = { INPUT_RELEASED };
+
 	glutKeyboardFunc(InitKeyDown);
 	glutKeyboardUpFunc(InitKeyUp);
+	for (unsigned char i = 0; i < 255; i++)
+	{
+		g_cKeyState[i] = INPUT_RELEASED;
+	}
 	glutMouseFunc(InitMouse);
 }
 
 void CInput::Keyboard_Down(unsigned char key, int x, int y)
 {
-	g_cKeyState[key] = INPUT_HOLD;
+	
+	if (g_cKeyState[key] == INPUT_RELEASED)
+	{
+		g_cKeyState[key] = INPUT_FIRST_PRESS;
+		return;
+	}
+	else g_cKeyState[key] = INPUT_HOLD;
 }
+
 
 void CInput::Keyboard_Up(unsigned char key, int x, int y)
 {
@@ -69,7 +82,7 @@ void CInput::Mouse(int button, int glutState, int x, int y)
 
 void CInput::InitKeyDown(unsigned char key, int x, int y)
 {
-	CInput::GetInstance()->Keyboard_Down(key, x, y);
+		CInput::GetInstance()->Keyboard_Down(key, x, y);
 }
 
 void CInput::InitKeyUp(unsigned char key, int x, int y)

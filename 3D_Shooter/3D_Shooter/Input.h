@@ -23,11 +23,13 @@ public:
 	static void DestroyInstance();
 
 	// Member Functions
-	static void InitializeInput();
+	void InitializeInput();
 
 	static void InitKeyDown(unsigned char key, int x, int y);
 	static void InitKeyUp(unsigned char key, int x, int y);
 	static void InitMouse(int button, int glutState, int x, int y);
+
+
 
 private:
 	// Make Singleton
