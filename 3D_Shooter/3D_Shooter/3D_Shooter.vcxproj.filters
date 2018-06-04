@@ -58,11 +58,16 @@
     <ClCompile Include="network.cpp">
       <Filter>Framework\Network\NetEntity</Filter>
     </ClCompile>
+
     <ClCompile Include="Input.cpp">
       <Filter>Framework\Input</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Game\Player</Filter>
+
+    <ClCompile Include="CAIMgr.cpp">
+      <Filter>Framework\AI</Filter>
+
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -129,11 +134,16 @@
     <ClInclude Include="WorkQueue.h">
       <Filter>Framework\Network\Tools</Filter>
     </ClInclude>
+<
     <ClInclude Include="Input.h">
       <Filter>Framework\Input</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\Player</Filter>
+
+    <ClInclude Include="CAIMgr.h">
+      <Filter>Framework\AI</Filter>
+
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,6 +230,7 @@
     <Filter Include="Framework\Network\NetEntity">
       <UniqueIdentifier>{aefe0686-b3c9-4366-966e-9c9bb180450a}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="Shader\BlinnPhong">
       <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
     </Filter>
@@ -234,6 +245,10 @@
     </Filter>
     <Filter Include="Game\Player">
       <UniqueIdentifier>{5648a6bb-4c5c-4045-84ec-d81be00da4b8}</UniqueIdentifier>
+
+    <Filter Include="Framework\AI">
+      <UniqueIdentifier>{1c712f8f-6556-42de-81b5-7cc11096e31a}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
