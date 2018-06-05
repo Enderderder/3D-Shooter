@@ -15,6 +15,9 @@
 // This Include
 #include "Player.h"
 
+// Library Include
+#include <cmath>
+
 // Local Include
 #include "Input.h"
 
@@ -34,20 +37,30 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
-	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD)
+	glm::vec3 resultMovement(0.0f, 0.0f, 0.0f);
+
+	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD && this->m_Position.z >= -18.8f)
 	{
-		this->AddPosition(glm::vec3(0.0f, 0.0f, -m_movementSpd));
+		resultMovement.z -= m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD && this->m_Position.z <= 18.8f)
 	{
-		this->AddPosition(glm::vec3(0.0f, 0.0f, m_movementSpd));
+		resultMovement.z += m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD && this->m_Position.x >= -18.8f)
 	{
-		this->AddPosition(glm::vec3(-m_movementSpd, 0.0f, 0.0f));
+		resultMovement.x -= m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD)
+	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD && this->m_Position.x <= 18.8f)
 	{
-		this->AddPosition(glm::vec3(m_movementSpd, 0.0f, 0.0f));
+		resultMovement.x += m_movementSpd;
+	}
+
+	float fMag = sqrtf(powf(resultMovement.x, 2) + powf(resultMovement.z, 2));
+	if (fMag != 0.0f)
+	{
+		glm::vec3 temp = resultMovement / fMag;
+		resultMovement = temp * m_movementSpd;
+		this->AddPosition(resultMovement);
 	}
 }
