@@ -6,7 +6,7 @@
 //
 // (c) 2018 Media Design School
 //
-// File Name    : 
+// File Name    : SceneMgr.cpp
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
@@ -21,14 +21,14 @@
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;
 
-CSceneMgr & CSceneMgr::GetInstance()
+CSceneMgr* CSceneMgr::GetInstance()
 {
 	if (s_pSceneMgr == nullptr)
 	{
 		s_pSceneMgr = new CSceneMgr();
 	}
 
-	return *s_pSceneMgr;
+	return s_pSceneMgr;
 }
 
 void CSceneMgr::DestroyInstance()
@@ -37,7 +37,7 @@ void CSceneMgr::DestroyInstance()
 	s_pSceneMgr = nullptr;
 }
 
-void CSceneMgr::Initialise()
+void CSceneMgr::InitializeSceneMgr()
 {
 	m_vScenes.push_back(new CScene(MAINMENU));
 	m_vScenes.push_back(new CScene(GAME));

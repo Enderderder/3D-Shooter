@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Utility.h
 // Description	: 
@@ -111,10 +111,10 @@ enum EMESH
 
 enum InputState 
 {
-	INPUT_FIRST_RELEASE, // First frame of Up state 
-	INPUT_RELEASED, // Default State (Up) 
-	INPUT_FIRST_PRESS, // First frame of Down state 
-	INPUT_HOLD, // Key is held Down 
+	INPUT_FIRST_RELEASE,	// First frame of Up state 
+	INPUT_RELEASED,			// Default State (Up) 
+	INPUT_FIRST_PRESS,		// First frame of Down state 
+	INPUT_HOLD,				// Key is held Down 
 };
 
 enum InputMouse 
@@ -122,6 +122,11 @@ enum InputMouse
 	MOUSE_LEFT, 
 	MOUSE_MIDDLE, 
 	MOUSE_RIGHT 
+};
+
+enum EGAMEMODE
+{
+
 };
 
 //----------------------------------------------------------------------------------------------

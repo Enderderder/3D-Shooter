@@ -21,7 +21,7 @@
 // Static Variable
 CMeshMgr* CMeshMgr::s_pMeshMgr = nullptr;
 
-CMeshMgr & CMeshMgr::GetInstance()
+CMeshMgr& CMeshMgr::GetInstance()
 {
 	if (s_pMeshMgr == nullptr)
 	{
@@ -37,7 +37,7 @@ void CMeshMgr::DestroyInstance()
 	s_pMeshMgr = nullptr;
 }
 
-void CMeshMgr::InitialiseMeshes()
+void CMeshMgr::InitializeMeshes()
 {
 	m_cCubeMesh = new CCubeMesh();
 }
