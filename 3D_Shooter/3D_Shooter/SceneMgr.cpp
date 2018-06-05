@@ -41,6 +41,7 @@ void CSceneMgr::InitializeSceneMgr()
 {
 	m_vScenes.push_back(new CScene(MAINMENU));
 	m_vScenes.push_back(new CScene(GAME));
+	m_vScenes.push_back(new CScene(GAMEOVER));
 
 	m_eCurrentScene = MAINMENU;
 }

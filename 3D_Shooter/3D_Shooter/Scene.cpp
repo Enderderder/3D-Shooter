@@ -111,6 +111,19 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		break;
 	}
 
+	case GAME:
+	{
+
+
+		break;
+	}
+
+	case GAMEOVER:
+	{
+
+
+		break;
+	}
 
 	default: break;
 	}
