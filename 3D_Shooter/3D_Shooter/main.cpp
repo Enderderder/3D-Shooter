@@ -59,7 +59,10 @@ int main(int argc, char **argv)
 	glutDisplayFunc(Render);
 	glutIdleFunc(Update);
 
-	glutCloseFunc([]() {}); /// Modification needed
+	glutCloseFunc([]() {
+		cInput->DestroyInstance();
+		cSceneMgr->DestroyInstance();
+	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
 }
@@ -86,7 +89,6 @@ void Update()
 
 	if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
 	{
-
 		std::thread Thread_obj1(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
 		
 		Thread_obj1.join();
@@ -94,7 +96,6 @@ void Update()
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
 	{
-
 		glutFullScreenToggle();
 		bIsFS = true;
 	}
