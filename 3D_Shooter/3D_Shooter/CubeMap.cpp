@@ -83,7 +83,7 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 
 	// Create the program
 	static ShaderLoader shaderLoader;
-	m_program = shaderLoader.CreateProgram("Shaders/CubeMap.vs", "Shaders/CubeMap.fs");
+	programID = shaderLoader.CreateProgram("Shaders/CubeMap.vs", "Shaders/CubeMap.fs");
 
 	// Bind each image into the cube map
 	glGenTextures(1, &textureID);
@@ -138,17 +138,17 @@ CCubeMap::~CCubeMap()
 void CCubeMap::Render(CCamera* _camera)
 {
 	// Binding and settings
-	glUseProgram(m_program);
+	glUseProgram(programID);
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 	glDisable(GL_CULL_FACE);
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-	glUniform1i(glGetUniformLocation(m_program, "cubeSampler"), 0);
+	glUniform1i(glGetUniformLocation(programID, "cubeSampler"), 0);
 
 	glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));
 	glm::mat4 MVP = _camera->GetProjectionMatrix() * _camera->GetViewMatrix() * model;
-	glUniformMatrix4fv(glGetUniformLocation(m_program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glUniformMatrix4fv(glGetUniformLocation(programID, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 	// Bind the VAO and draw the cube map
 	glBindVertexArray(VAO);
@@ -158,9 +158,4 @@ void CCubeMap::Render(CCamera* _camera)
 	glBindVertexArray(0);
 	glUseProgram(0);
 	glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-}
-
-GLuint CCubeMap::GetTextureID() const
-{
-	return textureID;
 }

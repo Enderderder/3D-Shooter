@@ -109,6 +109,7 @@ enum ESCENES
 enum EMESH
 {
 	CUBE,
+	SPHERE
 };
 
 enum InputState 

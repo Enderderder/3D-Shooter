@@ -17,6 +17,8 @@
 
 // Local Include
 #include "CubeMesh.h"
+#include "ShpereMesh.h"
+#include "Utility.h"
 
 // Static Variable
 CMeshMgr* CMeshMgr::s_pMeshMgr = nullptr;
@@ -40,17 +42,37 @@ void CMeshMgr::DestroyInstance()
 void CMeshMgr::InitializeMeshes()
 {
 	m_cCubeMesh = new CCubeMesh();
+	m_cSphereMesh = new CShpereMesh();
 }
 
-CMesh* CMeshMgr::GetCubeMesh() const
+CMesh * CMeshMgr::GetMesh(EMESH _eMesh) const
 {
-	return m_cCubeMesh;
+	switch (_eMesh)
+	{
+	case CUBE:
+		return m_cCubeMesh;
+		break;
+
+	case SPHERE:
+		return m_cSphereMesh;
+		break;
+
+	default:
+		std::cout << "Cannot Grab Seleted Mesh. \n";
+		return nullptr;
+		break;
+	}
 }
 
 CMeshMgr::CMeshMgr() {}
 
-
 CMeshMgr::~CMeshMgr()
 {
-	
+	// Clean up the member variables
+
+	delete m_cCubeMesh;
+	m_cCubeMesh = nullptr;
+
+	delete m_cSphereMesh;
+	m_cSphereMesh = nullptr;
 }

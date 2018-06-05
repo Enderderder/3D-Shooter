@@ -98,12 +98,12 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
 		// Load in the game objects
-		CGameObject* player = new CPlayer(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram);
+		CGameObject* player = new CPlayer(CMeshMgr::GetInstance().GetMesh(CUBE), &texture, &diffuseProgram);
 		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		std::cout << "Loaded GameObject: Player" << std::endl;
 
-		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram);
+		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetMesh(CUBE), &texture, &diffuseProgram);
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 
 		std::cout << "Loaded GameObject: Platform" << std::endl;
