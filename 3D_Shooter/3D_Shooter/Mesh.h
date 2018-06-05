@@ -15,19 +15,19 @@
 #ifndef MESH_H
 #define MESH_H
 
-// Local Include
+// Global Include
 #include "Utility.h"
 
 class CMesh
 {
 public:
-	CMesh();
-	~CMesh();
+	CMesh() {};
+	~CMesh() {};
 
 	virtual void RenderMesh() = 0;
 
 protected:
-	//HEY THIS IS A CHANGE
+	
 	GLuint VAO;
 };
 

@@ -64,6 +64,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ShpereMesh.cpp">
+      <Filter>Framework\Mesh</Filter>
+    </ClCompile>
     <ClCompile Include="CAIMgr.cpp">
       <Filter>Game\AI</Filter>
     </ClCompile>
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ShpereMesh.h">
+      <Filter>Framework\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="CAIMgr.h">
       <Filter>Game\AI</Filter>
@@ -242,7 +248,7 @@
       <UniqueIdentifier>{5648a6bb-4c5c-4045-84ec-d81be00da4b8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\AI">
-      <UniqueIdentifier>{5bc652a1-05d7-4b89-96f9-db50b09fa749}</UniqueIdentifier>
+      <UniqueIdentifier>{496c7805-c7d8-4834-a273-ba3870a78012}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

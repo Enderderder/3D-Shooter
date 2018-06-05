@@ -6,26 +6,30 @@
 //
 // (c) 2018 Media Design School
 //
-// File Name    : CubeMesh.h
+// File Name    : SphereMesh.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef CUBEMESH_H
-#define CUBEMESH_H
+#ifndef SPHEREMESH_H
+#define SPHEREMESH_H
 
-// Local Include
-#include "Utility.h"
+// Global Include
 #include "Mesh.h"
 
-class CCubeMesh : public CMesh
+class CShpereMesh : public CMesh
 {
 public:
-	CCubeMesh();
-	~CCubeMesh();
+	CShpereMesh();
+	~CShpereMesh();
 
 	void RenderMesh() override;
+
+private:
+	
+	GLuint m_indiceCount;
 };
 
-#endif // !CUBEMESH_H
+
+#endif // !SPHEREMESH_H

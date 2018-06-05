@@ -15,9 +15,9 @@
 #ifndef MESHMGR_H
 #define MESHMGR_H
 
-
 // Forward Declare
 class CMesh;
+enum EMESH;
 
 class CMeshMgr
 {
@@ -28,8 +28,7 @@ public:
 
 	// Member Functions
 	void InitializeMeshes();
-	CMesh* GetCubeMesh() const;
-
+	CMesh* GetMesh(EMESH) const;
 
 private:
 	// Make singleton by set the constructor inside private
@@ -46,6 +45,7 @@ protected:
 
 private:
 	CMesh* m_cCubeMesh;
+	CMesh* m_cSphereMesh;
 };
 
 #endif // !MESHMGR_H

@@ -160,6 +160,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="ShpereMesh.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="TextLabel.cpp" />
   </ItemGroup>
@@ -187,6 +188,7 @@
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="ShpereMesh.h" />
     <ClInclude Include="socket.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="Utility.h" />
