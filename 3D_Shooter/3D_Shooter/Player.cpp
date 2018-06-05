@@ -39,19 +39,19 @@ void CPlayer::UpdateGameObeject()
 {
 	glm::vec3 resultMovement(0.0f, 0.0f, 0.0f);
 
-	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD && this->m_Position.z >= -18.8f)
+	if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && this->m_Position.z >= -18.8f)
 	{
 		resultMovement.z -= m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD && this->m_Position.z <= 18.8f)
+	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && this->m_Position.z <= 18.8f)
 	{
 		resultMovement.z += m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD && this->m_Position.x >= -18.8f)
+	if (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS && this->m_Position.x >= -18.8f)
 	{
 		resultMovement.x -= m_movementSpd;
 	}
-	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD && this->m_Position.x <= 18.8f)
+	if (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS && this->m_Position.x <= 18.8f)
 	{
 		resultMovement.x += m_movementSpd;
 	}
