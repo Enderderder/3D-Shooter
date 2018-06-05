@@ -12,10 +12,10 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-// Local Include
+// This Include
 #include "Scene.h"
 
-// Global Include
+// Local Include
 #include "Utility.h"
 #include "GameObject.h"
 #include "Player.h"
@@ -43,6 +43,7 @@ CScene::~CScene()
 	{
 		delete obj;
 	}
+	m_vGameObj.clear();
 	// ========================================================
 }
 

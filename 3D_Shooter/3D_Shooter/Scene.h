@@ -12,8 +12,8 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef _SCENE_H
-#define _SCENE_H
+#ifndef SCENE_H
+#define SCENE_H
 
 // Library Include
 #include <vector>
@@ -50,4 +50,4 @@ private:
 	CCubeMap* m_cCubeMap;
 };
 
-#endif // !_SCENE_H
+#endif // !SCENE_H
