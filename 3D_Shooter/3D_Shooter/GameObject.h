@@ -28,7 +28,7 @@ public:
 	CGameObject() = default;
 	~CGameObject();
 
-	CGameObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
+	CGameObject(CMesh* _mesh, GLuint* _textureID, GLuint* _programID);
 	void RenderObject(CCamera* _camera);
 	virtual void UpdateGameObeject() {}
 
@@ -47,12 +47,14 @@ protected:
 	glm::vec3 m_Scale;
 	float m_Rotation;
 
+
+
 private:
 
 	// Member Variables
-	GLuint* m_Program;
-	CMesh* m_ObjMesh;
+	GLuint* m_ProgramID;
 	GLuint* m_TextureID;
+	CMesh* m_ObjMesh;
 };
 
 #endif // !GAMEOBJECT_H

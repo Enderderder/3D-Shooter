@@ -15,7 +15,7 @@
 #ifndef SPHEREMESH_H
 #define SPHEREMESH_H
 
-// Global Include
+// inherited Include
 #include "Mesh.h"
 
 class CShpereMesh : public CMesh
