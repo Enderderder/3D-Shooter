@@ -191,10 +191,10 @@
     <None Include="Shaders\BlinnPhong.vs">
       <Filter>Shader\BlinnPhong</Filter>
     </None>
-    <None Include="ModelShader.vs">
+    <None Include="Shaders\ModelShader.fs">
       <Filter>Shader\Model</Filter>
     </None>
-    <None Include="ModelShader.fs">
+    <None Include="Shaders\ModelShader.vs">
       <Filter>Shader\Model</Filter>
     </None>
   </ItemGroup>
