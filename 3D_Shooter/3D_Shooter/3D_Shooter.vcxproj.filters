@@ -167,12 +167,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Text.fs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
-    <None Include="Text.vs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
     <None Include="Shaders\Ex_10.fs">
       <Filter>Shader</Filter>
     </None>
@@ -196,6 +190,12 @@
     </None>
     <None Include="Shaders\ModelShader.vs">
       <Filter>Shader\Model</Filter>
+    </None>
+    <None Include="Shaders\Text.fs">
+      <Filter>Shader\TextLabel</Filter>
+    </None>
+    <None Include="Shaders\Text.vs">
+      <Filter>Shader\TextLabel</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

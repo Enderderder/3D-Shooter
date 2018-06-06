@@ -35,6 +35,8 @@
 #include <cassert>
 #include <thread>
 #include "CSound.h"
+#include "TextLabel.h"
+#include <sstream>
 
 //#include <vld.h> // Memory Leak Detector
 
@@ -88,15 +90,17 @@ struct DebugTimer
 	{
 		start = std::chrono::high_resolution_clock::now();
 	}
-
+	
 	~DebugTimer()
 	{
 		end = std::chrono::high_resolution_clock::now();
 		duration = end - start;
+		
 
 		float ms = duration.count();
 		std::cout << "Debug Timer took " << ms << " ms \n";
 	}
+
 };
 
 enum ESCENES
