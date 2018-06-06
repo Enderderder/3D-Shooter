@@ -58,13 +58,13 @@ private:
 	string directory;
 	vector<MeshTexture> textures_loaded;	// Stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 
-										/*  Functions   */
-										// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
+	/*  Functions   */
+	// Loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
 	void loadModel(string path)
 	{
 		// Read file via ASSIMP
 		Assimp::Importer importer;
-		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenNormals);
 		
 		// Check for errors
 		if (!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero

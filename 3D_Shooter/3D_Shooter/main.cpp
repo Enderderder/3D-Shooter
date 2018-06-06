@@ -63,6 +63,8 @@ int main(int argc, char **argv)
 	glutCloseFunc([]() {
 		cInput->DestroyInstance();
 		cSceneMgr->DestroyInstance();
+		CMeshMgr::GetInstance().DestroyInstance();
+		CModelMgr::GetInstance().DestroyInstance();
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last

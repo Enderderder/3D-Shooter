@@ -74,4 +74,10 @@ CSceneMgr::CSceneMgr()
 {}
 
 CSceneMgr::~CSceneMgr()
-{}
+{
+	for (auto scene : m_vScenes)
+	{
+		delete scene;
+	}
+	m_vScenes.clear();
+}

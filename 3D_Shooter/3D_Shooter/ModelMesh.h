@@ -43,11 +43,7 @@ public:
 
 	// Render the mesh
 	void Render(CCamera* camera, GLuint program)
-	{
-
-		glUseProgram(program);
-
-		
+	{	
 		// Bind appropriate textures
 		GLuint diffuseNr = 1;
 		GLuint specularNr = 1;
@@ -68,11 +64,6 @@ public:
 			// And finally bind the texture
 			glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 		}
-		
-		glm::mat4 model;
-		glm::mat4 mvp = camera->GetProjectionMatrix() *  camera->GetViewMatrix() * model;
-		GLint mvpLoc = glGetUniformLocation(program, "MVP");
-		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
 		// Draw mesh
 		glBindVertexArray(this->VAO);
@@ -84,7 +75,6 @@ public:
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		}
-		//glUseProgram(0);
 	}
 
 private:
