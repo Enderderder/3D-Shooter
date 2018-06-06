@@ -21,6 +21,7 @@
 // Forward Declare
 class CCamera;
 class CMesh;
+class CModel;
 
 class CGameObject
 {
@@ -28,7 +29,8 @@ public:
 	CGameObject() = default;
 	~CGameObject();
 
-	CGameObject(CMesh* _mesh, GLuint* _textureID, GLuint* _programID);
+	CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
+	CGameObject(CModel* _model, GLuint _programID);
 	void RenderObject(CCamera* _camera);
 	virtual void UpdateGameObeject() {}
 
@@ -41,20 +43,23 @@ public:
 	void SetRotation(float _rotation);
 
 protected:
-	void InitializeObject(CMesh* _mesh, GLuint* _texture, GLuint* _program);
+	void InitializeObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
+	void InitializeObject(CModel* _model, GLuint _programID);
 
 	glm::vec3 m_Position;
 	glm::vec3 m_Scale;
 	float m_Rotation;
 
-
+	bool m_IsModel;
 
 private:
-
+	
 	// Member Variables
-	GLuint* m_ProgramID;
-	GLuint* m_TextureID;
+	GLuint m_ProgramID;
+	GLuint m_TextureID;
+
 	CMesh* m_ObjMesh;
+	CModel* m_ObjModel;
 };
 
 #endif // !GAMEOBJECT_H

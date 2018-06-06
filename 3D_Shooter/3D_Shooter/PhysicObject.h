@@ -22,7 +22,8 @@ class CPhysicObject : public CGameObject
 {
 public:
 	CPhysicObject() = default;
-	CPhysicObject(CMesh* _mesh, GLuint* _textureID, GLuint* _programID);
+	CPhysicObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
+	CPhysicObject(CModel* _model, GLuint _programID);
 	~CPhysicObject();
 
 protected:

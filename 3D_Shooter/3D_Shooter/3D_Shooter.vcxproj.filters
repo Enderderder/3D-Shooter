@@ -73,6 +73,9 @@
     <ClCompile Include="PhysicObject.cpp">
       <Filter>Framework\GameObj</Filter>
     </ClCompile>
+    <ClCompile Include="ModelMgr.cpp">
+      <Filter>Framework\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -153,6 +156,15 @@
     <ClInclude Include="PhysicObject.h">
       <Filter>Framework\GameObj</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMgr.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">
@@ -172,6 +184,12 @@
     </None>
     <None Include="Shaders\BlinnPhong.vs">
       <Filter>Shader\BlinnPhong</Filter>
+    </None>
+    <None Include="Shaders\ModelShader.fs">
+      <Filter>Shader\Model</Filter>
+    </None>
+    <None Include="Shaders\ModelShader.vs">
+      <Filter>Shader\Model</Filter>
     </None>
     <None Include="Shaders\Text.fs">
       <Filter>Shader\TextLabel</Filter>
@@ -258,6 +276,9 @@
     </Filter>
     <Filter Include="Framework\Model">
       <UniqueIdentifier>{ebf6c192-6b7d-43fb-bec9-4775c05b8316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Model">
+      <UniqueIdentifier>{683338ce-c1a2-4807-a427-35a45bee0ab0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

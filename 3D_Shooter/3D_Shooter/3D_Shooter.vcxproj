@@ -153,6 +153,7 @@
     <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshMgr.cpp" />
+    <ClCompile Include="ModelMgr.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="PhysicObject.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -182,6 +183,9 @@
     <ClInclude Include="InputLineBuffer.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMgr.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelMesh.h" />
+    <ClInclude Include="ModelMgr.h" />
     <ClInclude Include="network.h" />
     <ClInclude Include="networkentity.h" />
     <ClInclude Include="PhysicObject.h" />
@@ -203,8 +207,10 @@
     <None Include="Shaders\BlinnPhong.vs" />
     <None Include="Shaders\Ex_10.fs" />
     <None Include="Shaders\Ex_10.vs" />
-    <None Include="Shaders\Text.fs" />
-    <None Include="Shaders\Text.vs" />
+    <None Include="Shaders\ModelShader.fs" />
+    <None Include="Shaders\ModelShader.vs" />
+    <None Include="Text.fs" />
+    <None Include="Text.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

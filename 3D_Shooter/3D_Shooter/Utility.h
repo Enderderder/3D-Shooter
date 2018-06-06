@@ -116,6 +116,11 @@ enum EMESH
 	SPHERE
 };
 
+enum EMODEL
+{
+	TANK,
+};
+
 enum InputState 
 {
 	INPUT_FIRST_RELEASE,	// First frame of Up state 

@@ -16,6 +16,7 @@
 #include "Utility.h"
 #include "SceneMgr.h"
 #include "MeshMgr.h"
+#include "ModelMgr.h"
 #include "CNetworkMgr.h"
 #include "Input.h"
 
@@ -67,6 +68,8 @@ int main(int argc, char **argv)
 	glutCloseFunc([]() {
 		cInput->DestroyInstance();
 		cSceneMgr->DestroyInstance();
+		CMeshMgr::GetInstance().DestroyInstance();
+		CModelMgr::GetInstance().DestroyInstance();
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
@@ -76,6 +79,7 @@ void InititializeProgram()
 {
 	cInput->InitializeInput();
 	CMeshMgr::GetInstance().InitializeMeshes();
+	CModelMgr::GetInstance().InitializeModels();
 
 	//FPS counter starts at 0 when programs starts up
 	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
