@@ -15,9 +15,11 @@
 #ifndef CUBEMESH_H
 #define CUBEMESH_H
 
-// Local Include
-#include "Utility.h"
+// Inherited include
 #include "Mesh.h"
+
+// Local Include
+//#include "Utility.h"
 
 class CCubeMesh : public CMesh
 {

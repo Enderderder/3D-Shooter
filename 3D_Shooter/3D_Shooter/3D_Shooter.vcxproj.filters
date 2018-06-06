@@ -70,6 +70,9 @@
     <ClCompile Include="CAIMgr.cpp">
       <Filter>Game\AI</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicObject.cpp">
+      <Filter>Framework\GameObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="CAIMgr.h">
       <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicObject.h">
+      <Filter>Framework\GameObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +255,9 @@
     </Filter>
     <Filter Include="Game\AI">
       <UniqueIdentifier>{496c7805-c7d8-4834-a273-ba3870a78012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Model">
+      <UniqueIdentifier>{ebf6c192-6b7d-43fb-bec9-4775c05b8316}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

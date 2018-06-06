@@ -59,8 +59,8 @@ void CPlayer::UpdateGameObeject()
 	float fMag = sqrtf(powf(resultMovement.x, 2) + powf(resultMovement.z, 2));
 	if (fMag != 0.0f)
 	{
-		glm::vec3 temp = resultMovement / fMag;
-		resultMovement = temp * m_movementSpd;
+		glm::vec3 uniVec = resultMovement / fMag;
+		resultMovement = uniVec * m_movementSpd;
 		this->AddPosition(resultMovement);
 	}
 }

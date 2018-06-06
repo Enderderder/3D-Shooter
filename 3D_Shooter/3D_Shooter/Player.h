@@ -15,10 +15,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-// Local Include
-#include "GameObject.h"
+// Inherited Include
+#include "PhysicObject.h"
 
-class CPlayer : public CGameObject
+class CPlayer : public CPhysicObject
 {
 public:
 	CPlayer() = default;
