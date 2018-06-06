@@ -203,8 +203,8 @@
     <None Include="Shaders\BlinnPhong.vs" />
     <None Include="Shaders\Ex_10.fs" />
     <None Include="Shaders\Ex_10.vs" />
-    <None Include="Text.fs" />
-    <None Include="Text.vs" />
+    <None Include="Shaders\Text.fs" />
+    <None Include="Shaders\Text.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
