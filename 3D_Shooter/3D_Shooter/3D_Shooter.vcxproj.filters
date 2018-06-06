@@ -191,10 +191,10 @@
     <None Include="Shaders\ModelShader.vs">
       <Filter>Shader\Model</Filter>
     </None>
-    <None Include="Shaders\Text.fs">
+    <None Include="Text.vs">
       <Filter>Shader\TextLabel</Filter>
     </None>
-    <None Include="Shaders\Text.vs">
+    <None Include="Text.fs">
       <Filter>Shader\TextLabel</Filter>
     </None>
   </ItemGroup>
