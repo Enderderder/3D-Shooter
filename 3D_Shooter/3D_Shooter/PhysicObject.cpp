@@ -15,9 +15,14 @@
 // This Include
 #include "PhysicObject.h"
 
-CPhysicObject::CPhysicObject(CMesh* _mesh, GLuint* _textureID, GLuint* _programID)
+CPhysicObject::CPhysicObject(CMesh* _mesh, GLuint _textureID, GLuint _programID)
 {
 	this->InitializeObject(_mesh, _textureID, _programID);
+}
+
+CPhysicObject::CPhysicObject(CModel* _model, GLuint _programID)
+{
+	this->InitializeObject(_model, _programID);
 }
 
 

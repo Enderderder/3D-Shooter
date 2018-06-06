@@ -22,7 +22,8 @@ class CPlayer : public CPhysicObject
 {
 public:
 	CPlayer() = default;
-	CPlayer(CMesh* _mesh, GLuint* _texture, GLuint* _program);
+	CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID);
+	CPlayer(CModel* _model, GLuint _programID);
 
 	~CPlayer();
 

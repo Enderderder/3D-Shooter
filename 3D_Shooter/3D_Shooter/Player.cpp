@@ -24,12 +24,22 @@
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
 
-CPlayer::CPlayer(CMesh* _mesh, GLuint* _texture, GLuint* _program)
-	:	m_health(100),
-		m_movementSpd(0.25f),
-		m_attackSpd(1)
+CPlayer::CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID) :
+	m_health(100),
+	m_movementSpd(0.25f),
+	m_attackSpd(1)
 {
-	this->InitializeObject(_mesh, _texture, _program);
+	this->m_IsModel = false;
+	this->InitializeObject(_mesh, _textureID, _programID);
+}
+
+CPlayer::CPlayer(CModel* _model, GLuint _programID) :
+	m_health(100),
+	m_movementSpd(0.25f),
+	m_attackSpd(1)
+{
+	this->m_IsModel = true;
+	this->InitializeObject(_model, _programID);
 }
 
 CPlayer::~CPlayer()

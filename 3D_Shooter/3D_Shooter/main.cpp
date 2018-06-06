@@ -16,6 +16,7 @@
 #include "Utility.h"
 #include "SceneMgr.h"
 #include "MeshMgr.h"
+#include "ModelMgr.h"
 #include "CNetworkMgr.h"
 #include "Input.h"
 
@@ -71,6 +72,7 @@ void InititializeProgram()
 {
 	cInput->InitializeInput();
 	CMeshMgr::GetInstance().InitializeMeshes();
+	CModelMgr::GetInstance().InitializeModels();
 
 	cSceneMgr->InitializeSceneMgr();
 }

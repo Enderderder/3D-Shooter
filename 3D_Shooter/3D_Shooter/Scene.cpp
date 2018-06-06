@@ -20,6 +20,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "MeshMgr.h"
+#include "ModelMgr.h"
 #include "Camera.h"
 
 // Global Variables
@@ -57,6 +58,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		static ShaderLoader shaderLoader;
 		diffuseProgram = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
+		GLuint dp = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
 
 		glGenTextures(1, &texture);
 		glBindTexture(GL_TEXTURE_2D, texture);
@@ -98,12 +100,12 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_cCubeMap = new CCubeMap(cubeMapPaths);
 		
 		// Load in the game objects
-		CGameObject* player = new CPlayer(CMeshMgr::GetInstance().GetMesh(CUBE), &texture, &diffuseProgram);
+		CGameObject* player = new CPlayer(CModelMgr::GetInstance().GetMesh(TANK), dp);
 		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		std::cout << "Loaded GameObject: Player" << std::endl;
 
-		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetMesh(CUBE), &texture, &diffuseProgram);
+		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetMesh(CUBE), texture, diffuseProgram);
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 
 		std::cout << "Loaded GameObject: Platform" << std::endl;
