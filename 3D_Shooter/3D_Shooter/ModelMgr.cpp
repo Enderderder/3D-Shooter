@@ -41,15 +41,22 @@ void CModelMgr::DestroyInstance()
 
 void CModelMgr::InitializeModels()
 {
-	static ShaderLoader sl;
-	GLuint dp = sl.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
-
-	m_cTankModel = new CModel("Resources/Models/Tank/Tank.obj", dp);
+	m_cTankModel = new CModel("Resources/Models/Tank/Tank.obj");
 }
 
-CModel* CModelMgr::GetMesh(EMODEL) const
+CModel* CModelMgr::GetMesh(EMODEL _eModel) const
 {
-	return m_cTankModel;
+	switch (_eModel)
+	{
+	case TANK:
+		return m_cTankModel;
+		break;
+
+	default:
+		std::cout << "Unable to grab model. \n";
+		break;
+	}
+	return nullptr;
 }
 
 CModelMgr::CModelMgr()

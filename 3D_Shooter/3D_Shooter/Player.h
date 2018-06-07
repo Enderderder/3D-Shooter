@@ -38,5 +38,4 @@ private:
 	bool m_IsLocalControl;
 };
 
-
 #endif // !PLAYER_H
