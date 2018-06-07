@@ -76,6 +76,10 @@
     <ClCompile Include="ModelMgr.cpp">
       <Filter>Framework\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -165,6 +169,7 @@
     <ClInclude Include="ModelMgr.h">
       <Filter>Framework\Model</Filter>
     </ClInclude>
+    <ClInclude Include="CBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">

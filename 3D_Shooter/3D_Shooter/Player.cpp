@@ -26,18 +26,22 @@ static CInput* cInput = CInput::GetInstance();
 
 CPlayer::CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID) :
 	m_health(100),
-	m_movementSpd(0.25f),
-	m_attackSpd(1)
+	m_attackSpd(1.0f),
+	m_movementSpd(0.25f)
 {
+	m_friction = 0.9f;
+
 	this->m_IsModel = false;
 	this->InitializeObject(_mesh, _textureID, _programID);
 }
 
 CPlayer::CPlayer(CModel* _model, GLuint _programID) :
 	m_health(100),
-	m_movementSpd(0.25f),
-	m_attackSpd(1)
+	m_attackSpd(1.0f),
+	m_movementSpd(0.25f)
 {
+	m_friction = 0.9f;
+
 	this->m_IsModel = true;
 	this->InitializeObject(_model, _programID);
 }
@@ -47,30 +51,30 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
-	glm::vec3 resultMovement(0.0f, 0.0f, 0.0f);
+	glm::vec3 resultVec;
 
-	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS) && this->m_Position.z >= -18.8f)
+	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
 	{
-		resultMovement.z -= m_movementSpd;
+		resultVec.z -= 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS) && this->m_Position.z <= 18.8f)
+	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 	{
-		resultMovement.z += m_movementSpd;
+		resultVec.z += 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS) && this->m_Position.x >= -18.8f)
+	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 	{
-		resultMovement.x -= m_movementSpd;
+		resultVec.x -= 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS) && this->m_Position.x <= 18.8f)
+	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 	{
-		resultMovement.x += m_movementSpd;
+		resultVec.x += 1;
 	}
 
-	float fMag = sqrtf(powf(resultMovement.x, 2) + powf(resultMovement.z, 2));
-	if (fMag != 0.0f)
+	float fMag = sqrtf(powf(resultVec.x, 2) + powf(resultVec.y, 2) + powf(resultVec.z, 2));
+	if (fMag > 0.0f)
 	{
-		glm::vec3 uniVec = resultMovement / fMag;
-		resultMovement = uniVec * m_movementSpd;
-		this->AddPosition(resultMovement);
+		this->m_velocity = (resultVec / fMag) * m_movementSpd;
 	}
+
+	PhysicsUpdate();
 }

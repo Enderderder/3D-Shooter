@@ -102,12 +102,10 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		// Load in the game objects
 		CGameObject* player = new CPlayer(CModelMgr::GetInstance().GetMesh(TANK), dp);
 		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
-
 		std::cout << "Loaded GameObject: Player" << std::endl;
 
 		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetMesh(CUBE), texture, diffuseProgram);
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
-
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
 		break;
