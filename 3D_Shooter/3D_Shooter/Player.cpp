@@ -20,6 +20,8 @@
 
 // Local Include
 #include "Input.h"
+#include "SceneMgr.h"
+#include "CBullet.h"
 
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
@@ -51,6 +53,15 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
+	this->ProcessMovement();
+	//this->ProcessShooting();
+
+	// Physical Object must have
+	PhysicsUpdate();
+}
+
+void CPlayer::ProcessMovement()
+{
 	glm::vec3 resultVec;
 
 	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
@@ -70,11 +81,19 @@ void CPlayer::UpdateGameObeject()
 		resultVec.x += 1;
 	}
 
-	float fMag = sqrtf(powf(resultVec.x, 2) + powf(resultVec.y, 2) + powf(resultVec.z, 2));
-	if (fMag > 0.0f)
+	// If player actually have movement input
+	if (resultVec != glm::vec3())
 	{
-		this->m_velocity = (resultVec / fMag) * m_movementSpd;
+		// Add the speed force to the direction
+		this->m_velocity = glm::normalize(resultVec) * m_movementSpd;
 	}
+}
 
-	PhysicsUpdate();
+void CPlayer::ProcessShooting()
+{
+	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
+	{
+		CBullet* bullet = new CBullet(m_velocity, 10);
+		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, this->m_Position);
+	}
 }

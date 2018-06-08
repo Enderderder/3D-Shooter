@@ -22,13 +22,16 @@ class CBullet : public CPhysicObject
 {
 public:
 	CBullet() = default;
-	CBullet(glm::vec3 _dirVec);
+	CBullet(glm::vec3 _dirVec, float _damage);
 	~CBullet();
+
+	void UpdateGameObeject() override;
 
 private:
 
 	float m_damage;
 	float m_bulletSpeed;
+	int m_counter;
 };
 
 #endif // !BULLET_H

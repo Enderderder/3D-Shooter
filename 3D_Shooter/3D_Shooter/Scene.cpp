@@ -104,6 +104,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		CGameObject* player = new CPlayer(CModelMgr::GetInstance().GetMesh(TANK), dp);
 		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
 		std::cout << "Loaded GameObject: Player" << std::endl;
+		m_player = player;
 
 		CGameObject* Enemey = new CAIMgr(CMeshMgr::GetInstance().GetMesh(CUBE), texture, diffuseProgram, SEEK, player);
 		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
@@ -150,9 +151,10 @@ void CScene::UpdateScene()
 {
 	m_cCam->UpdateCamera();
 
-	for (auto obj : m_vGameObj)
+	size_t currVecSize = m_vGameObj.size();
+	for (size_t index = 0; index < currVecSize; ++index)
 	{
-		obj->UpdateGameObeject();
+		m_vGameObj[index]->UpdateGameObeject();
 	}
 }
 
@@ -179,4 +181,17 @@ void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, float _rotate)
 	_gameobj->SetPosition(_pos);
 	_gameobj->SetRotation(_rotate);
 	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::DestroyInstance(CGameObject* _gameobj)
+{
+	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
+	{
+		if ((*iter) == _gameobj)
+		{
+			delete (*iter);
+			m_vGameObj.erase(iter);
+			break;
+		}
+	}
 }

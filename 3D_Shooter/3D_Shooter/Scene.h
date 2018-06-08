@@ -43,11 +43,15 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, float _rotate);
 
+	void DestroyInstance(CGameObject* _gameobj);
+
 private:
   
 	std::vector<CGameObject*> m_vGameObj;
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
+
+	CGameObject* m_player;
 };
 
 #endif // !SCENE_H
