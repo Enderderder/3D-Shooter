@@ -67,14 +67,26 @@
     <ClCompile Include="ShpereMesh.cpp">
       <Filter>Framework\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="CAIMgr.cpp">
-      <Filter>Game\AI</Filter>
-    </ClCompile>
     <ClCompile Include="PhysicObject.cpp">
       <Filter>Framework\GameObj</Filter>
     </ClCompile>
     <ClCompile Include="ModelMgr.cpp">
       <Filter>Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CSeek.cpp">
+      <Filter>Game\AI\Seek</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlee.cpp">
+      <Filter>Game\AI\Flee</Filter>
+    </ClCompile>
+    <ClCompile Include="CContainment.cpp">
+      <Filter>Game\AI\Containment</Filter>
+    </ClCompile>
+    <ClCompile Include="CWander.cpp">
+      <Filter>Game\AI\Wander</Filter>
+    </ClCompile>
+    <ClCompile Include="CAIMgr.cpp">
+      <Filter>Game\AI\AIMgr</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>Framework\Model</Filter>
@@ -154,9 +166,6 @@
     <ClInclude Include="ShpereMesh.h">
       <Filter>Framework\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="CAIMgr.h">
-      <Filter>Game\AI</Filter>
-    </ClInclude>
     <ClInclude Include="PhysicObject.h">
       <Filter>Framework\GameObj</Filter>
     </ClInclude>
@@ -168,6 +177,21 @@
     </ClInclude>
     <ClInclude Include="ModelMgr.h">
       <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CSeek.h">
+      <Filter>Game\AI\Seek</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlee.h">
+      <Filter>Game\AI\Flee</Filter>
+    </ClInclude>
+    <ClInclude Include="CContainment.h">
+      <Filter>Game\AI\Containment</Filter>
+    </ClInclude>
+    <ClInclude Include="CWander.h">
+      <Filter>Game\AI\Wander</Filter>
+    </ClInclude>
+    <ClInclude Include="CAIMgr.h">
+      <Filter>Game\AI\AIMgr</Filter>
     </ClInclude>
     <ClInclude Include="CBullet.h" />
   </ItemGroup>
@@ -284,6 +308,21 @@
     </Filter>
     <Filter Include="Shader\Model">
       <UniqueIdentifier>{683338ce-c1a2-4807-a427-35a45bee0ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Seek">
+      <UniqueIdentifier>{09f016a7-afd3-4973-9580-351da036c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Flee">
+      <UniqueIdentifier>{61542f01-ef13-4006-8848-8acc96f015dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Containment">
+      <UniqueIdentifier>{43474863-aa1b-40cf-a840-a558872f983b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Wander">
+      <UniqueIdentifier>{11ffaec4-495c-40fb-81d7-a994d0b072a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\AIMgr">
+      <UniqueIdentifier>{6386d43e-fdcf-4614-81d6-7b243b6c2f75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

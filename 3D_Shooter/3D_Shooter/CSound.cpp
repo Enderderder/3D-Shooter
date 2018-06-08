@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name    : Sound.cpp
+// Description	: 
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+//
+
 #include "Utility.h"
 
 // Global Variable -----------------------------------------------------------------------------
