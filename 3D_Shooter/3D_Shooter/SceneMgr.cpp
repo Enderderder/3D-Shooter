@@ -70,6 +70,11 @@ void CSceneMgr::SwapScene(ESCENES _eSceneNum)
 	m_vScenes[m_eCurrentScene]->InitialiseScene(m_eCurrentScene);
 }
 
+CScene * CSceneMgr::GetCurrentScene() const
+{
+	return m_vScenes[m_eCurrentScene];
+}
+
 CSceneMgr::CSceneMgr()
 {}
 

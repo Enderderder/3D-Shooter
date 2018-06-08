@@ -140,6 +140,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="CAIMgr.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CBullet.cpp" />
@@ -172,6 +173,7 @@
     <Text Include="Commenting Header.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="CAIMgr.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CBullet.h" />

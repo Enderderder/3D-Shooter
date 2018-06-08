@@ -28,6 +28,8 @@ public:
 
 	void PhysicsUpdate();
 
+	float GetColliderRad() const;
+
 protected:
 
 	glm::vec3 m_directionVec;

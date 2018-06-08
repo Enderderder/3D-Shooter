@@ -79,7 +79,12 @@
     <ClCompile Include="Model.cpp">
       <Filter>Framework\Model</Filter>
     </ClCompile>
-    <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CBullet.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetMgr.cpp">
+      <Filter>Framework\Texture&amp;Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -169,7 +174,12 @@
     <ClInclude Include="ModelMgr.h">
       <Filter>Framework\Model</Filter>
     </ClInclude>
-    <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CBullet.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetMgr.h">
+      <Filter>Framework\Texture&amp;Program</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">
@@ -284,6 +294,12 @@
     </Filter>
     <Filter Include="Shader\Model">
       <UniqueIdentifier>{683338ce-c1a2-4807-a427-35a45bee0ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Bullet">
+      <UniqueIdentifier>{eaf76748-5ee8-4a9e-8572-e8755688fec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Texture&amp;Program">
+      <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,9 @@ public:
 
 	void UpdateGameObeject() override;
 
+	void ProcessMovement();
+	void ProcessShooting();
+
 private:
 
 	int m_health;
