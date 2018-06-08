@@ -42,6 +42,11 @@ public:
 	void SetScale(glm::vec3 _scale);
 	void SetRotation(float _rotation);
 
+	glm::vec3 GetPosistion(CGameObject* _Player)
+	{
+		return(_Player->m_Position);
+	}
+
 protected:
 	void InitializeObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	void InitializeObject(CModel* _model, GLuint _programID);

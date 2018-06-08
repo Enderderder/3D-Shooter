@@ -22,6 +22,7 @@
 #include "MeshMgr.h"
 #include "ModelMgr.h"
 #include "Camera.h"
+#include "CAIMgr.h"
 
 // Global Variables
 GLuint diffuseProgram;
@@ -104,6 +105,12 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
+
+		CGameObject* Enemey = new CAIMgr(CMeshMgr::GetInstance().GetMesh(CUBE), texture, diffuseProgram, SEEK, player);
+		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
+
+		std::cout << "Loaded GameObject: Player" << std::endl;
+
 
 		CGameObject* platform = new CGameObject(CMeshMgr::GetInstance().GetMesh(CUBE), texture, diffuseProgram);
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
