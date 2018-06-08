@@ -144,6 +144,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CContainment.cpp" />
     <ClCompile Include="CFlee.cpp" />
+    <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CNetworkMgr.cpp" />
     <ClCompile Include="CSeek.cpp" />
     <ClCompile Include="CubeMap.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshMgr.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModelMgr.cpp" />
     <ClCompile Include="network.cpp" />
     <ClCompile Include="PhysicObject.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CContainment.h" />
     <ClInclude Include="CFlee.h" />
+    <ClInclude Include="CBullet.h" />
     <ClInclude Include="CNetworkMgr.h" />
     <ClInclude Include="CSeek.h" />
     <ClInclude Include="CubeMap.h" />

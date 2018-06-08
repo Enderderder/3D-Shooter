@@ -88,6 +88,10 @@
     <ClCompile Include="CAIMgr.cpp">
       <Filter>Game\AI\AIMgr</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -189,6 +193,7 @@
     <ClInclude Include="CAIMgr.h">
       <Filter>Game\AI\AIMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">

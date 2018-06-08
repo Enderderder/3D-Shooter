@@ -23,7 +23,8 @@ struct MeshTexture {
 	aiString path;
 };
 
-class ModelMesh {
+class ModelMesh
+{
 public:
 	/*  Mesh Data  */
 	vector<Vertex> vertices;
