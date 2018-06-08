@@ -74,3 +74,4 @@ void CPlayer::UpdateGameObeject()
 		this->AddPosition(resultMovement);
 	}
 }
+

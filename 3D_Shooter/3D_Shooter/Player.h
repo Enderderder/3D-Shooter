@@ -25,6 +25,8 @@ public:
 	CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CPlayer(CModel* _model, GLuint _programID);
 
+	glm::vec3 GetPosistion(CPlayer* _Player);
+
 	~CPlayer();
 
 	void UpdateGameObeject() override;

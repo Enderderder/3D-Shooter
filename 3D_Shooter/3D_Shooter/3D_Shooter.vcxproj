@@ -143,6 +143,7 @@
     <ClCompile Include="CAIMgr.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CNetworkMgr.cpp" />
+    <ClCompile Include="CSeek.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="consoletools.cpp" />
@@ -173,6 +174,7 @@
     <ClInclude Include="CAIMgr.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CNetworkMgr.h" />
+    <ClInclude Include="CSeek.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="consoletools.h" />
