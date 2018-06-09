@@ -81,7 +81,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, player);
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
 		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
@@ -90,14 +90,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
-
 		break;
 	}
 
 	case MAINMENU:
 	{
 		m_pCurrentEnum = MAINMENU;
-
+		
 		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
 			"posx.jpg",
