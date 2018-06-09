@@ -55,6 +55,8 @@ protected:
 	glm::vec3 m_Scale;
 	float m_Rotation;
 
+	const char* m_tag;
+
 	bool m_IsModel;
 
 private:
@@ -65,8 +67,6 @@ private:
 
 	CMesh* m_ObjMesh;
 	CModel* m_ObjModel;
-
-	const char* m_tag;
 };
 
 #endif // !GAMEOBJECT_H

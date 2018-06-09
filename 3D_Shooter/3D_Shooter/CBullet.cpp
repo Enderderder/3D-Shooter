@@ -29,6 +29,7 @@ CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	m_counter(500),
 	m_bulletSpeed(0.5f)
 {
+	this->m_tag = "Bullet";
 	this->m_friction = 1.0f;
 	this->m_velocity = glm::normalize(_dirVec) * m_bulletSpeed;
 
