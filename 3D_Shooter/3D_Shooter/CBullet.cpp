@@ -18,16 +18,27 @@
 // Local Include
 #include "SceneMgr.h"
 #include "MeshMgr.h"
+#include "AssetMgr.h"
+
+// Manager Class Pointer
+static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
+static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
 CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	m_damage(_damage),
-	m_counter(10)
+	m_counter(500),
+	m_bulletSpeed(0.5f)
 {
+	this->m_tag = "Bullet";
 	this->m_friction = 1.0f;
 	this->m_velocity = glm::normalize(_dirVec) * m_bulletSpeed;
 
 	this->m_IsModel = false;
-//	this->InitializeObject(CMeshMgr::GetInstance().GetMesh(SPHERE), _textureID, _programID);
+	this->InitializeObject(
+		cMeshMgr->GetMesh(SPHERE), 
+		cAssetMgr->GetTextureID("TITANFALL"), 
+		cAssetMgr->GetProgramID("ModelBlinnPhong")
+	);
 }
 
 
@@ -38,10 +49,12 @@ CBullet::~CBullet()
 
 void CBullet::UpdateGameObeject()
 {
-	if (m_counter > 0)
+	if (this->m_counter < 0)
 	{
 		CSceneMgr::GetInstance()->GetCurrentScene()->DestroyInstance(this);
 		std::cout << "Bullet Destroyed. \n";
 	}
-	else m_counter--;
+	else this->m_counter--;
+
+	this->PhysicsUpdate();
 }

@@ -23,14 +23,14 @@
 // Static Variable
 CMeshMgr* CMeshMgr::s_pMeshMgr = nullptr;
 
-CMeshMgr& CMeshMgr::GetInstance()
+CMeshMgr* CMeshMgr::GetInstance()
 {
 	if (s_pMeshMgr == nullptr)
 	{
 		s_pMeshMgr = new CMeshMgr();
 	}
 
-	return *s_pMeshMgr;
+	return s_pMeshMgr;
 }
 
 void CMeshMgr::DestroyInstance()

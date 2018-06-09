@@ -27,6 +27,7 @@ public:
 
 	glm::vec3 GetPosistion(CPlayer* _Player);
 
+
 	~CPlayer();
 
 	void UpdateGameObeject() override;

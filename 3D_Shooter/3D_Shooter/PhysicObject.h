@@ -21,22 +21,18 @@
 class CPhysicObject : public CGameObject
 {
 public:
-	CPhysicObject() = default;
+	CPhysicObject();
 	CPhysicObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CPhysicObject(CModel* _model, GLuint _programID);
 	~CPhysicObject();
 
 	void PhysicsUpdate();
 
-	float GetColliderRad() const;
-
 protected:
 
 	glm::vec3 m_directionVec;
 	glm::vec3 m_velocity;
 	float m_friction;
-
-	float m_colliderRad;
 };
 
 #endif // !PHYSICOBJECT_H

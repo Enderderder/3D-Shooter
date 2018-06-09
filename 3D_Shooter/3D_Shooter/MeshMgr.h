@@ -23,7 +23,7 @@ class CMeshMgr
 {
 public:
 	// Singleton Methods
-	static CMeshMgr& GetInstance();
+	static CMeshMgr* GetInstance();
 	static void DestroyInstance();
 
 	// Member Functions
