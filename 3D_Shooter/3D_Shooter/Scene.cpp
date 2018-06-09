@@ -97,9 +97,6 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	case MAINMENU:
 	{
 		m_pCurrentEnum = MAINMENU;
-		static ShaderLoader shaderLoader;
-		diffuseProgram = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
-		GLuint dp = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
 
 		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
