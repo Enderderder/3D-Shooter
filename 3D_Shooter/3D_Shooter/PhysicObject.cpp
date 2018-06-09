@@ -44,8 +44,3 @@ void CPhysicObject::PhysicsUpdate()
 	// Friction affecting the velocity
 	m_velocity = m_velocity * m_friction;
 }
-
-float CPhysicObject::GetColliderRad() const
-{
-	return m_colliderRad;
-}
