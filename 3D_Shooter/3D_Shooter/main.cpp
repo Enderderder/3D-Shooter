@@ -109,6 +109,7 @@ void Update()
 	{
 		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
 		{
+			std::cout << "Loading...." << std::endl;
 			cSceneMgr->SwapScene(GAME);
 		}
 
