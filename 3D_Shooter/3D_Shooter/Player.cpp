@@ -54,7 +54,7 @@ CPlayer::~CPlayer()
 void CPlayer::UpdateGameObeject()
 {
 	this->ProcessMovement();
-	//this->ProcessShooting();
+	this->ProcessShooting();
 
 	// Physical Object must have
 	PhysicsUpdate();
@@ -91,7 +91,7 @@ void CPlayer::ProcessMovement()
 
 void CPlayer::ProcessShooting()
 {
-	if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS)
+	if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_FIRST_PRESS)
 	{
 		CBullet* bullet = new CBullet(m_velocity, 10);
 		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, this->m_Position);
