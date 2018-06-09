@@ -18,6 +18,11 @@
 // Library Include
 #include <cmath>
 
+CPhysicObject::CPhysicObject()
+{
+	this->m_HasCollider = true;
+}
+
 CPhysicObject::CPhysicObject(CMesh* _mesh, GLuint _textureID, GLuint _programID)
 {
 	this->InitializeObject(_mesh, _textureID, _programID);

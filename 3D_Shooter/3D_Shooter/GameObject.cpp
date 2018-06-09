@@ -85,6 +85,11 @@ void CGameObject::RenderObject(CCamera* _camera)
 	glUseProgram(0);
 }
 
+CGameObject::CGameObject()
+{
+	this->m_HasCollider = false;
+}
+
 CGameObject::~CGameObject()
 {}
 

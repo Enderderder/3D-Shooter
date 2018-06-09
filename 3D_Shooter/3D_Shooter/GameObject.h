@@ -26,7 +26,7 @@ class CModel;
 class CGameObject
 {
 public:
-	CGameObject() = default;
+	CGameObject();
 	~CGameObject();
 
 	CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
@@ -54,9 +54,11 @@ protected:
 	glm::vec3 m_Position;
 	glm::vec3 m_Scale;
 	float m_Rotation;
+	float m_ColliderRad;
 
 	const char* m_tag;
 
+	bool m_HasCollider;
 	bool m_IsModel;
 
 private:
