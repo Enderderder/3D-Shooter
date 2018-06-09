@@ -27,7 +27,7 @@ CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	this->m_velocity = glm::normalize(_dirVec) * m_bulletSpeed;
 
 	this->m_IsModel = false;
-	this->InitializeObject(CMeshMgr::GetInstance().GetMesh(SPHERE), _textureID, _programID);
+//	this->InitializeObject(CMeshMgr::GetInstance().GetMesh(SPHERE), _textureID, _programID);
 }
 
 

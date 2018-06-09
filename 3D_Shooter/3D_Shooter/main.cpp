@@ -104,13 +104,21 @@ void Update()
 	
 
 	cSceneMgr->UpdateCurrentScene();
-
-	if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
+	//Main Menu controls
+	if (cSceneMgr->GetCurrentScene()->GetCurrentEnum() == MAINMENU)
 	{
-		std::thread Thread_obj1(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
-		
-		Thread_obj1.join();
+		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->SwapScene(GAME);
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
+		{
+			exit (0);
+		}
 	}
+
+	
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
 	{

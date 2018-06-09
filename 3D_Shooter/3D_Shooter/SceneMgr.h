@@ -37,6 +37,7 @@ public:
 	void UpdateCurrentScene();
 	void SwapScene(ESCENES _eSceneNum);
 	CScene* GetCurrentScene() const;
+	
 
 private:
 	// Make singleton by set the constructor inside private
