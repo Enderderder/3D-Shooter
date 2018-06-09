@@ -26,6 +26,9 @@ public:
 	~CBullet();
 
 	void UpdateGameObeject() override;
+	void OnCollision(CGameObject* _other) override;
+
+	float GetDamage() const;
 
 private:
 

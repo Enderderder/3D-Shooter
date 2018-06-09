@@ -32,17 +32,34 @@ public:
 	CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CGameObject(CModel* _model, GLuint _programID);
 	void RenderObject(CCamera* _camera);
+	void DestroyObject();
 	virtual void UpdateGameObeject() {}
+	virtual void OnCollision(CGameObject* _other) {}
 
 	void AddPosition(glm::vec3 _pos);
 	void AddScale(glm::vec3 _scale);
 	void AddRotation(float _rotation);
 
 	void SetPosition(glm::vec3 _pos);
+	void SetPositionX(float _pos);
+	void SetPositionY(float _pos);
+	void SetPositionZ(float _pos);
 	void SetScale(glm::vec3 _scale);
-	void SetRotation(float _rotation);
+	void SetScaleX(float _scale);
+	void SetScaleY(float _scale);
+	void SetScaleZ(float _scale);
+	void SetRotation(glm::vec3 _rotation);
+	void SetRotationX(float _rotation);
+	void SetRotationY(float _rotation);
+	void SetRotationZ(float _rotation);
 
-	glm::vec3 GetPosistion(CGameObject* _Player)
+	const char* GetTag() const;
+	glm::vec3 GetPosition() const;
+	bool HasCollider() const;
+	bool ShouldDestroyed() const;
+	float GetCollisionRad() const;
+
+	glm::vec3 GetPosistion(CGameObject* _Player) const
 	{
 		return(_Player->m_Position);
 	}
@@ -53,11 +70,12 @@ protected:
 
 	glm::vec3 m_Position;
 	glm::vec3 m_Scale;
-	float m_Rotation;
+	glm::vec3 m_Rotation;
 	float m_ColliderRad;
 
 	const char* m_tag;
 
+	bool m_ShouldDestroyed;
 	bool m_HasCollider;
 	bool m_IsModel;
 

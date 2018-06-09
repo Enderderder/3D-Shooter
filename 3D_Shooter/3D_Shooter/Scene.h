@@ -37,13 +37,14 @@ public:
 	void InitialiseScene(ESCENES _eSceneNum);
 	void RenderScene();
 	void UpdateScene();
+	void CheckCollision();
 
 	void Instantiate(CGameObject* _gameobj);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale);
-	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, float _rotate);
+	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
 	ESCENES GetCurrentEnum();
-	void DestroyInstance(CGameObject* _gameobj);
+	void DestroyObject(CGameObject* _gameobj);
 
 private:
   

@@ -22,6 +22,8 @@
 #include "AssetMgr.h"
 #include "MeshMgr.h"
 #include "ModelMgr.h"
+#include "SceneMgr.h"
+#include "Input.h"
 #include "Camera.h"
 #include "CAIMgr.h"
 
@@ -34,12 +36,11 @@ static CModelMgr* cModelMgr = CModelMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
 CScene::CScene(ESCENES _eSceneNum)
-{
-	InitialiseScene(_eSceneNum);
-}
+{}
 
 CScene::~CScene()
 {
+	std::cout << "Cleaning Scene... \n";
 	// Clean up the memory allocated variables inside the class
 
 	// ========================================================
@@ -52,6 +53,7 @@ CScene::~CScene()
 	}
 	m_vGameObj.clear();
 	// ========================================================
+	std::cout << "Cleaning Done... \n";
 }
 
 void CScene::InitialiseScene(ESCENES _eSceneNum)
@@ -62,7 +64,6 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 	case GAME:
 	{
-		m_pCurrentEnum = GAME;
 		
 		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
@@ -96,7 +97,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 	case MAINMENU:
 	{
-		m_pCurrentEnum = MAINMENU;
+		std::cout << "Main Menu Initializing... \n";
 
 		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
@@ -118,12 +119,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		TextTemp = new TextLabel("Press F for Fullscreen", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
 		m_pText.push_back(TextTemp);
 
+		std::cout << "Initializing Done... \n";
+
 		break;
 	}
 
 	case GAMEOVER:
 	{
-		m_pCurrentEnum = GAMEOVER;
 
 		break;
 	}
@@ -153,12 +155,64 @@ void CScene::RenderScene()
 
 void CScene::UpdateScene()
 {
+	/*Debbug*************************************************************************/
+	if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
+	{
+		std::cout << "Loading back to main menu. \n";
+		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
+	}
+	/*********************************************************************************/
+
 	m_cCam->UpdateCamera();
+
+	// Delete the object that should be deleted fron last frame
+	for (auto obj : m_vGameObj)
+	{
+		if (obj->ShouldDestroyed()) { DestroyObject(obj); }
+	}
 
 	size_t currVecSize = m_vGameObj.size();
 	for (size_t index = 0; index < currVecSize; ++index)
 	{
 		m_vGameObj[index]->UpdateGameObeject();
+		currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
+	}
+
+	CheckCollision();
+}
+
+void CScene::CheckCollision()
+{
+	size_t currVecSize = m_vGameObj.size();
+	for (size_t index = 0; index < currVecSize; ++index)
+	{
+		if (m_vGameObj[index]->HasCollider()) // Check if object itself has a collider
+		{
+			// Get the collistion detail of the object
+			float selfCollider = m_vGameObj[index]->GetCollisionRad();
+			glm::vec3 selfPos = m_vGameObj[index]->GetPosition();
+
+			// Check with all the rest of the other objects
+			for (size_t i = index + 1; i < currVecSize; ++i)
+			{
+				if (m_vGameObj[i]->HasCollider())
+				{
+					// Get the other objects' collision detail
+					float otherCollider = m_vGameObj[i]->GetCollisionRad();
+					glm::vec3 otherPos = m_vGameObj[i]->GetPosition();
+
+					float distance = glm::distance(selfPos, otherPos);
+					if (distance <= (selfCollider + otherCollider))
+					{
+						m_vGameObj[index]->OnCollision(m_vGameObj[i]);
+						m_vGameObj[i]->OnCollision(m_vGameObj[index]);
+					}
+				}
+			}
+		}
+		
+
+
 		currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
 	}
 }
@@ -181,14 +235,15 @@ void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, glm::vec3 _scal
 	m_vGameObj.push_back(_gameobj);
 }
 
-void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, float _rotate)
+void CScene::Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation)
 {
 	_gameobj->SetPosition(_pos);
-	_gameobj->SetRotation(_rotate);
+	_gameobj->SetScale(_scale);
+	_gameobj->SetRotation(_rotation);
 	m_vGameObj.push_back(_gameobj);
 }
 
-void CScene::DestroyInstance(CGameObject* _gameobj)
+void CScene::DestroyObject(CGameObject* _gameobj)
 {
 	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
 	{

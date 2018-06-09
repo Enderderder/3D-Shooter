@@ -29,7 +29,7 @@ class CSceneMgr
 public:
 	// Singleton Methods
 	static CSceneMgr* GetInstance();
-	static void DestroyInstance();
+	static void DestroyObject();
 
 	// Member Functions
 	void InitializeSceneMgr();

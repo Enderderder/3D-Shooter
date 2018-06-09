@@ -21,7 +21,7 @@
 // Static Variable
 CAssetMgr* CAssetMgr::s_pAssetMgr = nullptr;
 
-CAssetMgr * CAssetMgr::GetInstance()
+CAssetMgr* CAssetMgr::GetInstance()
 {
 	if (s_pAssetMgr == nullptr)
 	{
