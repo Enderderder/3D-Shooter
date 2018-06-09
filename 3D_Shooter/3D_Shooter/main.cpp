@@ -17,6 +17,7 @@
 #include "SceneMgr.h"
 #include "MeshMgr.h"
 #include "ModelMgr.h"
+#include "AssetMgr.h"
 #include "CNetworkMgr.h"
 #include "Input.h"
 
@@ -26,8 +27,8 @@
 
 //Class Pointers
 CNetworkMgr m_pNetworkMgr;
-CInput* cInput = CInput::GetInstance();
-CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
+static CInput* cInput = CInput::GetInstance();
+static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 TextLabel* m_pTextLabel;
 
 void InititializeProgram();
@@ -68,8 +69,9 @@ int main(int argc, char **argv)
 	glutCloseFunc([]() {
 		cInput->DestroyInstance();
 		cSceneMgr->DestroyInstance();
-		CMeshMgr::GetInstance().DestroyInstance();
-		CModelMgr::GetInstance().DestroyInstance();
+		CAssetMgr::GetInstance()->DestroyInstance();
+		CMeshMgr::GetInstance()->DestroyInstance();
+		CModelMgr::GetInstance()->DestroyInstance();
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
@@ -78,8 +80,9 @@ int main(int argc, char **argv)
 void InititializeProgram()
 {
 	cInput->InitializeInput();
-	CMeshMgr::GetInstance().InitializeMeshes();
-	CModelMgr::GetInstance().InitializeModels();
+	CAssetMgr::GetInstance()->InitializeAssets();
+	CMeshMgr::GetInstance()->InitializeMeshes();
+	CModelMgr::GetInstance()->InitializeModels();
 
 	//FPS counter starts at 0 when programs starts up
 	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
@@ -101,8 +104,7 @@ void Render()
 
 void Update()
 {
-	
-
+	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
 
 	if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
@@ -134,8 +136,8 @@ void ResizeWindow(int _width, int _height)
 
 void FPSCounter()
 {
-	static float framesPerSecond = 0.0f;       // This will store our fps
-	static float lastTime = 0.0f;       // This will hold the time from the last frame
+	static float framesPerSecond = 0.0f;	// This will store our fps
+	static float lastTime = 0.0f;			// This will hold the time from the last frame
 	float currentTime = GetTickCount() * 0.001f;
 	++framesPerSecond;
 	if (currentTime - lastTime > 1.0f)

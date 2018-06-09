@@ -23,7 +23,7 @@ class CModelMgr
 {
 public:
 	// Singleton Methods
-	static CModelMgr& GetInstance();
+	static CModelMgr* GetInstance();
 	static void DestroyInstance();
 
 	// Member Functions

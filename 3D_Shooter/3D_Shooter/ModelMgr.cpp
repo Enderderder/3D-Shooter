@@ -23,14 +23,14 @@
 // Static Variable
 CModelMgr* CModelMgr::s_pModelMgr = nullptr;
 
-CModelMgr & CModelMgr::GetInstance()
+CModelMgr* CModelMgr::GetInstance()
 {
 	if (s_pModelMgr == nullptr)
 	{
 		s_pModelMgr = new CModelMgr();
 	}
 
-	return *s_pModelMgr;
+	return s_pModelMgr;
 }
 
 void CModelMgr::DestroyInstance()

@@ -145,7 +145,4 @@ enum EGAMEMODE
 
 
 
-
-
-
 #endif // !_UTILITY_H

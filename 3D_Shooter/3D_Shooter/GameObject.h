@@ -65,6 +65,8 @@ private:
 
 	CMesh* m_ObjMesh;
 	CModel* m_ObjModel;
+
+	const char* m_tag;
 };
 
 #endif // !GAMEOBJECT_H
