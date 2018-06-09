@@ -42,15 +42,16 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, float _rotate);
-
+	ESCENES GetCurrentEnum();
 	void DestroyInstance(CGameObject* _gameobj);
 
 private:
   
 	std::vector<CGameObject*> m_vGameObj;
+	std::vector<TextLabel*> m_pText;
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
-
+	ESCENES m_pCurrentEnum;
 	CGameObject* m_player;
 };
 

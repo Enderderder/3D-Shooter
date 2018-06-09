@@ -25,6 +25,9 @@
 #include "Camera.h"
 #include "CAIMgr.h"
 
+// Global Variables
+TextLabel* TextTemp;
+
 // Manager Pointer
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
 static CModelMgr* cModelMgr = CModelMgr::GetInstance();
@@ -57,8 +60,10 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 	switch (_eSceneNum)
 	{
-	case MAINMENU:
+	case GAME:
 	{
+		m_pCurrentEnum = GAME;
+		
 		// Load in the cube map
 		std::vector<std::string> cubeMapPaths = {
 			"right.jpg",
@@ -81,30 +86,58 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
-
 		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"));
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
+
 		break;
 	}
 
-	case GAME:
+	case MAINMENU:
 	{
+		m_pCurrentEnum = MAINMENU;
+		static ShaderLoader shaderLoader;
+		diffuseProgram = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
+		GLuint dp = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
 
+		// Load in the cube map
+		std::vector<std::string> cubeMapPaths = {
+			"posx.jpg",
+			"negx.jpg",
+			"posy.jpg",
+			"negy.jpg",
+			"posz.jpg",
+			"negz.jpg"
+		};
+		m_cCubeMap = new CCubeMap(cubeMapPaths);
+
+		TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Press Esc to Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Press F for Fullscreen", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		m_pText.push_back(TextTemp);
 
 		break;
 	}
 
 	case GAMEOVER:
 	{
-
+		m_pCurrentEnum = GAMEOVER;
 
 		break;
 	}
 
 	default: break;
 	}
+}
+
+ESCENES CScene::GetCurrentEnum()
+{
+	return(m_pCurrentEnum);
 }
 
 void CScene::RenderScene()
@@ -114,6 +147,10 @@ void CScene::RenderScene()
 	for (auto obj : m_vGameObj)
 	{
 		obj->RenderObject(m_cCam);
+	}
+	for (int i = 0; i < m_pText.size(); i++)
+	{
+		m_pText[i]->Render();
 	}
 }
 
