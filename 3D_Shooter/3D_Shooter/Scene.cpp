@@ -91,7 +91,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, player);
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
 		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
@@ -110,6 +110,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 	case MAINMENU:
 	{
+
 		//==========================================
 		std::cout << "Initializing Done... \n";
 		//==========================================
@@ -117,6 +118,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
 		/*TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+
 		m_pText.push_back(TextTemp);
 
 		TextTemp = new TextLabel("Press Esc to Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));

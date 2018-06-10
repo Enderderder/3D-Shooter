@@ -19,7 +19,9 @@
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
+
 	m_movementSpd(0.01f)
+
 {
 	m_ColliderRad = 1.0f;
 	AI = _AIType;
@@ -29,7 +31,9 @@ CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AITyp
 
 CAIMgr::CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
+
 	m_movementSpd(0.01f)
+
 {
 	AI = _AIType;
 	m_pTarget = _Target;
@@ -50,13 +54,13 @@ void CAIMgr::UpdateGameObeject()
 
 	case FLEE:
 	{
-
+		resultMovement = m_pFlee.UpdateGameObject(m_pTarget, m_movementSpd, this->m_Position);
 	}
 		break;
 
 	case WANDER:
 	{
-
+		resultMovement = m_pWander.UpdateGameObject(m_pTarget, m_movementSpd, this->m_Position);
 	}
 		break;
 
