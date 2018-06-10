@@ -36,7 +36,7 @@ CInput* CInput::GetInstance()
 	return s_pInput;
 }
 
-void CInput::DestroyInstance()
+void CInput::DestroyObject()
 {
 	delete s_pInput;
 	s_pInput = nullptr;

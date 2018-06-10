@@ -29,7 +29,7 @@ class CSceneMgr
 public:
 	// Singleton Methods
 	static CSceneMgr* GetInstance();
-	static void DestroyInstance();
+	static void DestroyObject();
 
 	// Member Functions
 	void InitializeSceneMgr();
@@ -37,6 +37,7 @@ public:
 	void UpdateCurrentScene();
 	void SwapScene(ESCENES _eSceneNum);
 	CScene* GetCurrentScene() const;
+	ESCENES GetCurrentSceneEnum() const;
 	
 
 private:

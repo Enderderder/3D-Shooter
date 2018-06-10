@@ -18,6 +18,7 @@
 // Local Include
 #include "CubeMesh.h"
 #include "ShpereMesh.h"
+#include "CubeMap.h"
 #include "Utility.h"
 
 // Static Variable
@@ -41,8 +42,34 @@ void CMeshMgr::DestroyInstance()
 
 void CMeshMgr::InitializeMeshes()
 {
+	// Load in the cube map
+	std::vector<std::string> MenuCubeMapPaths = {
+		"posx.jpg",
+		"negx.jpg",
+		"posy.jpg",
+		"negy.jpg",
+		"posz.jpg",
+		"negz.jpg"
+	};
+	m_MenuCubeMap = new CCubeMap(MenuCubeMapPaths);
+	std::cout << "Menu Cube Map Loaded. \n";
+
+	std::vector<std::string> GameCubeMapPaths = {
+		"right.jpg",
+		"left.jpg",
+		"top.jpg",
+		"bottom.jpg",
+		"back.jpg",
+		"front.jpg"
+	};
+	m_GameCubemap = new CCubeMap(GameCubeMapPaths);
+	std::cout << "Game Cube Map Loaded. \n";
+
 	m_cCubeMesh = new CCubeMesh();
 	m_cSphereMesh = new CShpereMesh();
+
+
+	std::cout << "Mesh Loaded. \n";
 }
 
 CMesh * CMeshMgr::GetMesh(EMESH _eMesh) const
@@ -64,6 +91,25 @@ CMesh * CMeshMgr::GetMesh(EMESH _eMesh) const
 	}
 }
 
+CCubeMap* CMeshMgr::GetCubeMap(EMESH _eMesh) const
+{
+	switch (_eMesh)
+	{
+	case MENUCUBEMAP:
+		return m_MenuCubeMap;
+		break;
+
+	case GAMECUBEMAP:
+		return m_GameCubemap;
+		break;
+
+	default:
+		std::cout << "Cannot Grab Seleted Cube Map. \n";
+		return nullptr;
+		break;
+	}
+}
+
 CMeshMgr::CMeshMgr() {}
 
 CMeshMgr::~CMeshMgr()
@@ -75,4 +121,10 @@ CMeshMgr::~CMeshMgr()
 
 	delete m_cSphereMesh;
 	m_cSphereMesh = nullptr;
+
+	delete m_MenuCubeMap;
+	m_MenuCubeMap = nullptr;
+
+	delete m_GameCubemap;
+	m_GameCubemap = nullptr;
 }

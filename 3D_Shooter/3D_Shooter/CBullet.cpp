@@ -29,16 +29,19 @@ CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	m_counter(500),
 	m_bulletSpeed(0.5f)
 {
-	this->m_tag = "Bullet";
-	this->m_friction = 1.0f;
-	this->m_velocity = glm::normalize(_dirVec) * m_bulletSpeed;
+	m_tag = "Bullet";
+	m_ColliderRad = 0.5f;
+	m_friction = 1.0f;
+	m_velocity = glm::normalize(_dirVec) * m_bulletSpeed;
 
-	this->m_IsModel = false;
-	this->InitializeObject(
+	m_IsModel = false;
+	InitializeObject(
 		cMeshMgr->GetMesh(SPHERE), 
 		cAssetMgr->GetTextureID("TITANFALL"), 
 		cAssetMgr->GetProgramID("ModelBlinnPhong")
 	);
+
+	SetScale(glm::vec3(0.5));
 }
 
 
@@ -49,12 +52,24 @@ CBullet::~CBullet()
 
 void CBullet::UpdateGameObeject()
 {
-	if (this->m_counter < 0)
+	if (m_counter < 0)
 	{
-		CSceneMgr::GetInstance()->GetCurrentScene()->DestroyInstance(this);
-		std::cout << "Bullet Destroyed. \n";
+		DestroyObject();
 	}
-	else this->m_counter--;
+	else m_counter--;
 
-	this->PhysicsUpdate();
+	PhysicsUpdate();
+}
+
+void CBullet::OnCollision(CGameObject* _other)
+{
+	if (_other->GetTag() != "Player")
+	{
+		DestroyObject();
+	}
+}
+
+float CBullet::GetDamage() const
+{
+	return m_damage;
 }

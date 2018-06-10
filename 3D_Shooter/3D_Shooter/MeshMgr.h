@@ -17,6 +17,7 @@
 
 // Forward Declare
 class CMesh;
+class CCubeMap;
 enum EMESH;
 
 class CMeshMgr
@@ -29,6 +30,7 @@ public:
 	// Member Functions
 	void InitializeMeshes();
 	CMesh* GetMesh(EMESH) const;
+	CCubeMap* GetCubeMap(EMESH) const;
 
 private:
 	// Make singleton by set the constructor inside private
@@ -46,6 +48,9 @@ protected:
 private:
 	CMesh* m_cCubeMesh;
 	CMesh* m_cSphereMesh;
+
+	CCubeMap* m_MenuCubeMap;
+	CCubeMap* m_GameCubemap;
 };
 
 #endif // !MESHMGR_H

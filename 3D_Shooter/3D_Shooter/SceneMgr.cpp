@@ -31,7 +31,7 @@ CSceneMgr* CSceneMgr::GetInstance()
 	return s_pSceneMgr;
 }
 
-void CSceneMgr::DestroyInstance()
+void CSceneMgr::DestroyObject()
 {
 	delete s_pSceneMgr;
 	s_pSceneMgr = nullptr;
@@ -44,6 +44,7 @@ void CSceneMgr::InitializeSceneMgr()
 	m_vScenes.push_back(new CScene(GAMEOVER));
 
 	m_eCurrentScene = MAINMENU;
+	m_vScenes[m_eCurrentScene]->InitialiseScene(m_eCurrentScene);
 }
 
 void CSceneMgr::RenderCurrentScene()
@@ -73,6 +74,11 @@ void CSceneMgr::SwapScene(ESCENES _eSceneNum)
 CScene * CSceneMgr::GetCurrentScene() const
 {
 	return m_vScenes[m_eCurrentScene];
+}
+
+ESCENES CSceneMgr::GetCurrentSceneEnum() const
+{
+	return m_eCurrentScene;
 }
 
 CSceneMgr::CSceneMgr()

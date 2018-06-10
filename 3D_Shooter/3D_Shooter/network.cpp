@@ -107,7 +107,7 @@ CNetwork::GetInstance()
 }
 
 void
-CNetwork::DestroyInstance()
+CNetwork::DestroyObject()
 {
 	delete s_pNetwork;
 	s_pNetwork = 0;

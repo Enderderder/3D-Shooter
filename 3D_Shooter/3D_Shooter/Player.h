@@ -24,13 +24,10 @@ public:
 	CPlayer() = default;
 	CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CPlayer(CModel* _model, GLuint _programID);
-
-	glm::vec3 GetPosistion(CPlayer* _Player);
-
-
 	~CPlayer();
 
 	void UpdateGameObeject() override;
+	void OnCollision(CGameObject* _other) override;
 
 	void ProcessMovement();
 	void ProcessShooting();
@@ -40,6 +37,7 @@ private:
 	int m_health;
 	float m_movementSpd;
 	float m_attackSpd;
+	bool m_AbleToShoot;
 
 	bool m_IsLocalControl;
 };

@@ -27,14 +27,14 @@ CGameObject::CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID) :
 	m_IsModel(false),
 	m_ObjModel(nullptr)
 {
-	this->InitializeObject(_mesh, _textureID, _programID);
+	InitializeObject(_mesh, _textureID, _programID);
 }
 
 CGameObject::CGameObject(CModel* _model, GLuint _programID) :
 	m_IsModel(true),
 	m_ObjMesh(nullptr)
 {
-	this->InitializeObject(_model, _programID);
+	InitializeObject(_model, _programID);
 }
 
 void CGameObject::RenderObject(CCamera* _camera)
@@ -44,7 +44,9 @@ void CGameObject::RenderObject(CCamera* _camera)
 	glm::mat4 translate = glm::translate(glm::mat4(), m_Position);
 	glm::mat4 scale = glm::scale(glm::mat4(), m_Scale);
 	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_Rotation), rotationAxis);
+	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	rotation = glm::rotate(rotation, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	rotation = glm::rotate(rotation, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 model = translate * rotation * scale;
 	glm::mat4 mvp = _camera->GetProjectionMatrix() *  _camera->GetViewMatrix() * model;
 	GLint mvpLoc = glGetUniformLocation(m_ProgramID, "MVP");
@@ -85,9 +87,15 @@ void CGameObject::RenderObject(CCamera* _camera)
 	glUseProgram(0);
 }
 
+void CGameObject::DestroyObject()
+{
+	this->m_ShouldDestroyed = true;
+}
+
 CGameObject::CGameObject()
 {
 	this->m_HasCollider = false;
+	this->m_ShouldDestroyed = false;
 }
 
 CGameObject::~CGameObject()
@@ -101,7 +109,7 @@ void CGameObject::InitializeObject(CMesh * _mesh, GLuint _textureID, GLuint _pro
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	m_Rotation = 0.0f;
+	m_Rotation = glm::vec3();
 }
 
 void CGameObject::InitializeObject(CModel* _model, GLuint _programID)
@@ -111,7 +119,7 @@ void CGameObject::InitializeObject(CModel* _model, GLuint _programID)
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
-	m_Rotation = 0.0f;
+	m_Rotation = glm::vec3();
 }
 
 void CGameObject::AddPosition(glm::vec3 _pos)
@@ -139,7 +147,32 @@ void CGameObject::SetScale(glm::vec3 _scale)
 	m_Scale = _scale;
 }
 
-void CGameObject::SetRotation(float _rotation)
+void CGameObject::SetRotation(glm::vec3 _rotation)
 {
 	m_Rotation = _rotation;
+}
+
+bool CGameObject::HasCollider() const
+{
+	return m_HasCollider;
+}
+
+bool CGameObject::ShouldDestroyed() const
+{
+	return m_ShouldDestroyed;
+}
+
+float CGameObject::GetCollisionRad() const
+{
+	return m_ColliderRad;
+}
+
+const char* CGameObject::GetTag() const
+{
+	return m_tag;
+}
+
+glm::vec3 CGameObject::GetPosition() const
+{
+	return m_Position;
 }
