@@ -55,6 +55,7 @@ private:
 	// Program ID
 	GLuint m_programBlinnPhong;
 	GLuint m_programModelBlinnPhong;
+	GLuint m_programText;
 };
 
 #endif // !ASSETMGR_H

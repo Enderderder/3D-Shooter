@@ -76,6 +76,11 @@ CScene * CSceneMgr::GetCurrentScene() const
 	return m_vScenes[m_eCurrentScene];
 }
 
+ESCENES CSceneMgr::GetCurrentSceneEnum() const
+{
+	return m_eCurrentScene;
+}
+
 CSceneMgr::CSceneMgr()
 {}
 

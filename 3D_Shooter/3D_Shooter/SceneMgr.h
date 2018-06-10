@@ -37,6 +37,7 @@ public:
 	void UpdateCurrentScene();
 	void SwapScene(ESCENES _eSceneNum);
 	CScene* GetCurrentScene() const;
+	ESCENES GetCurrentSceneEnum() const;
 	
 
 private:

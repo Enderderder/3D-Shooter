@@ -82,6 +82,11 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindVertexArray(0);
 }
 
+TextLabel::~TextLabel()
+{
+
+}
+
 void TextLabel::Render()
 {
 	glm::vec2 textPos = position;

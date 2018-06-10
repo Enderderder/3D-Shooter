@@ -107,7 +107,7 @@ void Update()
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
 	//Main Menu controls
-	if (cSceneMgr->GetCurrentScene()->GetCurrentEnum() == MAINMENU)
+	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
 		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
 		{

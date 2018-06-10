@@ -36,7 +36,14 @@ static CModelMgr* cModelMgr = CModelMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
 CScene::CScene(ESCENES _eSceneNum)
-{}
+{
+	m_vGameObj.resize(0);
+	m_pText.resize(0);
+
+	m_cCam = nullptr;
+	m_cCubeMap = nullptr;
+	m_player = nullptr;
+}
 
 CScene::~CScene()
 {
@@ -45,13 +52,20 @@ CScene::~CScene()
 
 	// ========================================================
 	delete m_cCam;
-	delete m_cCubeMap;
+	m_cCubeMap = nullptr;
 
 	for (auto obj : m_vGameObj)
 	{
 		delete obj;
 	}
 	m_vGameObj.clear();
+
+	for (auto text : m_pText)
+	{
+		delete text;
+	}
+	m_pText.clear();
+
 	// ========================================================
 	std::cout << "Cleaning Done... \n";
 }
@@ -64,17 +78,12 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 	case GAME:
 	{
-		
+		//==========================================
+		std::cout << "game scene initializing... \n";
+		//==========================================
+
 		// Load in the cube map
-		std::vector<std::string> cubeMapPaths = {
-			"right.jpg",
-			"left.jpg",
-			"top.jpg",
-			"bottom.jpg",
-			"back.jpg",
-			"front.jpg"
-		};
-		m_cCubeMap = new CCubeMap(cubeMapPaths);
+		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 		
 		// Load in the game objects
 		CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
@@ -91,35 +100,34 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
+		//==========================================
+		std::cout << "game scene initializing... \n";
+		//==========================================
+
 
 		break;
 	}
 
 	case MAINMENU:
 	{
-		std::cout << "Main Menu Initializing... \n";
+		//==========================================
+		std::cout << "Initializing Done... \n";
+		//==========================================
 
-		// Load in the cube map
-		std::vector<std::string> cubeMapPaths = {
-			"posx.jpg",
-			"negx.jpg",
-			"posy.jpg",
-			"negy.jpg",
-			"posz.jpg",
-			"negz.jpg"
-		};
-		m_cCubeMap = new CCubeMap(cubeMapPaths);
+		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+		/*TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		TextTemp = new TextLabel("Press Esc to Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
 		TextTemp = new TextLabel("Press F for Fullscreen", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
-		m_pText.push_back(TextTemp);
+		m_pText.push_back(TextTemp);*/
 
+		//==========================================
 		std::cout << "Initializing Done... \n";
+		//==========================================
 
 		break;
 	}
@@ -160,6 +168,7 @@ void CScene::UpdateScene()
 	{
 		std::cout << "Loading back to main menu. \n";
 		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
+		return;
 	}
 	/*********************************************************************************/
 
