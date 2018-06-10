@@ -140,14 +140,59 @@ void CGameObject::SetPosition(glm::vec3 _pos)
 	m_Position = _pos;
 }
 
+void CGameObject::SetPositionX(float _pos)
+{
+	m_Position.x = _pos;
+}
+
+void CGameObject::SetPositionY(float _pos)
+{
+	m_Position.y = _pos;
+}
+
+void CGameObject::SetPositionZ(float _pos)
+{
+	m_Position.z = _pos;
+}
+
 void CGameObject::SetScale(glm::vec3 _scale)
 {
 	m_Scale = _scale;
 }
 
+void CGameObject::SetScaleX(float _scale)
+{
+	m_Scale.x = _scale;
+}
+
+void CGameObject::SetScaleY(float _scale)
+{
+	m_Scale.y = _scale;
+}
+
+void CGameObject::SetScaleZ(float _scale)
+{
+	m_Scale.z = _scale;
+}
+
 void CGameObject::SetRotation(glm::vec3 _rotation)
 {
 	m_Rotation = _rotation;
+}
+
+void CGameObject::SetRotationX(float _rotation)
+{
+	m_Rotation.x = _rotation;
+}
+
+void CGameObject::SetRotationY(float _rotation)
+{
+	m_Rotation.y = _rotation;
+}
+
+void CGameObject::SetRotationZ(float _rotation)
+{
+	m_Rotation.z = _rotation;
 }
 
 bool CGameObject::HasCollider() const
