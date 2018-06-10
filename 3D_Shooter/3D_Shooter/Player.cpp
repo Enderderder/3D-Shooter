@@ -192,7 +192,7 @@ void CPlayer::CheckDeath()
 {
 	if (m_health <= 0)
 	{
-		CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
+		
 	}
 }
 

@@ -202,6 +202,12 @@ void CScene::UpdateScene()
 		iLife << "Life: " << other->GetLife();
 		m_pLife->SetText(iLife.str());
 
+		if (other->GetLife() <= 0)
+		{
+			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
+			return;
+		}
+
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
