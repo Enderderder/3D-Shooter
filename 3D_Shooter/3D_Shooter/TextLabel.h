@@ -7,7 +7,6 @@
 #include <gtc\matrix_transform.hpp>
 #include <gtc\type_ptr.hpp>
 
-#include "ShaderLoader.h"
 #include "Utility.h"
 
 #include <ft2build.h>
@@ -44,5 +43,4 @@ private:
 
 	GLuint VAO, VBO, program;
 	std::map<GLchar, Character> Characters;
-	static ShaderLoader shaderLoader;
 };

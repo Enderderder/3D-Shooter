@@ -8,8 +8,8 @@
 //
 // File Name    : SceneMgr.h
 // Description	: 
-// Author       : Richard Wulansari & Jacob (Last Name?)
-// Mail         : richard.wul7481@mediadesign.school.nz (Email?)
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
 #ifndef _SCENEMGR_H
@@ -28,14 +28,17 @@ class CSceneMgr
 {
 public:
 	// Singleton Methods
-	static CSceneMgr& GetInstance();
-	static void DestroyInstance();
+	static CSceneMgr* GetInstance();
+	static void DestroyObject();
 
 	// Member Functions
-	void Initialise();
+	void InitializeSceneMgr();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
 	void SwapScene(ESCENES _eSceneNum);
+	CScene* GetCurrentScene() const;
+	ESCENES GetCurrentSceneEnum() const;
+	
 
 private:
 	// Make singleton by set the constructor inside private

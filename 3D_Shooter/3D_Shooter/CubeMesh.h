@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : CubeMesh.h
 // Description	: 
@@ -15,9 +15,11 @@
 #ifndef CUBEMESH_H
 #define CUBEMESH_H
 
-// Local Include
-#include "Utility.h"
+// Inherited include
 #include "Mesh.h"
+
+// Local Include
+//#include "Utility.h"
 
 class CCubeMesh : public CMesh
 {
@@ -25,7 +27,7 @@ public:
 	CCubeMesh();
 	~CCubeMesh();
 
-	virtual void RenderMesh();
+	void RenderMesh() override;
 };
 
 #endif // !CUBEMESH_H

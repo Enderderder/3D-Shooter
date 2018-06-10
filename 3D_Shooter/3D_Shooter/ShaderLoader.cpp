@@ -28,7 +28,6 @@ std::string ShaderLoader::ReadShader(const char *filename)
 GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 	source, const char* shaderName)
 {
-
 	int compile_result = 0;
 
 	GLuint shader = glCreateShader(shaderType);
@@ -42,7 +41,6 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 	//check for errors
 	if (compile_result == GL_FALSE)
 	{
-
 		int info_log_length = 0;
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &info_log_length);
 		std::vector<char> shader_log(info_log_length);
@@ -56,7 +54,6 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename,
 	const char* fragmentShaderFilename)
 {
-
 	//read the shader files and save the code
 	std::string vertex_shader_code = ReadShader(vertexShaderFilename);
 	std::string fragment_shader_code = ReadShader(fragmentShaderFilename);
@@ -75,7 +72,6 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename,
 	//check for link errors
 	if (link_result == GL_FALSE)
 	{
-
 		int info_log_length = 0;
 		glGetProgramiv(program, GL_INFO_LOG_LENGTH, &info_log_length);
 		std::vector<char> program_log(info_log_length);

@@ -83,11 +83,11 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 
 	// Create the program
 	static ShaderLoader shaderLoader;
-	m_program = shaderLoader.CreateProgram("Shaders/CubeMap.vs", "Shaders/CubeMap.fs");
+	m_programID = shaderLoader.CreateProgram("Shaders/CubeMap.vs", "Shaders/CubeMap.fs");
 
 	// Bind each image into the cube map
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+	glGenTextures(1, &m_textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
 
 	int width, height;
 	unsigned char* image;
@@ -117,8 +117,8 @@ CCubeMap::CCubeMap(std::vector<std::string> _textureFilePaths)
 	// Bind VBO and EBO and store the VAO
 	GLuint VBO, EBO;
 
-	glGenVertexArrays(1, &VAO);
-	glBindVertexArray(VAO);
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
 
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -138,29 +138,24 @@ CCubeMap::~CCubeMap()
 void CCubeMap::Render(CCamera* _camera)
 {
 	// Binding and settings
-	glUseProgram(m_program);
+	glUseProgram(m_programID);
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 	glDisable(GL_CULL_FACE);
 
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
-	glUniform1i(glGetUniformLocation(m_program, "cubeSampler"), 0);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, m_textureID);
+	glUniform1i(glGetUniformLocation(m_programID, "cubeSampler"), 0);
 
 	glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));
 	glm::mat4 MVP = _camera->GetProjectionMatrix() * _camera->GetViewMatrix() * model;
-	glUniformMatrix4fv(glGetUniformLocation(m_program, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
+	glUniformMatrix4fv(glGetUniformLocation(m_programID, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 	// Bind the VAO and draw the cube map
-	glBindVertexArray(VAO);
+	glBindVertexArray(m_VAO);
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
 	// Clean up after render
 	glBindVertexArray(0);
 	glUseProgram(0);
 	glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
-}
-
-GLuint CCubeMap::GetTextureID() const
-{
-	return textureID;
 }

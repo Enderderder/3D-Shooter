@@ -1,15 +1,17 @@
+// This Include
 #include "TextLabel.h"
+
+// Local Include
+#include "AssetMgr.h"
 
 TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 {
-	static ShaderLoader shaderLoader;
-
 	text = newText;
 	color = glm::vec3(1.0, 1.0, 1.0);
 	scale = 1.0;
 	SetPosition(pos);
 
-	program = shaderLoader.CreateProgram("Resources/Shaders/Text.vs", "Resources/Shaders/Text.fs");
+	program = CAssetMgr::GetInstance()->GetProgramID("Text");
 
 	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)util::SCR_WIDTH, 0.0f, (GLfloat)util::SCR_HEIGHT);
 	glUseProgram(program);
@@ -82,12 +84,19 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindVertexArray(0);
 }
 
+TextLabel::~TextLabel()
+{
+
+}
+
 void TextLabel::Render()
 {
 	glm::vec2 textPos = position;
 
 	// Enable blending
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

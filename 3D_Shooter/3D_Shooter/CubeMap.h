@@ -35,13 +35,12 @@ public:
 
 	void Render(CCamera* _camera);
 
-	GLuint GetTextureID() const;
+	//GLuint GetTextureID() const;
 
 private:
-	GLuint m_program;
-	GLuint VAO;
-
-	GLuint textureID;
+	GLuint m_VAO;
+	GLuint m_programID;
+	GLuint m_textureID;
 };
 
 #endif // !CUBEMAP_H

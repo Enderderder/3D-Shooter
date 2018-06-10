@@ -132,7 +132,7 @@ StyleCopReport.xml
 
 *.meta
 
-*.obj
+# *.obj
 
 *.iobj
 
