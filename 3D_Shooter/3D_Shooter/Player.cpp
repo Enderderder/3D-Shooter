@@ -167,9 +167,9 @@ void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 		}
 		break;
 	}
-	case PWOER:
+	case SCORE:
 	{
-		
+		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(300);
 		break;
 	}
 	case MOVESPD:
