@@ -117,7 +117,7 @@ void Update()
 
 		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
 		{
-			exit (0);
+			glutLeaveMainLoop();
 		}
 	}
 
