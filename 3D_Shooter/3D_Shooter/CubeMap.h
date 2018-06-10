@@ -35,7 +35,7 @@ public:
 
 	void Render(CCamera* _camera);
 
-	//GLuint GetTextureID() const;
+	GLuint GetTextureID() const;
 
 private:
 	GLuint m_VAO;

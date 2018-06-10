@@ -7,13 +7,13 @@ in vec2 fragTexCoord;
 out vec4 color;
 
 uniform sampler2D tex;
-uniform float ambientStr = 0.1f;
+uniform float ambientStr = 0.2f;
 uniform vec3 ambientColor = glm::vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 lightPos = glm::vec3(3.0f, 3.0f, 0.5f);
 uniform float lightSpecStr = 0.5f;
 uniform vec3 camPos;
-uniform float shininess = 32.0f;
+uniform float shininess = 64.0f;
 uniform vec3 rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
 
 void main()
@@ -31,8 +31,6 @@ void main()
 
 	// Specular Highlight
 	vec3 negViewDir = normalize(camPos - fragPos);
-	//vec3 reflectDir = reflect(lightDir, norm);
-	//float spec = pow(max(dot(negViewDir, reflectDir), 0.0f), shininess);
 	vec3 halfwayVec = normalize(-lightDir + negViewDir);
 	float spec = pow(max(dot(norm, halfwayVec), 0.0f), shininess);
 	vec3 specular = lightSpecStr * spec * lightColor;

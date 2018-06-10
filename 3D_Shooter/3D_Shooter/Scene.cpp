@@ -19,6 +19,7 @@
 #include "Utility.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "PowerUps.h"
 #include "AssetMgr.h"
 #include "MeshMgr.h"
 #include "ModelMgr.h"
@@ -79,7 +80,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	case GAME:
 	{
 		//==========================================
-		std::cout << "game scene initializing... \n";
+		std::cout << "Game Initializing... \n";
 		//==========================================
 
 		// Load in the cube map
@@ -100,8 +101,11 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
+		CGameObject* powerUp = new CPowerUps(MOVESPD);
+		Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
+
 		//==========================================
-		std::cout << "game scene initializing... \n";
+		std::cout << "Initializing Done... \n";
 		//==========================================
 
 
@@ -112,7 +116,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 
 		//==========================================
-		std::cout << "Initializing Done... \n";
+		std::cout << "Menu Initializing... \n";
 		//==========================================
 
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);

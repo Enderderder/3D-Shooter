@@ -19,6 +19,9 @@
 #include "PhysicObject.h"
 #include "CSound.h"
 
+// Forward Declare
+enum EPOWERUPEFFECT;
+
 class CPlayer : public CPhysicObject
 {
 public:
@@ -33,6 +36,7 @@ public:
 	void ProcessMovement();
 	void ProcessShooting();
 	void ProcessBoundary();
+	void ProcessPowerUpEffect(EPOWERUPEFFECT);
 
 private:
 
