@@ -225,9 +225,37 @@ void CScene::UpdateScene()
 		//////////////Timer for PowerUp/////////////////////////
 		if (durationPowerUp >= std::chrono::seconds(10))
 		{
-			CGameObject* powerUp = new CPowerUps(MOVESPD);
-			Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
-			tPowerUp1 = std::chrono::high_resolution_clock::now();
+			int WhichPowerUp = rand() % 2;
+			switch (WhichPowerUp)
+			{
+				//MOVESPD Powerup
+			case 0:
+			{
+				CGameObject* powerUp = new CPowerUps(MOVESPD);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			//HEALTH Powerup
+			case 1:
+			{
+				CGameObject* powerUp = new CPowerUps(HEAL);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			//SCORE Powerup
+			case 2:
+			{
+				CGameObject* powerUp = new CPowerUps(POWER);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			default:
+				break;
+			}
+			
 		}
 	}
 
