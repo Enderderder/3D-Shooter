@@ -48,6 +48,10 @@ public:
 private:
   
 	int Score;
+	std::chrono::high_resolution_clock::time_point t1;
+	std::chrono::high_resolution_clock::time_point t2;
+	std::chrono::high_resolution_clock::time_point tPowerUp1;
+	std::chrono::high_resolution_clock::time_point tPowerUp2;
 
 	std::vector<CGameObject*> m_vGameObj;
 	std::vector<TextLabel*> m_pText;
