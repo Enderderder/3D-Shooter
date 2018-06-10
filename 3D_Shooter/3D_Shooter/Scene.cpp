@@ -87,7 +87,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		
 		// Load in the game objects
 		CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
-		Instantiate(player, glm::vec3(0.0f, 1.0f, 0.0f));
+		Instantiate(player, glm::vec3(0.0f, 0.0f, 0.0f));
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 

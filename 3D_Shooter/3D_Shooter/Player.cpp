@@ -88,19 +88,41 @@ void CPlayer::ProcessMovement()
 
 	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
 	{
+		
 		resultVec.z -= 1;
+
+		if (MovementIsLegalVertical(this->GetPosition()) == false)
+		{
+			this->SetPosition(glm::vec3(GetPosition().x, 0.0f, GetPosition().z + 4.5));
+		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.z += 1;
+
+		if (MovementIsLegalVertical(this->GetPosition()) == false)
+		{
+			
+			resultVec.z -= 5.5;
+		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x -= 1;
+
+		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
+		{
+			resultVec.x += 5.5;
+		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x += 1;
+
+		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
+		{
+			resultVec.x -= 5.5;
+		}
 	}
 
 	// If player actually have movement input
@@ -115,6 +137,7 @@ void CPlayer::ProcessShooting()
 {
 	if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_FIRST_PRESS && m_AbleToShoot)
 	{
+		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
 		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, m_Position);
 		m_AbleToShoot = false;
@@ -122,5 +145,31 @@ void CPlayer::ProcessShooting()
 	else if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_RELEASED && !m_AbleToShoot)
 	{
 		m_AbleToShoot = true;
+	}
+}
+
+bool CPlayer::MovementIsLegalVertical(glm::vec3 _Pos)
+{
+	if (_Pos.z >= BorderUp && _Pos.z <= BorderDown)
+	{
+		return(true);
+	}
+
+	else
+	{
+		return(false);
+	}
+}
+
+bool CPlayer::MovementIsLegalHorizontal(glm::vec3 _Pos)
+{
+	if (_Pos.x >= BorderLeft && _Pos.x <= BorderRight)
+	{
+		return(true);
+	}
+
+	else
+	{
+		return(false);
 	}
 }

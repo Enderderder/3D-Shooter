@@ -30,6 +30,7 @@ CNetworkMgr m_pNetworkMgr;
 static CInput* cInput = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 TextLabel* m_pTextLabel;
+CSound m_pSound;
 
 void InititializeProgram();
 void Render();
@@ -79,6 +80,8 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
+
+//	m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
 	CMeshMgr::GetInstance()->InitializeMeshes();
@@ -104,6 +107,7 @@ void Render()
 
 void Update()
 {
+
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
 	//Main Menu controls

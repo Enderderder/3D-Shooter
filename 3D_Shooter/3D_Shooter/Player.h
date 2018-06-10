@@ -17,6 +17,7 @@
 
 // Inherited Include
 #include "PhysicObject.h"
+#include "CSound.h"
 
 class CPlayer : public CPhysicObject
 {
@@ -29,15 +30,24 @@ public:
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
 
+	bool MovementIsLegalVertical(glm::vec3 _Pos);
+	bool MovementIsLegalHorizontal(glm::vec3 _Pos);
 	void ProcessMovement();
 	void ProcessShooting();
 
 private:
 
+	CSound m_pSound;
+
 	int m_health;
 	float m_movementSpd;
 	float m_attackSpd;
 	bool m_AbleToShoot;
+
+	int BorderLeft = -19.f;
+	int BorderRight = 19.f;
+	int BorderDown = 17.f;
+	int BorderUp = -17.f;
 
 	bool m_IsLocalControl;
 };
