@@ -125,6 +125,20 @@ void Update()
 		}
 	}
 
+	if (cSceneMgr->GetCurrentSceneEnum() == GAMEOVER)
+	{
+		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
+		{
+			std::cout << "Loading...." << std::endl;
+			cSceneMgr->SwapScene(GAME);
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->SwapScene(MAINMENU);
+		}
+
+	}
 
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)

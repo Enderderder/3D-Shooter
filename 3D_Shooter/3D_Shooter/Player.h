@@ -32,7 +32,7 @@ public:
 
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
-
+	int GetLife();
 	void ProcessMovement();
 	void ProcessShooting();
 	void ProcessBoundary();

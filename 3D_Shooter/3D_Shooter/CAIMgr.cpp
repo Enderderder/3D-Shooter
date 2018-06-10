@@ -21,9 +21,10 @@
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
 
-	m_movementSpd(0.01f)
+	m_movementSpd(0.1f)
 
 {
+	m_tag = "Enemey";
 	m_ColliderRad = 1.0f;
 	AI = _AIType;
 	m_pTarget = _Target;
@@ -36,6 +37,7 @@ CAIMgr::CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _
 	m_movementSpd(0.01f)
 
 {
+	m_tag = "Enemey";
 	AI = _AIType;
 	m_pTarget = _Target;
 	InitializeObject(_model, _programID);

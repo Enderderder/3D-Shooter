@@ -181,6 +181,11 @@ void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 	}
 }
 
+int CPlayer::GetLife()
+{
+	return(m_health);
+}
+
 bool CPlayer::CheckBoarderUp(float _posZ)
 {
 	if (_posZ >= BorderUp)

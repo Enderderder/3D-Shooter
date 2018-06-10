@@ -92,8 +92,8 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
-		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, player);
+		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
@@ -139,6 +139,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 	case GAMEOVER:
 	{
+		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
+
+		TextTemp = new TextLabel("Press r to Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Press e to Return to the Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
 
 		break;
 	}
@@ -147,14 +154,16 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	}
 }
 
-ESCENES CScene::GetCurrentEnum()
-{
-	return(m_pCurrentEnum);
-}
-
 void CScene::RenderScene()
 {
 	m_cCubeMap->Render(m_cCam);
+
+	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
+	{
+		m_pScore->Render();
+		m_pLife->Render();
+	}
+	
 
 	for (auto obj : m_vGameObj)
 	{
@@ -169,13 +178,34 @@ void CScene::RenderScene()
 void CScene::UpdateScene()
 {
 	/*Debbug*************************************************************************/
-	if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
+	/*if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
 	{
 		std::cout << "Loading back to main menu. \n";
 		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
 		return;
-	}
+	}*/
 	/*********************************************************************************/
+	
+	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
+	{
+		std::ostringstream iScore;
+		iScore << "Score: " << Score;
+		m_pScore->SetText(iScore.str());
+
+		CPlayer* other = dynamic_cast<CPlayer*>(m_player);
+		std::ostringstream iLife;
+		iLife << "Life: " << other->GetLife();
+		m_pLife->SetText(iLife.str());
+
+		if (other->GetLife() <= 0)
+		{
+			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
+				
+		}
+	}
+
+	
+
 
 	m_cCam->UpdateCamera();
 
