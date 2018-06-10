@@ -7,13 +7,13 @@ in vec2 fragTexCoord;
 out vec4 color;
 
 uniform sampler2D tex;
-uniform float ambientStr = 0.2f;
+uniform float ambientStr = 0.5f;
 uniform vec3 ambientColor = glm::vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
-uniform vec3 lightPos = glm::vec3(3.0f, 3.0f, 0.5f);
+uniform vec3 lightPos = glm::vec3(0.0f, 5.0f, 0.0f);
 uniform float lightSpecStr = 0.5f;
 uniform vec3 camPos;
-uniform float shininess = 64.0f;
+uniform float shininess = 16.0f;
 uniform vec3 rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
 
 void main()

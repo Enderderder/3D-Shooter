@@ -28,5 +28,5 @@ void main()
 	vec3 rim = rimFactor * rimColor * lightColor;
 
 	//color = vec4(rim, 1.0f) * texture(tex, fragTexCoord) * vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
-	color = vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
+	color = vec4(rim, 1.0f) + vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
 }
