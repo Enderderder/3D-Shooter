@@ -17,6 +17,7 @@
 
 // Local Include
 #include "Utility.h"
+#include "ShaderLoader.h"
 
 // Static Variable
 CAssetMgr* CAssetMgr::s_pAssetMgr = nullptr;
@@ -79,7 +80,7 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	return NULL;
 }
 
-void CAssetMgr::BindTexture(const char * _path, GLuint& _id)
+void CAssetMgr::BindTexture(const char* _path, GLuint& _id)
 {
 	glGenTextures(1, &_id);
 	glBindTexture(GL_TEXTURE_2D, _id);
@@ -111,10 +112,10 @@ void CAssetMgr::BindTexture(const char * _path, GLuint& _id)
 }
 
 CAssetMgr::CAssetMgr()
-{
-}
+{}
 
 
 CAssetMgr::~CAssetMgr()
 {
+
 }
