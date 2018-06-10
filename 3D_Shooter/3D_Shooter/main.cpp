@@ -73,6 +73,7 @@ int main(int argc, char **argv)
 		CAssetMgr::GetInstance()->DestroyInstance();
 		CMeshMgr::GetInstance()->DestroyInstance();
 		CModelMgr::GetInstance()->DestroyInstance();
+		delete m_pTextLabel;
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last

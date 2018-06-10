@@ -42,8 +42,8 @@ void CGameObject::RenderObject(CCamera* _camera)
 
 	glm::mat4 translate = glm::translate(glm::mat4(), m_Position);
 	glm::mat4 scale = glm::scale(glm::mat4(), m_Scale);
-	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 rotation = glm::mat4();
+	rotation = glm::rotate(rotation, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 model = translate * rotation * scale;
@@ -104,6 +104,7 @@ void CGameObject::InitializeObject(CMesh * _mesh, GLuint _textureID, GLuint _pro
 	m_ProgramID = _programID;
 	m_TextureID = _textureID;
 	m_ObjMesh = _mesh;
+	m_ObjModel = nullptr;
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -114,6 +115,7 @@ void CGameObject::InitializeObject(CModel* _model, GLuint _programID)
 {
 	m_ProgramID = _programID;
 	m_ObjModel = _model;
+	m_ObjMesh = nullptr;
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);

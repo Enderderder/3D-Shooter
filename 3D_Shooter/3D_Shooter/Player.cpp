@@ -22,6 +22,7 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "CBullet.h"
+#include "PowerUps.h"
 
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
@@ -72,18 +73,13 @@ void CPlayer::UpdateGameObeject()
 
 void CPlayer::OnCollision(CGameObject* _other)
 {
-	// Test with our own bullet************************************
-	if (_other->GetTag() == "Enemey")
+	if (_other->GetTag() == "PowerUp")
 	{
 		// Cast it to the other Object
-		CBullet* other = dynamic_cast<CBullet*>(_other);
-		float damageTaken = other->GetDamage();
-		std::cout << "Damage Taken: " << damageTaken << "\n";
-
-		// Player Take the damage
-		m_health -= damageTaken;
+		CPowerUps* other = dynamic_cast<CPowerUps*>(_other);
+		ProcessPowerUpEffect(other->GetEffect());
 	}
-	/**************************************************************/
+
 }
 
 void CPlayer::ProcessMovement()
@@ -121,7 +117,7 @@ void CPlayer::ProcessShooting()
 	{
 		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
-		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, m_Position);
+		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, glm::vec3(m_Position.x, 1.0f, m_Position.z));
 		m_AbleToShoot = false;
 	}
 	else if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_RELEASED && !m_AbleToShoot)
@@ -148,6 +144,40 @@ void CPlayer::ProcessBoundary()
 	else if (CheckBoarderRight(m_Position.x) == false)
 	{
 		SetPositionX(BorderRight);
+	}
+}
+
+void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
+{
+	switch (_effect)
+	{
+	case HEAL:
+	{
+		m_health += 30;
+		if (m_health > 100)
+		{
+			m_health = 100;
+		}
+		break;
+	}
+	case PWOER:
+	{
+		
+		break;
+	}
+	case MOVESPD:
+	{
+		m_movementSpd += 0.1f;
+		break;
+	}
+	case ATKSPD:
+	{
+		m_attackSpd += 1;
+		break;
+	}
+
+	default:
+		break;
 	}
 }
 

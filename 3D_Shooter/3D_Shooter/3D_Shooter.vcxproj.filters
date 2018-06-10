@@ -95,10 +95,13 @@
       <Filter>Game\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="AssetMgr.cpp">
-      <Filter>Framework\Texture&amp;Program</Filter>
+      <Filter>Framework\AssetLoader</Filter>
     </ClCompile>
     <ClCompile Include="PowerUps.cpp">
       <Filter>Game\PowerUps</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +193,7 @@
       <Filter>Game\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="AssetMgr.h">
-      <Filter>Framework\Texture&amp;Program</Filter>
+      <Filter>Framework\AssetLoader</Filter>
     </ClInclude>
     <ClInclude Include="CSeek.h">
       <Filter>Game\AI\Seek</Filter>
@@ -209,6 +212,9 @@
     </ClInclude>
     <ClInclude Include="PowerUps.h">
       <Filter>Game\PowerUps</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -247,6 +253,12 @@
     </None>
     <None Include="Shaders\RimLight.vs">
       <Filter>Shader\RimLight</Filter>
+    </None>
+    <None Include="Shaders\ReflectRim.fs">
+      <Filter>Shader\ReflectRim</Filter>
+    </None>
+    <None Include="Shaders\ReflectRim.vs">
+      <Filter>Shader\ReflectRim</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -334,9 +346,6 @@
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{eaf76748-5ee8-4a9e-8572-e8755688fec7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\Texture&amp;Program">
-      <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\AI\Seek">
       <UniqueIdentifier>{09f016a7-afd3-4973-9580-351da036c979}</UniqueIdentifier>
     </Filter>
@@ -357,6 +366,15 @@
     </Filter>
     <Filter Include="Game\PowerUps">
       <UniqueIdentifier>{6c1f8729-7e6d-4fb6-9796-1fc3bc367c32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Enemy">
+      <UniqueIdentifier>{1694ad7b-dac4-4b58-a637-2feacfce9555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\ReflectRim">
+      <UniqueIdentifier>{8c35d4a5-ce62-49a9-bd28-68784e0b306a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\AssetLoader">
+      <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
