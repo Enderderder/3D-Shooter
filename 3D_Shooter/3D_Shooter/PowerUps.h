@@ -26,7 +26,7 @@ class CCubeMap;
 enum EPOWERUPEFFECT
 {
 	HEAL,
-	PWOER,
+	POWER,
 	MOVESPD,
 	ATKSPD
 };
