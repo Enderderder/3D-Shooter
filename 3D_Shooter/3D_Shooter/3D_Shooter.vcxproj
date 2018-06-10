@@ -154,6 +154,7 @@
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
     <ClCompile Include="CWander.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="inputlinebuffer.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CubeMesh.h" />
     <ClInclude Include="CWander.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputLineBuffer.h" />
@@ -224,6 +226,8 @@
     <None Include="Shaders\Ex_10.vs" />
     <None Include="Shaders\ModelShader.fs" />
     <None Include="Shaders\ModelShader.vs" />
+    <None Include="Shaders\ReflectRim.fs" />
+    <None Include="Shaders\ReflectRim.vs" />
     <None Include="Shaders\RimLight.fs" />
     <None Include="Shaders\RimLight.vs" />
     <None Include="Shaders\Text.fs" />

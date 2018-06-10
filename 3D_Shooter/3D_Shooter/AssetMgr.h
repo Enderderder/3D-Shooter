@@ -51,10 +51,16 @@ private:
 	
 	// Texture ID
 	GLuint m_texTITANFALL;
+	GLuint m_texBullet;
+	GLuint m_FalloutBox;
+	GLuint m_Box;
+	GLuint m_Brick;
+	GLuint m_Stone;
 
 	// Program ID
 	GLuint m_programBlinnPhong;
 	GLuint m_programRimLight;
+	GLuint m_programReflectRim;
 	GLuint m_programModelBlinnPhong;
 	GLuint m_programText;
 };

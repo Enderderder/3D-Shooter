@@ -44,11 +44,17 @@ void CAssetMgr::InitializeAssets()
 	static ShaderLoader shaderLoader;
 	m_programBlinnPhong = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
 	m_programRimLight = shaderLoader.CreateProgram("Shaders/RimLight.vs", "Shaders/RimLight.fs");
+	m_programReflectRim = shaderLoader.CreateProgram("Shaders/ReflectRim.vs", "Shaders/ReflectRim.fs");
 	m_programModelBlinnPhong = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
 	m_programText = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 
 	// Initialize Texture
 	BindTexture("Resources/Textures/TITANFALL.jpg", m_texTITANFALL);
+	BindTexture("Resources/Textures/BulletTex.jpg", m_texBullet);
+	BindTexture("Resources/Textures/Fallout Box.jpg", m_FalloutBox);
+	BindTexture("Resources/Textures/Box.jpg", m_Box);
+	BindTexture("Resources/Textures/Brick.jpg", m_Brick);
+	BindTexture("Resources/Textures/Stone.jpg", m_Stone);
 }
 
 GLuint CAssetMgr::GetTextureID(const char* _name) const
@@ -56,6 +62,26 @@ GLuint CAssetMgr::GetTextureID(const char* _name) const
 	if (_name == "TITANFALL")
 	{
 		return m_texTITANFALL;
+	}
+	else if (_name == "Bullet")
+	{
+		return m_texBullet;
+	}
+	else if (_name == "FALLOUTBOX")
+	{
+		return m_FalloutBox;
+	}
+	else if (_name == "BOX")
+	{
+		return m_Box;
+	}
+	else if (_name == "BRICK")
+	{
+		return m_Brick;
+	}
+	else if (_name == "STONE")
+	{
+		return m_Stone;
 	}
 
 	std::cout << "Fail to Grab " << _name << ", texture does not exist. \n";
@@ -75,6 +101,10 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	else if (_name == "ModelBlinnPhong")
 	{
 		return m_programModelBlinnPhong;
+	}
+	else if (_name == "ReflectRim")
+	{
+		return m_programReflectRim;
 	}
 	else if (_name == "Text")
 	{

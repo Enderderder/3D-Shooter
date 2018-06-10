@@ -42,8 +42,8 @@ void CGameObject::RenderObject(CCamera* _camera)
 
 	glm::mat4 translate = glm::translate(glm::mat4(), m_Position);
 	glm::mat4 scale = glm::scale(glm::mat4(), m_Scale);
-	glm::vec3 rotationAxis = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 rotation = glm::mat4();
+	rotation = glm::rotate(rotation, glm::radians(m_Rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(m_Rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 	rotation = glm::rotate(rotation, glm::radians(m_Rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 model = translate * rotation * scale;
@@ -104,6 +104,7 @@ void CGameObject::InitializeObject(CMesh * _mesh, GLuint _textureID, GLuint _pro
 	m_ProgramID = _programID;
 	m_TextureID = _textureID;
 	m_ObjMesh = _mesh;
+	m_ObjModel = nullptr;
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -114,6 +115,7 @@ void CGameObject::InitializeObject(CModel* _model, GLuint _programID)
 {
 	m_ProgramID = _programID;
 	m_ObjModel = _model;
+	m_ObjMesh = nullptr;
 
 	m_Position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_Scale = glm::vec3(1.0f, 1.0f, 1.0f);
@@ -140,14 +142,59 @@ void CGameObject::SetPosition(glm::vec3 _pos)
 	m_Position = _pos;
 }
 
+void CGameObject::SetPositionX(float _pos)
+{
+	m_Position.x = _pos;
+}
+
+void CGameObject::SetPositionY(float _pos)
+{
+	m_Position.y = _pos;
+}
+
+void CGameObject::SetPositionZ(float _pos)
+{
+	m_Position.z = _pos;
+}
+
 void CGameObject::SetScale(glm::vec3 _scale)
 {
 	m_Scale = _scale;
 }
 
+void CGameObject::SetScaleX(float _scale)
+{
+	m_Scale.x = _scale;
+}
+
+void CGameObject::SetScaleY(float _scale)
+{
+	m_Scale.y = _scale;
+}
+
+void CGameObject::SetScaleZ(float _scale)
+{
+	m_Scale.z = _scale;
+}
+
 void CGameObject::SetRotation(glm::vec3 _rotation)
 {
 	m_Rotation = _rotation;
+}
+
+void CGameObject::SetRotationX(float _rotation)
+{
+	m_Rotation.x = _rotation;
+}
+
+void CGameObject::SetRotationY(float _rotation)
+{
+	m_Rotation.y = _rotation;
+}
+
+void CGameObject::SetRotationZ(float _rotation)
+{
+	m_Rotation.z = _rotation;
 }
 
 bool CGameObject::HasCollider() const

@@ -19,6 +19,9 @@
 #include "PhysicObject.h"
 #include "CSound.h"
 
+// Forward Declare
+enum EPOWERUPEFFECT;
+
 class CPlayer : public CPhysicObject
 {
 public:
@@ -29,14 +32,25 @@ public:
 
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
-
-	bool MovementIsLegalVertical(glm::vec3 _Pos);
-	bool MovementIsLegalHorizontal(glm::vec3 _Pos);
+	int GetLife();
 	void ProcessMovement();
 	void ProcessShooting();
+	void ProcessBoundary();
+	void ProcessPowerUpEffect(EPOWERUPEFFECT);
 
 private:
 
+	// Private Member Function=================================================
+	
+	bool CheckBoarderUp(float _posZ);
+	bool CheckBoarderDown(float _posZ);
+	bool CheckBoarderLeft(float _posX);
+	bool CheckBoarderRight(float _posX);
+
+	// ========================================================================
+
+	// Private Member Variable=================================================
+	
 	CSound m_pSound;
 
 	int m_health;
@@ -44,12 +58,14 @@ private:
 	float m_attackSpd;
 	bool m_AbleToShoot;
 
-	int BorderLeft = -19.f;
-	int BorderRight = 19.f;
-	int BorderDown = 17.f;
-	int BorderUp = -17.f;
+	float BorderUp = -17.0f;
+	float BorderDown = 17.0f;
+	float BorderLeft = -19.0f;
+	float BorderRight = 19.0f;
 
 	bool m_IsLocalControl;
+
+	// ========================================================================
 };
 
 #endif // !PLAYER_H

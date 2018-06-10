@@ -73,6 +73,7 @@ int main(int argc, char **argv)
 		CAssetMgr::GetInstance()->DestroyInstance();
 		CMeshMgr::GetInstance()->DestroyInstance();
 		CModelMgr::GetInstance()->DestroyInstance();
+		delete m_pTextLabel;
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
@@ -80,8 +81,7 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
-
-//	m_pSound.PlaySound();
+	//m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
 	CMeshMgr::GetInstance()->InitializeMeshes();
@@ -125,7 +125,21 @@ void Update()
 		}
 	}
 
-	
+	if (cSceneMgr->GetCurrentSceneEnum() == GAMEOVER)
+	{
+		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
+		{
+			std::cout << "Loading...." << std::endl;
+			cSceneMgr->SwapScene(GAME);
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->SwapScene(MAINMENU);
+		}
+
+	}
+
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
 	{

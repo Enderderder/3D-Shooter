@@ -22,6 +22,7 @@
 #include "Input.h"
 #include "SceneMgr.h"
 #include "CBullet.h"
+#include "PowerUps.h"
 
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
@@ -59,27 +60,26 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
+	// Process the Input of movement and shooting
 	ProcessMovement();
 	ProcessShooting();
 
 	// Physical Object must have
 	PhysicsUpdate();
+
+	// Check if there is any boundary issue
+	ProcessBoundary();
 }
 
 void CPlayer::OnCollision(CGameObject* _other)
 {
-	/* Test with our own bullet************************************
-	if (_other->GetTag() == "Bullet")
+	if (_other->GetTag() == "PowerUp")
 	{
 		// Cast it to the other Object
-		CBullet* other = dynamic_cast<CBullet*>(_other);
-		float damageTaken = other->GetDamage();
-		std::cout << "Damage Taken: " << damageTaken << "\n";
-
-		// Player Take the damage
-		m_health -= damageTaken;
+		CPowerUps* other = dynamic_cast<CPowerUps*>(_other);
+		ProcessPowerUpEffect(other->GetEffect());
 	}
-	/**************************************************************/
+
 }
 
 void CPlayer::ProcessMovement()
@@ -88,41 +88,19 @@ void CPlayer::ProcessMovement()
 
 	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
 	{
-		
 		resultVec.z -= 1;
-
-		if (MovementIsLegalVertical(this->GetPosition()) == false)
-		{
-			this->SetPosition(glm::vec3(GetPosition().x, 0.0f, GetPosition().z + 4.5));
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.z += 1;
-
-		if (MovementIsLegalVertical(this->GetPosition()) == false)
-		{
-			
-			resultVec.z -= 5.5;
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x -= 1;
-
-		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
-		{
-			resultVec.x += 5.5;
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x += 1;
-
-		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
-		{
-			resultVec.x -= 5.5;
-		}
 	}
 
 	// If player actually have movement input
@@ -139,7 +117,7 @@ void CPlayer::ProcessShooting()
 	{
 		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
-		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, m_Position);
+		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, glm::vec3(m_Position.x, 1.0f, m_Position.z));
 		m_AbleToShoot = false;
 	}
 	else if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_RELEASED && !m_AbleToShoot)
@@ -148,28 +126,97 @@ void CPlayer::ProcessShooting()
 	}
 }
 
-bool CPlayer::MovementIsLegalVertical(glm::vec3 _Pos)
+void CPlayer::ProcessBoundary()
 {
-	if (_Pos.z >= BorderUp && _Pos.z <= BorderDown)
+	// If the position goes out of the boundary
+	if (CheckBoarderUp(m_Position.z) == false)
 	{
-		return(true);
+		SetPositionZ(BorderUp);
 	}
-
-	else
+	else if (CheckBoarderDown(m_Position.z) == false)
 	{
-		return(false);
+		SetPositionZ(BorderDown);
+	}
+	if (CheckBoarderLeft(m_Position.x) == false)
+	{
+		SetPositionX(BorderLeft);
+	}
+	else if (CheckBoarderRight(m_Position.x) == false)
+	{
+		SetPositionX(BorderRight);
 	}
 }
 
-bool CPlayer::MovementIsLegalHorizontal(glm::vec3 _Pos)
+void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 {
-	if (_Pos.x >= BorderLeft && _Pos.x <= BorderRight)
+	switch (_effect)
 	{
-		return(true);
+	case HEAL:
+	{
+		m_health += 30;
+		if (m_health > 100)
+		{
+			m_health = 100;
+		}
+		break;
+	}
+	case PWOER:
+	{
+		
+		break;
+	}
+	case MOVESPD:
+	{
+		m_movementSpd += 0.1f;
+		break;
+	}
+	case ATKSPD:
+	{
+		m_attackSpd += 1;
+		break;
 	}
 
-	else
-	{
-		return(false);
+	default:
+		break;
 	}
+}
+
+int CPlayer::GetLife()
+{
+	return(m_health);
+}
+
+bool CPlayer::CheckBoarderUp(float _posZ)
+{
+	if (_posZ >= BorderUp)
+	{
+		return true;
+	} else return false;
+}
+
+bool CPlayer::CheckBoarderDown(float _posZ)
+{
+	if (_posZ <= BorderDown)
+	{
+		return true;
+	}
+	else return false;
+}
+
+bool CPlayer::CheckBoarderLeft(float _posX)
+{
+	if (_posX >= BorderLeft)
+	{
+		return true;
+	}
+	else return false;
+}
+
+bool CPlayer::CheckBoarderRight(float _posX)
+{
+	if (_posX <= BorderRight)
+	{
+		return true;
+	}
+	else return false;
 }
