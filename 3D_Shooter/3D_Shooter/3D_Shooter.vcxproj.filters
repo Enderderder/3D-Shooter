@@ -97,6 +97,9 @@
     <ClCompile Include="AssetMgr.cpp">
       <Filter>Framework\Texture&amp;Program</Filter>
     </ClCompile>
+    <ClCompile Include="PowerUps.cpp">
+      <Filter>Game\PowerUps</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -204,6 +207,9 @@
     <ClInclude Include="CAIMgr.h">
       <Filter>Game\AI\AIMgr</Filter>
     </ClInclude>
+    <ClInclude Include="PowerUps.h">
+      <Filter>Game\PowerUps</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">
@@ -235,6 +241,12 @@
     </None>
     <None Include="Shaders\Text.vs">
       <Filter>Shader\TextLabel</Filter>
+    </None>
+    <None Include="Shaders\RimLight.fs">
+      <Filter>Shader\RimLight</Filter>
+    </None>
+    <None Include="Shaders\RimLight.vs">
+      <Filter>Shader\RimLight</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -339,6 +351,12 @@
     </Filter>
     <Filter Include="Game\AI\AIMgr">
       <UniqueIdentifier>{6386d43e-fdcf-4614-81d6-7b243b6c2f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\RimLight">
+      <UniqueIdentifier>{6af75106-253f-49dd-a52d-08c2e4365872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\PowerUps">
+      <UniqueIdentifier>{6c1f8729-7e6d-4fb6-9796-1fc3bc367c32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

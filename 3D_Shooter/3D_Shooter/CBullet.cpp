@@ -38,7 +38,7 @@ CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	InitializeObject(
 		cMeshMgr->GetMesh(SPHERE), 
 		cAssetMgr->GetTextureID("TITANFALL"), 
-		cAssetMgr->GetProgramID("ModelBlinnPhong")
+		cAssetMgr->GetProgramID("RimLight")
 	);
 
 	SetScale(glm::vec3(0.5));

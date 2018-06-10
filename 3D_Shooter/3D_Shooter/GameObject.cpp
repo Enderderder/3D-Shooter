@@ -22,7 +22,6 @@
 #include "Camera.h"
 #include "ShaderLoader.h"
 
-
 CGameObject::CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID) :
 	m_IsModel(false),
 	m_ObjModel(nullptr)
@@ -51,7 +50,6 @@ void CGameObject::RenderObject(CCamera* _camera)
 	glm::mat4 mvp = _camera->GetProjectionMatrix() *  _camera->GetViewMatrix() * model;
 	GLint mvpLoc = glGetUniformLocation(m_ProgramID, "MVP");
 	glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
-
 
 	GLint modelLoc = glGetUniformLocation(m_ProgramID, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

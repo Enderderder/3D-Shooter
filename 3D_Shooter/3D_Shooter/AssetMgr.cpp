@@ -17,6 +17,7 @@
 
 // Local Include
 #include "Utility.h"
+#include "ShaderLoader.h"
 
 // Static Variable
 CAssetMgr* CAssetMgr::s_pAssetMgr = nullptr;
@@ -42,6 +43,7 @@ void CAssetMgr::InitializeAssets()
 	// Initalize Program
 	static ShaderLoader shaderLoader;
 	m_programBlinnPhong = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
+	m_programRimLight = shaderLoader.CreateProgram("Shaders/RimLight.vs", "Shaders/RimLight.fs");
 	m_programModelBlinnPhong = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
 	m_programText = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 
@@ -66,6 +68,10 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	{
 		return m_programBlinnPhong;
 	}
+	else if (_name == "RimLight")
+	{
+		return m_programRimLight;
+	}
 	else if (_name == "ModelBlinnPhong")
 	{
 		return m_programModelBlinnPhong;
@@ -79,7 +85,7 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	return NULL;
 }
 
-void CAssetMgr::BindTexture(const char * _path, GLuint& _id)
+void CAssetMgr::BindTexture(const char* _path, GLuint& _id)
 {
 	glGenTextures(1, &_id);
 	glBindTexture(GL_TEXTURE_2D, _id);
@@ -111,10 +117,10 @@ void CAssetMgr::BindTexture(const char * _path, GLuint& _id)
 }
 
 CAssetMgr::CAssetMgr()
-{
-}
+{}
 
 
 CAssetMgr::~CAssetMgr()
 {
+
 }
