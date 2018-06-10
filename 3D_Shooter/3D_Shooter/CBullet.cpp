@@ -37,7 +37,7 @@ CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
 	m_IsModel = false;
 	InitializeObject(
 		cMeshMgr->GetMesh(SPHERE), 
-		cAssetMgr->GetTextureID("TITANFALL"), 
+		cAssetMgr->GetTextureID("Bullet"), 
 		cAssetMgr->GetProgramID("RimLight")
 	);
 

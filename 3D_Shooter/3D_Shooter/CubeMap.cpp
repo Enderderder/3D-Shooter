@@ -159,3 +159,8 @@ void CCubeMap::Render(CCamera* _camera)
 	glUseProgram(0);
 	glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 }
+
+GLuint CCubeMap::GetTextureID() const
+{
+	return m_textureID;
+}

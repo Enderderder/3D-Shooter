@@ -31,10 +31,10 @@ public:
 
 	CGameObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CGameObject(CModel* _model, GLuint _programID);
-	void RenderObject(CCamera* _camera);
-	void DestroyObject();
+	virtual void RenderObject(CCamera* _camera);
 	virtual void UpdateGameObeject() {}
 	virtual void OnCollision(CGameObject* _other) {}
+	void DestroyObject();
 
 	void AddPosition(glm::vec3 _pos);
 	void AddScale(glm::vec3 _scale);
@@ -78,10 +78,7 @@ protected:
 	bool m_ShouldDestroyed;
 	bool m_HasCollider;
 	bool m_IsModel;
-
-private:
 	
-	// Member Variables
 	GLuint m_ProgramID;
 	GLuint m_TextureID;
 
