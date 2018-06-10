@@ -43,17 +43,21 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale);
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
-	ESCENES GetCurrentEnum();
 	void DestroyObject(CGameObject* _gameobj);
 
 private:
   
+	int Score;
+
 	std::vector<CGameObject*> m_vGameObj;
 	std::vector<TextLabel*> m_pText;
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
 	ESCENES m_pCurrentEnum;
 	CGameObject* m_player;
+	
+	TextLabel* m_pScore = new TextLabel("Score: 0", "Resources/fonts/arial.ttf", glm::vec2(1000.0f, 700.0f));
+	TextLabel* m_pLife = new TextLabel("Life: 0", "Resources/fonts/arial.ttf", glm::vec2(0.0f, 700.0f));
 };
 
 #endif // !SCENE_H

@@ -72,8 +72,8 @@ void CPlayer::UpdateGameObeject()
 
 void CPlayer::OnCollision(CGameObject* _other)
 {
-	/* Test with our own bullet************************************
-	if (_other->GetTag() == "Bullet")
+	// Test with our own bullet************************************
+	if (_other->GetTag() == "Enemey")
 	{
 		// Cast it to the other Object
 		CBullet* other = dynamic_cast<CBullet*>(_other);
@@ -149,6 +149,11 @@ void CPlayer::ProcessBoundary()
 	{
 		SetPositionX(BorderRight);
 	}
+}
+
+int CPlayer::GetLife()
+{
+	return(m_health);
 }
 
 bool CPlayer::CheckBoarderUp(float _posZ)
