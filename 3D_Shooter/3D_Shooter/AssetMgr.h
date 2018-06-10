@@ -54,6 +54,7 @@ private:
 
 	// Program ID
 	GLuint m_programBlinnPhong;
+	GLuint m_programRimLight;
 	GLuint m_programModelBlinnPhong;
 	GLuint m_programText;
 };

@@ -222,6 +222,8 @@
     <None Include="Shaders\Ex_10.vs" />
     <None Include="Shaders\ModelShader.fs" />
     <None Include="Shaders\ModelShader.vs" />
+    <None Include="Shaders\RimLight.fs" />
+    <None Include="Shaders\RimLight.vs" />
     <None Include="Shaders\Text.fs" />
     <None Include="Shaders\Text.vs" />
   </ItemGroup>

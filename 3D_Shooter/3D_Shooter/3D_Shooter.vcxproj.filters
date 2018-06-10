@@ -236,6 +236,12 @@
     <None Include="Shaders\Text.vs">
       <Filter>Shader\TextLabel</Filter>
     </None>
+    <None Include="Shaders\RimLight.fs">
+      <Filter>Shader\RimLight</Filter>
+    </None>
+    <None Include="Shaders\RimLight.vs">
+      <Filter>Shader\RimLight</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Framework">
@@ -339,6 +345,9 @@
     </Filter>
     <Filter Include="Game\AI\AIMgr">
       <UniqueIdentifier>{6386d43e-fdcf-4614-81d6-7b243b6c2f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\RimLight">
+      <UniqueIdentifier>{6af75106-253f-49dd-a52d-08c2e4365872}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
