@@ -194,7 +194,7 @@ void CScene::UpdateScene()
 	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
 	{
 		std::ostringstream iScore;
-		iScore << "Score: " << Score;
+		iScore << "Score: " << m_GameScore;
 		m_pScore->SetText(iScore.str());
 
 		CPlayer* other = dynamic_cast<CPlayer*>(m_player);
@@ -205,8 +205,9 @@ void CScene::UpdateScene()
 		if (other->GetLife() <= 0)
 		{
 			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
-				
+			return;
 		}
+
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
@@ -327,4 +328,9 @@ void CScene::DestroyObject(CGameObject* _gameobj)
 			break;
 		}
 	}
+}
+
+void CScene::AddScore(int _point)
+{
+	m_GameScore += _point;
 }

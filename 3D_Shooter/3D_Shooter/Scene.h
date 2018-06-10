@@ -45,9 +45,12 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
 	void DestroyObject(CGameObject* _gameobj);
 
+	void AddScore(int _point);
+
 private:
+
+	int m_GameScore;
   
-	int Score;
 	std::chrono::high_resolution_clock::time_point t1;
 	std::chrono::high_resolution_clock::time_point t2;
 	std::chrono::high_resolution_clock::time_point tPowerUp1;

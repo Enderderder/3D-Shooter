@@ -54,6 +54,11 @@ void CEnemy::OnCollision(CGameObject* _other)
 		// Enemy takes the damage from the bullet
 		m_health -= damageTaken;
 	}
+	else if (_other->GetTag() == "Player")
+	{
+		DestroyObject();
+		
+	}
 }
 
 void CEnemy::ProcessAI()
