@@ -97,13 +97,15 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
-		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"));
+		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"));
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
 		CGameObject* powerUp = new CPowerUps(MOVESPD);
 		Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
 
+		t1 = std::chrono::high_resolution_clock::now();
+		tPowerUp1 = std::chrono::high_resolution_clock::now();
 		//==========================================
 		std::cout << "Initializing Done... \n";
 		//==========================================
@@ -186,6 +188,9 @@ void CScene::UpdateScene()
 	}*/
 	/*********************************************************************************/
 	
+	auto duration = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
+	auto durationPowerUp = std::chrono::duration_cast<std::chrono::seconds>(tPowerUp2 - tPowerUp1);
+	
 	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
 	{
 		std::ostringstream iScore;
@@ -202,11 +207,32 @@ void CScene::UpdateScene()
 			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
 				
 		}
+		//////////////Timer for enemey spawning/////////////////////////
+		if (duration >= std::chrono::seconds(3))
+		{
+			CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("BOX"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, m_player);
+			Instantiate(Enemey, glm::vec3(-19 + rand()%  (30), 0.0f, -19 + rand() % (30)));
+
+			CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("Bullet"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, m_player);
+			Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+
+			CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, m_player);
+			Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+
+			t1 = std::chrono::high_resolution_clock::now();
+		}
+		//////////////Timer for PowerUp/////////////////////////
+		if (durationPowerUp >= std::chrono::seconds(10))
+		{
+			CGameObject* powerUp = new CPowerUps(MOVESPD);
+			Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+			tPowerUp1 = std::chrono::high_resolution_clock::now();
+		}
 	}
 
 	
 
-
+	
 	m_cCam->UpdateCamera();
 
 	// Delete the object that should be deleted fron last frame
@@ -223,6 +249,9 @@ void CScene::UpdateScene()
 	}
 
 	CheckCollision();
+	t2 = std::chrono::high_resolution_clock::now();
+	tPowerUp2 = std::chrono::high_resolution_clock::now();
+	
 }
 
 void CScene::CheckCollision()

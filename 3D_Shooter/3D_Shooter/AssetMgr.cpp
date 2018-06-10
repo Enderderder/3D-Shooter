@@ -51,6 +51,10 @@ void CAssetMgr::InitializeAssets()
 	// Initialize Texture
 	BindTexture("Resources/Textures/TITANFALL.jpg", m_texTITANFALL);
 	BindTexture("Resources/Textures/BulletTex.jpg", m_texBullet);
+	BindTexture("Resources/Textures/Fallout Box.jpg", m_FalloutBox);
+	BindTexture("Resources/Textures/Box.jpg", m_Box);
+	BindTexture("Resources/Textures/Brick.jpg", m_Brick);
+	BindTexture("Resources/Textures/Stone.jpg", m_Stone);
 }
 
 GLuint CAssetMgr::GetTextureID(const char* _name) const
@@ -62,6 +66,22 @@ GLuint CAssetMgr::GetTextureID(const char* _name) const
 	else if (_name == "Bullet")
 	{
 		return m_texBullet;
+	}
+	else if (_name == "FALLOUTBOX")
+	{
+		return m_FalloutBox;
+	}
+	else if (_name == "BOX")
+	{
+		return m_Box;
+	}
+	else if (_name == "BRICK")
+	{
+		return m_Brick;
+	}
+	else if (_name == "STONE")
+	{
+		return m_Stone;
 	}
 
 	std::cout << "Fail to Grab " << _name << ", texture does not exist. \n";
