@@ -59,17 +59,21 @@ CPlayer::~CPlayer()
 
 void CPlayer::UpdateGameObeject()
 {
+	// Process the Input of movement and shooting
 	ProcessMovement();
 	ProcessShooting();
 
 	// Physical Object must have
 	PhysicsUpdate();
+
+	// Check if there is any boundary issue
+	ProcessBoundary();
 }
 
 void CPlayer::OnCollision(CGameObject* _other)
 {
-	/* Test with our own bullet************************************
-	if (_other->GetTag() == "Bullet")
+	// Test with our own bullet************************************
+	if (_other->GetTag() == "Enemey")
 	{
 		// Cast it to the other Object
 		CBullet* other = dynamic_cast<CBullet*>(_other);
@@ -88,41 +92,19 @@ void CPlayer::ProcessMovement()
 
 	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
 	{
-		
 		resultVec.z -= 1;
-
-		if (MovementIsLegalVertical(this->GetPosition()) == false)
-		{
-			this->SetPosition(glm::vec3(GetPosition().x, 0.0f, GetPosition().z + 4.5));
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.z += 1;
-
-		if (MovementIsLegalVertical(this->GetPosition()) == false)
-		{
-			
-			resultVec.z -= 5.5;
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x -= 1;
-
-		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
-		{
-			resultVec.x += 5.5;
-		}
 	}
 	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x += 1;
-
-		if (MovementIsLegalHorizontal(this->GetPosition()) == false)
-		{
-			resultVec.x -= 5.5;
-		}
 	}
 
 	// If player actually have movement input
@@ -148,28 +130,63 @@ void CPlayer::ProcessShooting()
 	}
 }
 
-bool CPlayer::MovementIsLegalVertical(glm::vec3 _Pos)
+void CPlayer::ProcessBoundary()
 {
-	if (_Pos.z >= BorderUp && _Pos.z <= BorderDown)
+	// If the position goes out of the boundary
+	if (CheckBoarderUp(m_Position.z) == false)
 	{
-		return(true);
+		SetPositionZ(BorderUp);
 	}
-
-	else
+	else if (CheckBoarderDown(m_Position.z) == false)
 	{
-		return(false);
+		SetPositionZ(BorderDown);
+	}
+	if (CheckBoarderLeft(m_Position.x) == false)
+	{
+		SetPositionX(BorderLeft);
+	}
+	else if (CheckBoarderRight(m_Position.x) == false)
+	{
+		SetPositionX(BorderRight);
 	}
 }
 
-bool CPlayer::MovementIsLegalHorizontal(glm::vec3 _Pos)
+int CPlayer::GetLife()
 {
-	if (_Pos.x >= BorderLeft && _Pos.x <= BorderRight)
-	{
-		return(true);
-	}
+	return(m_health);
+}
 
-	else
+bool CPlayer::CheckBoarderUp(float _posZ)
+{
+	if (_posZ >= BorderUp)
 	{
-		return(false);
+		return true;
+	} else return false;
+}
+
+bool CPlayer::CheckBoarderDown(float _posZ)
+{
+	if (_posZ <= BorderDown)
+	{
+		return true;
 	}
+	else return false;
+}
+
+bool CPlayer::CheckBoarderLeft(float _posX)
+{
+	if (_posX >= BorderLeft)
+	{
+		return true;
+	}
+	else return false;
+}
+
+bool CPlayer::CheckBoarderRight(float _posX)
+{
+	if (_posX <= BorderRight)
+	{
+		return true;
+	}
+	else return false;
 }
