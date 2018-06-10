@@ -23,6 +23,7 @@
 #include "SceneMgr.h"
 #include "CBullet.h"
 #include "PowerUps.h"
+#include "CAIMgr.h"
 
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
@@ -69,6 +70,9 @@ void CPlayer::UpdateGameObeject()
 
 	// Check if there is any boundary issue
 	ProcessBoundary();
+
+	// Check to see if the player dies
+	CheckDeath();
 }
 
 void CPlayer::OnCollision(CGameObject* _other)
@@ -79,7 +83,10 @@ void CPlayer::OnCollision(CGameObject* _other)
 		CPowerUps* other = dynamic_cast<CPowerUps*>(_other);
 		ProcessPowerUpEffect(other->GetEffect());
 	}
-
+	else if (_other->GetTag() == "Enemy")
+	{
+		m_health -= 10;
+	}
 }
 
 void CPlayer::ProcessMovement()
@@ -181,7 +188,15 @@ void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 	}
 }
 
-int CPlayer::GetLife()
+void CPlayer::CheckDeath()
+{
+	if (m_health <= 0)
+	{
+		CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
+	}
+}
+
+int CPlayer::GetLife() const
 {
 	return(m_health);
 }

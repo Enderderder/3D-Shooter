@@ -45,9 +45,11 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
 	void DestroyObject(CGameObject* _gameobj);
 
+	void AddScore(int _point);
+
 private:
   
-	int Score;
+	int m_GameScore;
 
 	std::vector<CGameObject*> m_vGameObj;
 	std::vector<TextLabel*> m_pText;
