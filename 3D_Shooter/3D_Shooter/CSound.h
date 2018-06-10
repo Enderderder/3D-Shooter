@@ -25,11 +25,11 @@ public:
 	bool InitFmod();
 	const bool LoadAudio();
 	void PlaySound();
-	void SetSoundAdress(char _charAdress);
+	void SetSoundAdress(const char* _charAdress);
 
 private:
 	float m_intMasterVolume;
-	std::vector<char*> m_pSoundAdress;
+	std::vector<const char*> m_pSoundAdress;
 	std::vector<FMOD::Sound*> m_pSoundPointers;
 };
 #endif // !CSound_H
