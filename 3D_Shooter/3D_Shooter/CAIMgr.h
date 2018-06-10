@@ -27,6 +27,9 @@ enum AIType
 // Inherited Include
 #include "Player.h"
 #include "CSeek.h"
+#include "CFlee.h"
+#include "CWander.h"
+#include "CContainment.h"
 
 class CAIMgr : public CPhysicObject
 {
@@ -41,6 +44,8 @@ private:
 	float m_movementSpd;
 
 	CSeek m_pSeek;
+	CFlee m_pFlee;
+	CWander m_pWander;
 	AIType AI;
 	CGameObject* m_pTarget;
 };
