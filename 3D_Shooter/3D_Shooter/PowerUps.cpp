@@ -26,6 +26,22 @@
 CPowerUps::CPowerUps(EPOWERUPEFFECT _effect) :
 	m_effect(_effect)
 {
+	switch (_effect)
+	{
+	case HEAL:
+		m_rimColor = glm::vec3(1.0f, 1.0f, 0.0f);
+		break;
+	case SCORE:
+		m_rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
+		break;
+	case MOVESPD:
+		m_rimColor = glm::vec3(0.0f, 1.0f, 0.0f);
+		break;
+	case ATKSPD:
+		break;
+	default:
+		break;
+	}
 	m_tag = "PowerUp";
 	m_HasCollider = true;
 	m_ColliderRad = 0.5f;
@@ -66,6 +82,9 @@ void CPowerUps::RenderObject(CCamera* _camera)
 
 	GLuint camPosLoc = glGetUniformLocation(m_ProgramID, "camPos");
 	glUniform3fv(camPosLoc, 1, glm::value_ptr(_camera->GetCameraPosition()));
+
+	GLuint rimColorLoc = glGetUniformLocation(m_ProgramID, "rimColor");
+	glUniform3fv(rimColorLoc, 1, glm::value_ptr(m_rimColor));
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_TextureID);

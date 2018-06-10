@@ -26,7 +26,7 @@ class CCubeMap;
 enum EPOWERUPEFFECT
 {
 	HEAL,
-	POWER,
+	SCORE,
 	MOVESPD,
 	ATKSPD
 };
@@ -47,6 +47,8 @@ private:
 	EPOWERUPEFFECT m_effect;
 
 	CCubeMap* m_cubeMapTex;
+
+	glm::vec3 m_rimColor;
 };
 
 #endif // !POWERUPS_H

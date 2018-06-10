@@ -11,7 +11,7 @@ uniform samplerCube cubeMap;
 
 uniform vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 camPos;
-uniform vec3 rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
+uniform vec3 rimColor;
 
 void main()
 {
