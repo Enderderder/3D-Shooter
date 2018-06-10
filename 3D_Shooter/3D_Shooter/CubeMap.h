@@ -38,9 +38,9 @@ public:
 	//GLuint GetTextureID() const;
 
 private:
-	GLuint VAO;
-	GLuint programID;
-	GLuint textureID;
+	GLuint m_VAO;
+	GLuint m_programID;
+	GLuint m_textureID;
 };
 
 #endif // !CUBEMAP_H

@@ -21,7 +21,7 @@
 // Static Variable
 CAssetMgr* CAssetMgr::s_pAssetMgr = nullptr;
 
-CAssetMgr * CAssetMgr::GetInstance()
+CAssetMgr* CAssetMgr::GetInstance()
 {
 	if (s_pAssetMgr == nullptr)
 	{
@@ -43,6 +43,7 @@ void CAssetMgr::InitializeAssets()
 	static ShaderLoader shaderLoader;
 	m_programBlinnPhong = shaderLoader.CreateProgram("Shaders/BlinnPhong.vs", "Shaders/BlinnPhong.fs");
 	m_programModelBlinnPhong = shaderLoader.CreateProgram("Shaders/ModelShader.vs", "Shaders/ModelShader.fs");
+	m_programText = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 
 	// Initialize Texture
 	BindTexture("Resources/Textures/TITANFALL.jpg", m_texTITANFALL);
@@ -68,6 +69,10 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	else if (_name == "ModelBlinnPhong")
 	{
 		return m_programModelBlinnPhong;
+	}
+	else if (_name == "Text")
+	{
+		return m_programText;
 	}
 
 	std::cout << "Fail to Grab " << _name << ", program does not exist. \n";

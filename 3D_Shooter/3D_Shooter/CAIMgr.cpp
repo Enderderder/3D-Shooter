@@ -19,20 +19,25 @@
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
-	m_movementSpd(0.20f)
+
+	m_movementSpd(0.01f)
+
 {
+	m_ColliderRad = 1.0f;
 	AI = _AIType;
 	m_pTarget = _Target;
-	this->InitializeObject(_mesh, _textureID, _programID);
+	InitializeObject(_mesh, _textureID, _programID);
 }
 
 CAIMgr::CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
-	m_movementSpd(0.20f)
+
+	m_movementSpd(0.01f)
+
 {
 	AI = _AIType;
 	m_pTarget = _Target;
-	this->InitializeObject(_model, _programID);
+	InitializeObject(_model, _programID);
 }
 
 void CAIMgr::UpdateGameObeject()

@@ -67,8 +67,8 @@ int main(int argc, char **argv)
 	glutIdleFunc(Update);
 
 	glutCloseFunc([]() {
-		cInput->DestroyInstance();
-		cSceneMgr->DestroyInstance();
+		cInput->DestroyObject();
+		cSceneMgr->DestroyObject();
 		CAssetMgr::GetInstance()->DestroyInstance();
 		CMeshMgr::GetInstance()->DestroyInstance();
 		CModelMgr::GetInstance()->DestroyInstance();
@@ -107,7 +107,7 @@ void Update()
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
 	//Main Menu controls
-	if (cSceneMgr->GetCurrentScene()->GetCurrentEnum() == MAINMENU)
+	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
 		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
 		{

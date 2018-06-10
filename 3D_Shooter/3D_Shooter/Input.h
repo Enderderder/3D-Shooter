@@ -20,7 +20,7 @@ class CInput
 public:
 	// Singletom Functions
 	static CInput* GetInstance();
-	static void DestroyInstance();
+	static void DestroyObject();
 
 	// Member Functions
 	void InitializeInput();

@@ -90,7 +90,7 @@ void CNetworkMgr::StartNetwork()
 
 		//Shut Down the Network
 		_rNetwork.ShutDown();
-		_rNetwork.DestroyInstance();
+		_rNetwork.DestroyObject();
 
 		delete[] _pcPacketData;
 }
