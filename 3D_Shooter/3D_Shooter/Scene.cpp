@@ -12,35 +12,62 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-// Local Include
+// This Include
 #include "Scene.h"
 
-// Global Include
+// Local Include
 #include "Utility.h"
 #include "GameObject.h"
+#include "Player.h"
+#include "AssetMgr.h"
 #include "MeshMgr.h"
+#include "ModelMgr.h"
+#include "SceneMgr.h"
+#include "Input.h"
 #include "Camera.h"
+#include "CAIMgr.h"
 
 // Global Variables
-GLuint diffuseProgram;
-GLuint texture;
+TextLabel* TextTemp;
+
+// Manager Pointer
+static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
+static CModelMgr* cModelMgr = CModelMgr::GetInstance();
+static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
 CScene::CScene(ESCENES _eSceneNum)
 {
-	InitialiseScene(_eSceneNum);
+	m_vGameObj.resize(0);
+	m_pText.resize(0);
+
+	m_cCam = nullptr;
+	m_cCubeMap = nullptr;
+	m_player = nullptr;
 }
 
 CScene::~CScene()
 {
+	std::cout << "Cleaning Scene... \n";
 	// Clean up the memory allocated variables inside the class
 
+	// ========================================================
 	delete m_cCam;
-	delete m_cCubeMap;
+	m_cCubeMap = nullptr;
 
 	for (auto obj : m_vGameObj)
 	{
 		delete obj;
 	}
+	m_vGameObj.clear();
+
+	for (auto text : m_pText)
+	{
+		delete text;
+	}
+	m_pText.clear();
+
+	// ========================================================
+	std::cout << "Cleaning Done... \n";
 }
 
 void CScene::InitialiseScene(ESCENES _eSceneNum)
@@ -49,56 +76,76 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 	switch (_eSceneNum)
 	{
-	case MAINMENU:
+	case GAME:
 	{
-		static ShaderLoader shaderLoader;
-		diffuseProgram = shaderLoader.CreateProgram("Shaders/DiffuseLight.vs", "Shaders/DiffuseLight.fs");
-
-		glGenTextures(1, &texture);
-		glBindTexture(GL_TEXTURE_2D, texture);
-
-		int width, height;
-		unsigned char* image = SOIL_load_image(
-			"Resources/Textures/TITANFALL.jpg",	// File path / Name
-			&width,								// Output for the image width
-			&height,							// Output for the image height
-			0,									// Output for number of channels
-			SOIL_LOAD_RGBA);					// Load RGB values only
-
-		glTexImage2D(
-			GL_TEXTURE_2D,		// Type of texture
-			0,					// Mipmap level, 0 for base
-			GL_RGBA,			// Number of color components in texture
-			width,				// Width of the texture
-			height,				// Height of the texture
-			0,					// This value must be 0
-			GL_RGBA,			// Format for the pixel data
-			GL_UNSIGNED_BYTE,	// Data type for the pixel data
-			image);				// Pointer to image data in memory
-
-		glGenerateMipmap(GL_TEXTURE_2D);
-		SOIL_free_image_data(image);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		//==========================================
+		std::cout << "game scene initializing... \n";
+		//==========================================
 
 		// Load in the cube map
-		std::vector<std::string> cubeMapPaths = {
-			"right.jpg",
-			"left.jpg",
-			"top.jpg",
-			"bottom.jpg",
-			"back.jpg",
-			"front.jpg"
-		};
-		m_cCubeMap = new CCubeMap(cubeMapPaths);
+		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 		
-		m_vGameObj.push_back(new CGameObject(CMeshMgr::GetInstance().GetCubeMesh(), &texture, &diffuseProgram));
-		
+		// Load in the game objects
+		CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
+		Instantiate(player, glm::vec3(0.0f, 0.0f, 0.0f));
+		std::cout << "Loaded GameObject: Player" << std::endl;
+		m_player = player;
+
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
+		Instantiate(Enemey, glm::vec3(15.0f, 1.0f, 15.0f));
+
+		std::cout << "Loaded GameObject: Enemy" << std::endl;
+
+		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"));
+		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
+		std::cout << "Loaded GameObject: Platform" << std::endl;
+
+		//==========================================
+		std::cout << "game scene initializing... \n";
+		//==========================================
+
+
 		break;
 	}
 
+	case MAINMENU:
+	{
+
+		//==========================================
+		std::cout << "Initializing Done... \n";
+		//==========================================
+
+		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
+
+		TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Press Esc to Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Press F for Fullscreen", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		m_pText.push_back(TextTemp);
+
+		//==========================================
+		std::cout << "Initializing Done... \n";
+		//==========================================
+
+		break;
+	}
+
+	case GAMEOVER:
+	{
+
+		break;
+	}
 
 	default: break;
 	}
+}
+
+ESCENES CScene::GetCurrentEnum()
+{
+	return(m_pCurrentEnum);
 }
 
 void CScene::RenderScene()
@@ -109,11 +156,112 @@ void CScene::RenderScene()
 	{
 		obj->RenderObject(m_cCam);
 	}
-
-
+	for (int i = 0; i < m_pText.size(); i++)
+	{
+		m_pText[i]->Render();
+	}
 }
 
 void CScene::UpdateScene()
 {
+	/*Debbug*************************************************************************/
+	if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
+	{
+		std::cout << "Loading back to main menu. \n";
+		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
+		return;
+	}
+	/*********************************************************************************/
 
+	m_cCam->UpdateCamera();
+
+	// Delete the object that should be deleted fron last frame
+	for (auto obj : m_vGameObj)
+	{
+		if (obj->ShouldDestroyed()) { DestroyObject(obj); }
+	}
+
+	size_t currVecSize = m_vGameObj.size();
+	for (size_t index = 0; index < currVecSize; ++index)
+	{
+		m_vGameObj[index]->UpdateGameObeject();
+		currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
+	}
+
+	CheckCollision();
+}
+
+void CScene::CheckCollision()
+{
+	size_t currVecSize = m_vGameObj.size();
+	for (size_t index = 0; index < currVecSize; ++index)
+	{
+		if (m_vGameObj[index]->HasCollider()) // Check if object itself has a collider
+		{
+			// Get the collistion detail of the object
+			float selfCollider = m_vGameObj[index]->GetCollisionRad();
+			glm::vec3 selfPos = m_vGameObj[index]->GetPosition();
+
+			// Check with all the rest of the other objects
+			for (size_t i = index + 1; i < currVecSize; ++i)
+			{
+				if (m_vGameObj[i]->HasCollider())
+				{
+					// Get the other objects' collision detail
+					float otherCollider = m_vGameObj[i]->GetCollisionRad();
+					glm::vec3 otherPos = m_vGameObj[i]->GetPosition();
+
+					float distance = glm::distance(selfPos, otherPos);
+					if (distance <= (selfCollider + otherCollider))
+					{
+						m_vGameObj[index]->OnCollision(m_vGameObj[i]);
+						m_vGameObj[i]->OnCollision(m_vGameObj[index]);
+					}
+				}
+			}
+		}
+		
+
+
+		currVecSize = m_vGameObj.size(); // Revalidate the number of item inside the vector
+	}
+}
+
+void CScene::Instantiate(CGameObject * _gameobj)
+{
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos)
+{
+	_gameobj->SetPosition(_pos);
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject * _gameobj, glm::vec3 _pos, glm::vec3 _scale)
+{
+	_gameobj->SetPosition(_pos);
+	_gameobj->SetScale(_scale);
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation)
+{
+	_gameobj->SetPosition(_pos);
+	_gameobj->SetScale(_scale);
+	_gameobj->SetRotation(_rotation);
+	m_vGameObj.push_back(_gameobj);
+}
+
+void CScene::DestroyObject(CGameObject* _gameobj)
+{
+	for (auto iter = m_vGameObj.begin(); iter != m_vGameObj.end(); ++iter)
+	{
+		if ((*iter) == _gameobj)
+		{
+			delete (*iter);
+			m_vGameObj.erase(iter);
+			break;
+		}
+	}
 }

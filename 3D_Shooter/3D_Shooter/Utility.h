@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : Utility.h
 // Description	: 
@@ -35,8 +35,11 @@
 #include <cassert>
 #include <thread>
 #include "CSound.h"
+#include "TextLabel.h"
+#include <sstream>
 
 //#include <vld.h> // Memory Leak Detector
+
 
 
 // Converting IP Adresses to string and Networking ----------------------------------------------
@@ -87,34 +90,45 @@ struct DebugTimer
 	{
 		start = std::chrono::high_resolution_clock::now();
 	}
-
+	
 	~DebugTimer()
 	{
 		end = std::chrono::high_resolution_clock::now();
 		duration = end - start;
+		
 
 		float ms = duration.count();
 		std::cout << "Debug Timer took " << ms << " ms \n";
 	}
+
 };
 
 enum ESCENES
 {
 	MAINMENU = 0,
 	GAME,
+	GAMEOVER
 };
 
 enum EMESH
 {
 	CUBE,
+	SPHERE,
+	MENUCUBEMAP,
+	GAMECUBEMAP
+};
+
+enum EMODEL
+{
+	TANK,
 };
 
 enum InputState 
 {
-	INPUT_FIRST_RELEASE, // First frame of Up state 
-	INPUT_RELEASED, // Default State (Up) 
-	INPUT_FIRST_PRESS, // First frame of Down state 
-	INPUT_HOLD, // Key is held Down 
+	INPUT_FIRST_RELEASE,	// First frame of Up state 
+	INPUT_RELEASED,			// Default State (Up) 
+	INPUT_FIRST_PRESS,		// First frame of Down state 
+	INPUT_HOLD,				// Key is held Down 
 };
 
 enum InputMouse 
@@ -124,10 +138,12 @@ enum InputMouse
 	MOUSE_RIGHT 
 };
 
+enum EGAMEMODE
+{
+
+};
+
 //----------------------------------------------------------------------------------------------
-
-
-
 
 
 

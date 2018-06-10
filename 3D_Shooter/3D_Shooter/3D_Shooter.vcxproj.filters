@@ -2,10 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="SceneMgr.cpp">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClCompile>
     <ClCompile Include="TextLabel.cpp">
       <Filter>Framework\TextLoader</Filter>
@@ -58,13 +58,52 @@
     <ClCompile Include="network.cpp">
       <Filter>Framework\Network\NetEntity</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Framework\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ShpereMesh.cpp">
+      <Filter>Framework\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicObject.cpp">
+      <Filter>Framework\GameObj</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelMgr.cpp">
+      <Filter>Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CSeek.cpp">
+      <Filter>Game\AI\Seek</Filter>
+    </ClCompile>
+    <ClCompile Include="CFlee.cpp">
+      <Filter>Game\AI\Flee</Filter>
+    </ClCompile>
+    <ClCompile Include="CContainment.cpp">
+      <Filter>Game\AI\Containment</Filter>
+    </ClCompile>
+    <ClCompile Include="CWander.cpp">
+      <Filter>Game\AI\Wander</Filter>
+    </ClCompile>
+    <ClCompile Include="CAIMgr.cpp">
+      <Filter>Game\AI\AIMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Framework\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="CBullet.cpp">
+      <Filter>Game\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetMgr.cpp">
+      <Filter>Framework\Texture&amp;Program</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
-      <Filter>Framework\SceneScene</Filter>
+      <Filter>Framework\Scene</Filter>
     </ClInclude>
     <ClInclude Include="TextLabel.h">
       <Filter>Framework\TextLoader</Filter>
@@ -123,14 +162,50 @@
     <ClInclude Include="WorkQueue.h">
       <Filter>Framework\Network\Tools</Filter>
     </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Framework\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ShpereMesh.h">
+      <Filter>Framework\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicObject.h">
+      <Filter>Framework\GameObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMgr.h">
+      <Filter>Framework\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="CBullet.h">
+      <Filter>Game\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetMgr.h">
+      <Filter>Framework\Texture&amp;Program</Filter>
+    </ClInclude>
+    <ClInclude Include="CSeek.h">
+      <Filter>Game\AI\Seek</Filter>
+    </ClInclude>
+    <ClInclude Include="CFlee.h">
+      <Filter>Game\AI\Flee</Filter>
+    </ClInclude>
+    <ClInclude Include="CContainment.h">
+      <Filter>Game\AI\Containment</Filter>
+    </ClInclude>
+    <ClInclude Include="CWander.h">
+      <Filter>Game\AI\Wander</Filter>
+    </ClInclude>
+    <ClInclude Include="CAIMgr.h">
+      <Filter>Game\AI\AIMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Text.fs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
-    <None Include="Text.vs">
-      <Filter>Shader\TextLabel</Filter>
-    </None>
     <None Include="Shaders\Ex_10.fs">
       <Filter>Shader</Filter>
     </None>
@@ -143,11 +218,23 @@
     <None Include="Shaders\CubeMap.fs">
       <Filter>Shader\CubeMap</Filter>
     </None>
-    <None Include="Shaders\DiffuseLight.fs">
-      <Filter>Shader\DiffuseLight</Filter>
+    <None Include="Shaders\BlinnPhong.fs">
+      <Filter>Shader\BlinnPhong</Filter>
     </None>
-    <None Include="Shaders\DiffuseLight.vs">
-      <Filter>Shader\DiffuseLight</Filter>
+    <None Include="Shaders\BlinnPhong.vs">
+      <Filter>Shader\BlinnPhong</Filter>
+    </None>
+    <None Include="Shaders\ModelShader.fs">
+      <Filter>Shader\Model</Filter>
+    </None>
+    <None Include="Shaders\ModelShader.vs">
+      <Filter>Shader\Model</Filter>
+    </None>
+    <None Include="Shaders\Text.fs">
+      <Filter>Shader\TextLabel</Filter>
+    </None>
+    <None Include="Shaders\Text.vs">
+      <Filter>Shader\TextLabel</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -178,14 +265,8 @@
     <Filter Include="Framework\Camera">
       <UniqueIdentifier>{62615cfd-85ea-4f1a-a4c5-406442d883b1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Framework\SceneScene">
-      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Shader\CubeMap">
       <UniqueIdentifier>{f2e122df-a8c0-41c2-aa15-0d0a8f0fd17f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Shader\DiffuseLight">
-      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Framework\GameObj">
       <UniqueIdentifier>{2dfb6356-fc38-408e-a079-91a8b0650323}</UniqueIdentifier>
@@ -213,6 +294,51 @@
     </Filter>
     <Filter Include="Framework\Network\NetEntity">
       <UniqueIdentifier>{aefe0686-b3c9-4366-966e-9c9bb180450a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\BlinnPhong">
+      <UniqueIdentifier>{d841d092-7a32-46c5-9811-301c5624ca1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Input">
+      <UniqueIdentifier>{5d54924d-e17f-4b7c-9aa5-6182e053d84f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Scene">
+      <UniqueIdentifier>{5ac726db-98c5-4037-a630-fb8a94978afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b9652252-8a95-4431-bfd3-2ff10885a055}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Player">
+      <UniqueIdentifier>{5648a6bb-4c5c-4045-84ec-d81be00da4b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{496c7805-c7d8-4834-a273-ba3870a78012}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Model">
+      <UniqueIdentifier>{ebf6c192-6b7d-43fb-bec9-4775c05b8316}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Model">
+      <UniqueIdentifier>{683338ce-c1a2-4807-a427-35a45bee0ab0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Bullet">
+      <UniqueIdentifier>{eaf76748-5ee8-4a9e-8572-e8755688fec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Texture&amp;Program">
+      <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Seek">
+      <UniqueIdentifier>{09f016a7-afd3-4973-9580-351da036c979}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Flee">
+      <UniqueIdentifier>{61542f01-ef13-4006-8848-8acc96f015dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Containment">
+      <UniqueIdentifier>{43474863-aa1b-40cf-a840-a558872f983b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Wander">
+      <UniqueIdentifier>{11ffaec4-495c-40fb-81d7-a994d0b072a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\AIMgr">
+      <UniqueIdentifier>{6386d43e-fdcf-4614-81d6-7b243b6c2f75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

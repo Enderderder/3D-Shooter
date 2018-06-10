@@ -4,7 +4,7 @@
 // Auckland
 // New Zealand
 //
-// (c) 2016 Media Design School
+// (c) 2018 Media Design School
 //
 // File Name    : main.cpp
 // Description	: 
@@ -16,87 +16,128 @@
 #include "Utility.h"
 #include "SceneMgr.h"
 #include "MeshMgr.h"
+#include "ModelMgr.h"
+#include "AssetMgr.h"
 #include "CNetworkMgr.h"
+#include "Input.h"
+
 
 // make sure the winsock lib is included...
 #pragma comment(lib,"ws2_32.lib")
 
 //Class Pointers
 CNetworkMgr m_pNetworkMgr;
+static CInput* cInput = CInput::GetInstance();
+static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
+TextLabel* m_pTextLabel;
+CSound m_pSound;
 
-void Init();
+void InititializeProgram();
 void Render();
 void Update();
 void ResizeWindow(int _width, int _height);
-void KeyBoard_Down(unsigned char key, int x, int y);
-void KeyBoard_Up(unsigned char key, int x, int y);
+void FPSCounter();
 
-unsigned char KeyState[255];
+bool bIsFS;
 
 int main(int argc, char **argv)
 {
+	
+	bIsFS = false;
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
-	glutInitWindowPosition(600, 600);
+	glutInitWindowPosition(400, 200);
+
 	glutInitWindowSize(util::SCR_WIDTH, util::SCR_HEIGHT);
 	glutCreateWindow("3D Shooter");
 	glEnable(GL_MULTISAMPLE);
 
-	/// This Blend Func Should be Enable as the Rendering of the objects
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+	// Set Clear Screen Color
 	glClearColor(0.0, 1.0, 0.0, 1.0); // Make the background color GREEN
 
+	// Initialize OpenGL Library
 	glewInit();
-	Init();
 
-	
-
-	//keyboard inputs
-	glutKeyboardFunc(KeyBoard_Down);
-	glutKeyboardUpFunc(KeyBoard_Up);
+	InititializeProgram();
 
 	//register callbacks
-	glutReshapeFunc(ResizeWindow);
+	//glutReshapeFunc(ResizeWindow);
 	glutDisplayFunc(Render);
+	
 	glutIdleFunc(Update);
 
-	//glutPassiveMotionFunc(MousePassiveMovement);
-	glutCloseFunc([]() {}); /// Modification needed
+	glutCloseFunc([]() {
+		cInput->DestroyObject();
+		cSceneMgr->DestroyObject();
+		CAssetMgr::GetInstance()->DestroyInstance();
+		CMeshMgr::GetInstance()->DestroyInstance();
+		CModelMgr::GetInstance()->DestroyInstance();
+	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
 }
 
-void Init()
+void InititializeProgram()
 {
-	CMeshMgr::GetInstance().InitialiseMeshes();
 
+//	m_pSound.PlaySound();
+	cInput->InitializeInput();
+	CAssetMgr::GetInstance()->InitializeAssets();
+	CMeshMgr::GetInstance()->InitializeMeshes();
+	CModelMgr::GetInstance()->InitializeModels();
 
-	CSceneMgr::GetInstance().Initialise();
-	//Input::GetInstance()->Init();
+	//FPS counter starts at 0 when programs starts up
+	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
+	m_pTextLabel->SetScale(1.0f);
+	m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	
+	cSceneMgr->InitializeSceneMgr();
 }
 
 void Render()
 {
-	CSceneMgr::GetInstance().RenderCurrentScene();
-	glutSwapBuffers();
+	cSceneMgr->RenderCurrentScene();
 
+	FPSCounter();
+	m_pTextLabel->Render();
+	
+	glutSwapBuffers();
 }
 
 void Update()
 {
-	CSceneMgr::GetInstance().UpdateCurrentScene();
 
-	if (KeyState[(unsigned char)'p'] == INPUT_HOLD)
+	// Update whats currently running
+	cSceneMgr->UpdateCurrentScene();
+	//Main Menu controls
+	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
-		std::thread Thread_obj(&CNetworkMgr::StartNetwork, &m_pNetworkMgr);
+		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
+		{
+			std::cout << "Loading...." << std::endl;
+			cSceneMgr->SwapScene(GAME);
+		}
 
-			Thread_obj.join();
-		
-		
+		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
+		{
+			exit (0);
+		}
 	}
+
+	
+
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
+	{
+		glutFullScreenToggle();
+		bIsFS = true;
+	}
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_RELEASED && bIsFS == true)
+	{
+		bIsFS = false;
+	}
+
+	
 
 	glutPostRedisplay();
 }
@@ -106,12 +147,21 @@ void ResizeWindow(int _width, int _height)
 	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
 }
 
-void KeyBoard_Down(unsigned char key, int x, int y)
+void FPSCounter()
 {
-	KeyState[key] = INPUT_HOLD;
-}
+	static float framesPerSecond = 0.0f;	// This will store our fps
+	static float lastTime = 0.0f;			// This will hold the time from the last frame
+	float currentTime = GetTickCount() * 0.001f;
+	++framesPerSecond;
+	if (currentTime - lastTime > 1.0f)
+	{
+		lastTime = currentTime;
 
-void KeyBoard_Up(unsigned char key, int x, int y)
-{
-	KeyState[key] = INPUT_RELEASED;
+		std::ostringstream iConvert;
+		iConvert << framesPerSecond;
+		m_pTextLabel->SetText(iConvert.str());
+
+		framesPerSecond = 0;
+	}
+
 }

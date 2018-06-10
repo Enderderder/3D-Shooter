@@ -9,7 +9,7 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	scale = 1.0;
 	SetPosition(pos);
 
-	program = shaderLoader.CreateProgram("Resources/Shaders/Text.vs", "Resources/Shaders/Text.fs");
+	program = shaderLoader.CreateProgram("Shaders/Text.vs", "Shaders/Text.fs");
 
 	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)util::SCR_WIDTH, 0.0f, (GLfloat)util::SCR_HEIGHT);
 	glUseProgram(program);
@@ -82,12 +82,19 @@ TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindVertexArray(0);
 }
 
+TextLabel::~TextLabel()
+{
+
+}
+
 void TextLabel::Render()
 {
 	glm::vec2 textPos = position;
 
 	// Enable blending
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

@@ -53,7 +53,7 @@ public:
 
 	// Singleton Methods
 	static CNetwork& GetInstance();
-	static void DestroyInstance();
+	static void DestroyObject();
 
 private:
 	//Make the network class a singleton. There is only one instance of the network running

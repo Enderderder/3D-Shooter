@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name    : Sound.cpp
+// Description	: 
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+//
+
 #include "Utility.h"
 
 // Global Variable -----------------------------------------------------------------------------
@@ -31,11 +45,11 @@ bool CSound::InitFmod()
 	return true;
 }
 
-void CSound::SetSoundAdress(char _charAdress)
+void CSound::SetSoundAdress(const char* _charAdress)
 {
 	FMOD::Sound* SoundTemp = nullptr;
 
-	m_pSoundAdress.push_back(&_charAdress);
+	m_pSoundAdress.push_back(_charAdress);
 	m_pSoundPointers.push_back(SoundTemp);
 }
 
@@ -43,17 +57,16 @@ const bool CSound::LoadAudio()
 {
 	FMOD_RESULT result;
 	// Sound Effects -------------------------------------------------------------------------------
-	if (m_pSoundPointers.size() > 0)
-	{
+	
 		for (int i = 0; i < m_pSoundPointers.size(); i++)
 		{
 			result = audioMgr->createSound(m_pSoundAdress[i], FMOD_DEFAULT, 0, &m_pSoundPointers[i]);
 		}
 		
-	}
+	
 
 	// Theme music ---------------------------------------------------------------------------------
-	result = audioMgr->createSound(" ", FMOD_DEFAULT, 0, &bgmTheme);
+	result = audioMgr->createSound("Resources/Sound/bensound-epic.mp3", FMOD_DEFAULT, 0, &bgmTheme);
 
 	bgmTheme->setMode(FMOD_LOOP_NORMAL);
 
@@ -68,11 +81,12 @@ void CSound::PlaySound()
 	FMOD::Channel* channel;
 	
 	audioMgr->playSound(bgmTheme, 0, false, &channel);	//main theme loop
-	channel->setVolume(m_intMasterVolume);	//master volume
+	channel->setVolume(1);	//master volume
 
 	for (int i = 0; i < m_pSoundPointers.size(); i++)
 	{
 		audioMgr->playSound(m_pSoundPointers[i], 0, false, &channel);	//sound FX
+		m_pSoundPointers.clear();
 	}
 	
 }
