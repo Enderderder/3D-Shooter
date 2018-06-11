@@ -20,7 +20,8 @@ enum AIType
 	SEEK,
 	FLEE,
 	WANDER,
-	CONTAINMENT
+	CONTAINMENT,
+	ARRIVE
 
 };
 
