@@ -94,15 +94,14 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
 		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
-
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
 		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"));
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
-		CGameObject* powerUp = new CPowerUps(MOVESPD);
-		Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
+		//CGameObject* powerUp = new CPowerUps(SCORE);
+		//Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
 
 		t1 = std::chrono::high_resolution_clock::now();
 		tPowerUp1 = std::chrono::high_resolution_clock::now();
@@ -225,7 +224,7 @@ void CScene::UpdateScene()
 		//////////////Timer for PowerUp/////////////////////////
 		if (durationPowerUp >= std::chrono::seconds(10))
 		{
-			int WhichPowerUp = rand() % 2;
+			int WhichPowerUp = rand() % 3;
 			switch (WhichPowerUp)
 			{
 				//MOVESPD Powerup
@@ -247,7 +246,7 @@ void CScene::UpdateScene()
 			//SCORE Powerup
 			case 2:
 			{
-				CGameObject* powerUp = new CPowerUps(POWER);
+				CGameObject* powerUp = new CPowerUps(SCORE);
 				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
 				tPowerUp1 = std::chrono::high_resolution_clock::now();
 				break;
