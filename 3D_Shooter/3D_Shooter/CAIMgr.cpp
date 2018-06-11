@@ -38,20 +38,14 @@ void CAIMgr::UpdateGameObeject()
 	case SEEK:
 	{
 		resultAiSteering += AiSeek(m_pTarget->GetPosition());
-		if (glm::distance(m_Position, m_pTarget->GetPosition()) < 15.0f)
-		{
-			//AI = FLEE;
-		}
+		
 		break;
 	}
 
 	case FLEE:
 	{
 		resultAiSteering += AiFlee(m_pTarget->GetPosition());
-		if (glm::distance(m_Position, m_pTarget->GetPosition()) > 15.0f)
-		{
-			//AI = SEEK;
-		}
+		
 		break;
 	}
 
@@ -78,6 +72,12 @@ void CAIMgr::UpdateGameObeject()
 	case FLOCK:
 	{
 		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		break;
+	}
+
+	case LEADERFOLLOW:
+	{
+
 		break;
 	}
 
@@ -144,6 +144,11 @@ glm::vec3 CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 		// Apply the steering force to the agent
 		return steering;
 	}
+}
+
+void  CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
+{
+
 }
 
 glm::vec3 CAIMgr::AiPursue(CGameObject* _Target)

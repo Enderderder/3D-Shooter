@@ -60,6 +60,7 @@ private:
 
 	std::vector<CGameObject*> m_vGameObj;
 	std::vector<TextLabel*> m_pText;
+	std::vector<CGameObject*> m_vEnemiesFollow;
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
 	ESCENES m_pCurrentEnum;
