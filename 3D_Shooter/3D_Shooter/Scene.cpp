@@ -92,11 +92,18 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), 
+			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
 		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
-		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"));
+		CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"),
+			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
+		Instantiate(Enemey2, glm::vec3(11.0f, 0.0f, 13.0f));
+		std::cout << "Loaded GameObject: Enemy" << std::endl;
+
+		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), 
+			cAssetMgr->GetProgramID("BlinnPhong"));
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
@@ -360,4 +367,9 @@ void CScene::DestroyObject(CGameObject* _gameobj)
 void CScene::AddScore(int _point)
 {
 	m_GameScore += _point;
+}
+
+std::vector<CGameObject*> CScene::GetObjectVec() const
+{
+	return m_vGameObj;
 }

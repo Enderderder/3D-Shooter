@@ -140,21 +140,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Arrival.cpp" />
     <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="CAIMgr.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CContainment.cpp" />
-    <ClCompile Include="CFlee.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CNetworkMgr.cpp" />
-    <ClCompile Include="CSeek.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="consoletools.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
-    <ClCompile Include="CWander.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -180,21 +175,16 @@
     <Text Include="Commenting Header.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arrival.h" />
     <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="CAIMgr.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CContainment.h" />
-    <ClInclude Include="CFlee.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CNetworkMgr.h" />
-    <ClInclude Include="CSeek.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="consoletools.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CubeMesh.h" />
-    <ClInclude Include="CWander.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />

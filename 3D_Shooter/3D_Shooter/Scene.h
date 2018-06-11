@@ -47,6 +47,8 @@ public:
 
 	void AddScore(int _point);
 
+	std::vector<CGameObject*> GetObjectVec() const;
+
 private:
 
 	int m_GameScore;
