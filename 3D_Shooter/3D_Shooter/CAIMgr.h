@@ -22,7 +22,8 @@ enum AIType
 	PURSUE,
 	WANDER,
 	LEADERFOLLOW,
-	ARRIVE
+	ARRIVE,
+  FLOCK
 
 };
 
@@ -41,13 +42,14 @@ public:
 private:
 
 	// MemberFunction
-	void AiSeek(glm::vec3 _TargetPoint);
-	void AiFlee(glm::vec3 _TargetPoint);
-	void AiLeaderFollow(glm::vec3 _TargetPoint);
-	void AiPursue(CGameObject* _Target);
-	void AiArrival(CGameObject* _Target);
-	void AiWander();
-	void AiWallBounce();
+	glm::vec3 AiSeek(glm::vec3 _TargetPoint);
+	glm::vec3 AiFlee(glm::vec3 _TargetPoint);
+	glm::vec3 AiPursue(CGameObject* _Target);
+	glm::vec3 AiArrival(CGameObject* _Target);
+	glm::vec3 AiWander();
+	glm::vec3 AiWallBounce();
+  glm::vec3 AiLeaderFollow(glm::vec3 _TargetPoint);
+	glm::vec3 Separate(std::vector<CGameObject*> _objVec);
 
 	bool IsNotPanicArea(glm::vec3 _PlayerPos);
 	void SetAngle(glm::vec3& _vector, float _angle);
