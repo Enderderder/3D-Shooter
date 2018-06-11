@@ -16,7 +16,7 @@
 #define AIMgr_H
 
 #include "CAIMgr.h"
-
+#include "SceneMgr.h"
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 
@@ -24,7 +24,7 @@ CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AITyp
 	m_movementSpd(0.1f)
 
 {
-	m_tag = "Enemey";
+	m_tag = "Enemy";
 	m_ColliderRad = 1.0f;
 	AI = _AIType;
 	m_pTarget = _Target;
@@ -90,6 +90,19 @@ void CAIMgr::UpdateGameObeject()
 	}
 
 
+}
+
+void CAIMgr::OnCollision(CGameObject * _other)
+{
+	if (_other->GetTag() == "Bullet")
+	{
+		DestroyObject();
+		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
+	}
+	if (_other->GetTag() == "Player")
+	{
+		DestroyObject();
+	}
 }
 
 CAIMgr::~CAIMgr()

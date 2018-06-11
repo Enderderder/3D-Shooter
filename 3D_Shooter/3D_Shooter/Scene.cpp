@@ -92,17 +92,17 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, player);
-		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
+		//CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, player);
+		//Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 
-		std::cout << "Loaded GameObject: Enemy" << std::endl;
+		//std::cout << "Loaded GameObject: Enemy" << std::endl;
 
 		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"));
 		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
-		CGameObject* powerUp = new CPowerUps(MOVESPD);
-		Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
+		//CGameObject* powerUp = new CPowerUps(SCORE);
+		//Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
 
 		t1 = std::chrono::high_resolution_clock::now();
 		tPowerUp1 = std::chrono::high_resolution_clock::now();
@@ -194,7 +194,7 @@ void CScene::UpdateScene()
 	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
 	{
 		std::ostringstream iScore;
-		iScore << "Score: " << Score;
+		iScore << "Score: " << m_GameScore;
 		m_pScore->SetText(iScore.str());
 
 		CPlayer* other = dynamic_cast<CPlayer*>(m_player);
@@ -205,8 +205,9 @@ void CScene::UpdateScene()
 		if (other->GetLife() <= 0)
 		{
 			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
-				
+			return;
 		}
+
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
@@ -224,9 +225,37 @@ void CScene::UpdateScene()
 		//////////////Timer for PowerUp/////////////////////////
 		if (durationPowerUp >= std::chrono::seconds(10))
 		{
-			CGameObject* powerUp = new CPowerUps(MOVESPD);
-			Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
-			tPowerUp1 = std::chrono::high_resolution_clock::now();
+			int WhichPowerUp = rand() % 3;
+			switch (WhichPowerUp)
+			{
+				//MOVESPD Powerup
+			case 0:
+			{
+				CGameObject* powerUp = new CPowerUps(MOVESPD);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			//HEALTH Powerup
+			case 1:
+			{
+				CGameObject* powerUp = new CPowerUps(HEAL);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			//SCORE Powerup
+			case 2:
+			{
+				CGameObject* powerUp = new CPowerUps(SCORE);
+				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
+				tPowerUp1 = std::chrono::high_resolution_clock::now();
+				break;
+			}
+			default:
+				break;
+			}
+			
 		}
 	}
 
@@ -327,4 +356,9 @@ void CScene::DestroyObject(CGameObject* _gameobj)
 			break;
 		}
 	}
+}
+
+void CScene::AddScore(int _point)
+{
+	m_GameScore += _point;
 }

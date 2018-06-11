@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
-	//m_pSound.PlaySound();
+	m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
 	CMeshMgr::GetInstance()->InitializeMeshes();

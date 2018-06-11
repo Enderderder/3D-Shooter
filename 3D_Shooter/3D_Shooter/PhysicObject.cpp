@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -10,7 +10,7 @@
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 // This Include
 #include "PhysicObject.h"
@@ -38,6 +38,42 @@ CPhysicObject::~CPhysicObject()
 
 void CPhysicObject::PhysicsUpdate()
 {
+	// Change the Direction player facing
+	if (m_velocity.x < 0 && m_velocity.z > 0) // Right Down
+	{
+		SetRotationY(135.0f);
+	}
+	else if (m_velocity.x < 0 && m_velocity.z < 0) // Right Up
+	{
+		SetRotationY(45);
+	}
+	else if (m_velocity.x > 0 && m_velocity.z > 0) // Left Down
+	{
+		SetRotationY(-135.0f);
+	}
+	else if (m_velocity.x > 0 && m_velocity.z < 0) // Left Up
+	{
+		SetRotationY(-45.0f);
+	}
+	else if (m_velocity.x < 0) // Right
+	{
+		SetRotationY(90.0f);
+	}
+	else if (m_velocity.x > 0) // Left
+	{
+		SetRotationY(-90.0f);
+	}
+	else if (m_velocity.z > 0) // Down
+	{
+		SetRotationY(180.0f);
+	}
+	else if (m_velocity.z < 0) // Up
+	{
+		SetRotationY(0.0f);
+	}
+
+
+
 	// Use the velocity to move the object
 	AddPosition(m_velocity);
 

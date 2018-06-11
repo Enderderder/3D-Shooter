@@ -11,7 +11,7 @@ uniform samplerCube cubeMap;
 
 uniform vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 uniform vec3 camPos;
-uniform vec3 rimColor = glm::vec3(1.0f, 0.0f, 0.0f);
+uniform vec3 rimColor;
 
 void main()
 {
@@ -28,5 +28,5 @@ void main()
 	vec3 rim = rimFactor * rimColor * lightColor;
 
 	//color = vec4(rim, 1.0f) * texture(tex, fragTexCoord) * vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
-	color = vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
+	color = vec4(rim, 1.0f) + vec4(texture(cubeMap, reflectDir).rgb, 1.0f);
 }

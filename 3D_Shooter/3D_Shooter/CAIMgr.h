@@ -39,6 +39,7 @@ public:
 	~CAIMgr();
 
 	void UpdateGameObeject() override;
+	void OnCollision(CGameObject* _other) override;
 
 private:
 	float m_movementSpd;
