@@ -76,9 +76,9 @@ void CAIMgr::UpdateGameObeject()
 	}
 		break;
 
-	case CONTAINMENT:
+	case ARRIVE:
 	{
-
+		AiArrival(m_pTarget);
 	}
 		break;
 
@@ -138,9 +138,7 @@ void CAIMgr::AiFlee(CGameObject* _Target)
 		glm::vec3 desiredVelo = glm::normalize(m_Position - _Target->GetPosition());
 		desiredVelo *= m_movementSpd;
 
-		glm::vec3 curVelo = m_velocity;
-
-		glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + curVelo);
+		glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + m_velocity);
 		Steering /= 25.0f;
 
 		// Apply the steering force to the AI
@@ -150,7 +148,19 @@ void CAIMgr::AiFlee(CGameObject* _Target)
 
 void CAIMgr::AiArrival(CGameObject* _Target)
 {
+	glm::vec3 desiredVelo = glm::normalize(_Target->GetPosition() - m_Position);
+	desiredVelo *= m_movementSpd;
 
+	float PlayerRadius = 15.0f;
+	if (glm::distance(_Target->GetPosition(), m_Position) < PlayerRadius)
+	{
+		desiredVelo *= glm::distance(_Target->GetPosition(), m_Position) / PlayerRadius;
+	}
+
+	glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + m_velocity);
+	Steering /= 25.0f;
+	
+	m_velocity += Steering;
 }
 
 void CAIMgr::AiWander()
