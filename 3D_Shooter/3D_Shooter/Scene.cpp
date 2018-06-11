@@ -268,9 +268,11 @@ void CScene::UpdateScene()
 				//ARRIVE
 				case 5:
 				{
-					
-					CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, m_player);
-					Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					for (int i = 0; i < 3; i++)
+					{
+						CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLOCK, m_player);
+						Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					}
 					break;
 				}
 
