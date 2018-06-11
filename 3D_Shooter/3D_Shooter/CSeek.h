@@ -25,7 +25,7 @@ public:
 	CSeek();
 	~CSeek();
 
-	glm::vec3 UpdateGameObject(CGameObject* _Target, float _movementSpd, glm::vec3 _AgentPos);
+	glm::vec3 UpdateGameObject(CGameObject* _Target, float _movementSpd, glm::vec3 _AgentPos, glm::vec3 _AgentVel);
 };
 
 #endif //!CSEEK_H

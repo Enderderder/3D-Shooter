@@ -6,38 +6,26 @@
 //
 // (c) 2018 Media Design School
 //
-// File Name    : CWander.h
+// File Name    : CSeek.h
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef CWANDER_H
-#define CWANDER_H
+#ifndef ARRIVAL_H
+#define ARRIVAL_H
 
 #include "Utility.h"
 #include "Player.h"
 
 
-class CWander
+class CArrival
 {
 public:
-	CWander();
-	~CWander();
-
-	float rand_FloatRange(float a, float b)
-	{
-		return ((b - a) * ((float)rand() / RAND_MAX)) + a;
-	}
+	CArrival();
+	~CArrival();
 
 	glm::vec3 UpdateGameObject(CGameObject* _Target, float _movementSpd, glm::vec3 _AgentPos);
-
-private:
-
-	float m_WanderAngle;
-
-	// Private Func
-	void SetAngle(glm::vec3& _vector, float _angle);
 };
 
-#endif
+#endif //!ARRIVAL_H

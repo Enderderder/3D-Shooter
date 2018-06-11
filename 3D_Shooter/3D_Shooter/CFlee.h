@@ -23,7 +23,7 @@ public:
 	CFlee();
 	~CFlee();
 
-	glm::vec3 UpdateGameObject(CGameObject* _Target, float _movementSpd, glm::vec3 _AgentPos);
+	glm::vec3 UpdateGameObject(CGameObject* _Target, float _movementSpd, glm::vec3 _AgentPos, glm::vec3 _AgentVel);
 	bool IsNotPanicArea(glm::vec3 _PlayerPos, glm::vec3 _AIPos);
 };
 #endif

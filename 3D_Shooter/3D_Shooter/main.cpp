@@ -42,7 +42,7 @@ bool bIsFS;
 
 int main(int argc, char **argv)
 {
-	
+	srand(time(NULL));
 	bIsFS = false;
 	// Create the window
 	glutInit(&argc, argv);
