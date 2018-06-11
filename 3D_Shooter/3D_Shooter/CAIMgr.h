@@ -21,7 +21,7 @@ enum AIType
 	FLEE,
 	PURSUE,
 	WANDER,
-	CONTAINMENT,
+	LEADERFOLLOW,
 	ARRIVE
 
 };
@@ -43,6 +43,7 @@ private:
 	// MemberFunction
 	void AiSeek(glm::vec3 _TargetPoint);
 	void AiFlee(glm::vec3 _TargetPoint);
+	void AiLeaderFollow(glm::vec3 _TargetPoint);
 	void AiPursue(CGameObject* _Target);
 	void AiArrival(CGameObject* _Target);
 	void AiWander();

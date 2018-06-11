@@ -36,10 +36,10 @@ void CAIMgr::UpdateGameObeject()
 	case SEEK:
 	{
 		AiSeek(m_pTarget->GetPosition());
-		if (glm::distance(m_Position, m_pTarget->GetPosition()) < 15.0f)
+		/*if (glm::distance(m_Position, m_pTarget->GetPosition()) < 15.0f)
 		{
 			AI = FLEE;
-		}
+		}*/
 		break;
 	}
 
@@ -73,6 +73,12 @@ void CAIMgr::UpdateGameObeject()
 	case ARRIVE:
 	{
 		AiArrival(m_pTarget);
+		break;
+	}
+
+	case LEADERFOLLOW:
+	{
+
 		break;
 	}
 
@@ -135,6 +141,11 @@ void CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 		// Apply the steering force to the agent
 		m_velocity += steering;
 	}
+}
+
+void  CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
+{
+
 }
 
 void CAIMgr::AiPursue(CGameObject* _Target)
