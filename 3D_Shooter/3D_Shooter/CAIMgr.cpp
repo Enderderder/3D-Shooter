@@ -131,7 +131,7 @@ glm::vec3 CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 	if (IsNotPanicArea(_TargetPoint))
 	{
 		// Target is not close enough, stop moving
-		m_velocity = glm::vec3();
+		return glm::vec3();
 	}
 	else
 	{
