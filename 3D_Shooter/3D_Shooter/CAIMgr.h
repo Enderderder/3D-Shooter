@@ -35,13 +35,25 @@ class CAIMgr : public CPhysicObject
 {
 public:
 	CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target);
-	CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target);
+	//CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target);
 	~CAIMgr();
 
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
 
 private:
+
+	// MemberFunction
+	void AiSeek(CGameObject* _Target);
+	void AiFlee(CGameObject* _Target);
+	void AiArrival(CGameObject* _Target);
+	void AiWander();
+
+	bool IsNotPanicArea(glm::vec3 _PlayerPos);
+	void SetAngle(glm::vec3& _vector, float _angle);
+
+	float m_WanderAngle;
+
 	float m_movementSpd;
 
 	CSeek m_pSeek;

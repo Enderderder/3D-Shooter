@@ -103,6 +103,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="Arrival.cpp">
+      <Filter>Game\AI\Arrival</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -215,6 +218,9 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrival.h">
+      <Filter>Game\AI\Arrival</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +381,9 @@
     </Filter>
     <Filter Include="Framework\AssetLoader">
       <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI\Arrival">
+      <UniqueIdentifier>{8ba0402d-2380-4ac6-bf63-eb19abbf6ade}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

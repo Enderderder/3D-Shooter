@@ -92,7 +92,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, player);
+		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, player);
 		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
@@ -209,7 +209,7 @@ void CScene::UpdateScene()
 		}
 
 		//////////////Timer for enemey spawning/////////////////////////
-		if (duration >= std::chrono::seconds(3))
+		/*if (duration >= std::chrono::seconds(3))
 		{
 			CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("BOX"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, m_player);
 			Instantiate(Enemey, glm::vec3(-19 + rand()%  (30), 0.0f, -19 + rand() % (30)));
@@ -221,7 +221,7 @@ void CScene::UpdateScene()
 			Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
 
 			t1 = std::chrono::high_resolution_clock::now();
-		}
+		}*/
 		//////////////Timer for PowerUp/////////////////////////
 		if (durationPowerUp >= std::chrono::seconds(10))
 		{

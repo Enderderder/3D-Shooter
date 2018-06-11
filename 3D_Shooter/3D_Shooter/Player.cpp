@@ -54,6 +54,7 @@ CPlayer::CPlayer(CModel* _model, GLuint _programID) :
 
 	m_IsModel = true;
 	InitializeObject(_model, _programID);
+	SetScale(glm::vec3(0.3f, 0.3f, 0.3f));
 }
 
 CPlayer::~CPlayer()
@@ -85,7 +86,7 @@ void CPlayer::OnCollision(CGameObject* _other)
 	}
 	else if (_other->GetTag() == "Enemy")
 	{
-		m_health -= 10;
+		//m_health -= 10;
 	}
 }
 
@@ -110,8 +111,16 @@ void CPlayer::ProcessMovement()
 		resultVec.x += 1;
 	}
 
+
 	// If player actually have movement input
-	if (resultVec != glm::vec3())
+	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_RELEASED)
+		&& (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_RELEASED)
+		&& (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_RELEASED)
+		&& (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_RELEASED))
+	{
+		this->m_velocity = { 0.0f,0.0f,0.0f };
+	}
+	else if (resultVec != glm::vec3())
 	{
 		// Add the speed force to the direction
 		this->m_velocity = glm::normalize(resultVec) * m_movementSpd;
