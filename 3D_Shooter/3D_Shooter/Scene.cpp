@@ -93,12 +93,12 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_player = player;
 
 		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), 
-			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
+			cAssetMgr->GetProgramID("BlinnPhong"), FLOCK, player);
 		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
 		CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"),
-			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
+			cAssetMgr->GetProgramID("BlinnPhong"), FLOCK, player);
 		Instantiate(Enemey2, glm::vec3(11.0f, 0.0f, 13.0f));
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
 
