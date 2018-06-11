@@ -27,6 +27,7 @@ CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AITyp
 	AI = _AIType;
 	m_pTarget = _Target;
 	InitializeObject(_mesh, _textureID, _programID);
+	
 }
 
 void CAIMgr::UpdateGameObeject()
@@ -77,7 +78,16 @@ void CAIMgr::UpdateGameObeject()
 
 	case LEADERFOLLOW:
 	{
-
+		if (this == m_vEnemey[0])
+		{
+			resultAiSteering += resultAiSteering += AiSeek(m_pTarget->GetPosition());
+			resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		}
+		else
+		{
+			resultAiSteering += resultAiSteering += AiSeek(m_vEnemey[0]->GetPosition());
+			resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		}
 		break;
 	}
 
@@ -106,6 +116,7 @@ void CAIMgr::OnCollision(CGameObject* _other)
 	if (_other->GetTag() == "Bullet")
 	{
 		//DestroyObject();
+		
 		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
@@ -148,6 +159,8 @@ glm::vec3 CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 
 glm::vec3 CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
 {
+	
+
 	return glm::vec3();
 }
 
