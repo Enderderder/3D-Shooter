@@ -146,9 +146,9 @@ glm::vec3 CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 	}
 }
 
-void  CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
+glm::vec3 CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
 {
-
+	return glm::vec3();
 }
 
 glm::vec3 CAIMgr::AiPursue(CGameObject* _Target)
