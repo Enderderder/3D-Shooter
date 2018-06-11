@@ -48,7 +48,7 @@ void CAIMgr::UpdateGameObeject()
 		AiFlee(m_pTarget->GetPosition());
 		if (glm::distance(m_Position, m_pTarget->GetPosition()) > 15.0f)
 		{
-			AI = SEEK;
+			//AI = SEEK;
 		}
 		break;
 	}
@@ -63,6 +63,10 @@ void CAIMgr::UpdateGameObeject()
 	case WANDER:
 	{
 		AiWander();
+		if (glm::length(m_velocity) > m_movementSpd && glm::length(m_velocity) != 0.0f)
+		{
+			m_velocity = glm::normalize(m_velocity) * m_movementSpd;
+		}
 		break;
 	}
 
@@ -76,6 +80,10 @@ void CAIMgr::UpdateGameObeject()
 		break;
 	}
 
+	// Test no matter what in the game if the AI touches a wall
+	AiWallBounce();
+
+	// Make sure the speed of the agent does not go beyong the limit
 	if (glm::length(m_velocity) > m_movementSpd && glm::length(m_velocity) != 0.0f)
 	{
 		m_velocity = glm::normalize(m_velocity) * m_movementSpd;
@@ -88,7 +96,7 @@ void CAIMgr::OnCollision(CGameObject* _other)
 {
 	if (_other->GetTag() == "Bullet")
 	{
-		DestroyObject();
+		//DestroyObject();
 		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
@@ -99,14 +107,14 @@ void CAIMgr::OnCollision(CGameObject* _other)
 
 void CAIMgr::AiSeek(glm::vec3 _TargetPoint)
 {
-	glm::vec3 desiredVelo = glm::normalize(_TargetPoint - m_Position);
-	desiredVelo *= m_movementSpd;
+	glm::vec3 desiredVel = glm::normalize(_TargetPoint - m_Position);
+	desiredVel *= m_movementSpd;
 
-	glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + m_velocity);
-	Steering /= 25.0f;
+	glm::vec3 steering = (m_Position + desiredVel) - (m_Position + m_velocity);
+	steering /= 25.0f;
 
 	// Apply the steering force to the agent
-	m_velocity += Steering;
+	m_velocity += steering;
 }
 
 void CAIMgr::AiFlee(glm::vec3 _TargetPoint)
@@ -121,11 +129,11 @@ void CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 		glm::vec3 desiredVel = glm::normalize(m_Position - _TargetPoint);
 		desiredVel *= m_movementSpd;
 
-		glm::vec3 Steering = (m_Position + desiredVel) - (m_Position + m_velocity);
-		Steering /= 25.0f;
+		glm::vec3 steering = (m_Position + desiredVel) - (m_Position + m_velocity);
+		steering /= 25.0f;
 
 		// Apply the steering force to the agent
-		m_velocity += Steering;
+		m_velocity += steering;
 	}
 }
 
@@ -168,6 +176,47 @@ void CAIMgr::AiWander()
 	wanderForce = circleCentre + displacement;
 
 	m_velocity += wanderForce;
+}
+
+void CAIMgr::AiWallBounce()
+{
+	glm::vec3 steering;
+
+	if (m_Position.x < -19.0f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_movementSpd, 0.0f, m_velocity.z);
+		steering = desiredVel - m_velocity;
+		steering /= 25.0f;
+		m_velocity += steering;
+	}
+	else if (m_Position.x > 19.0f)
+	{
+		glm::vec3 desiredVel = glm::vec3(-m_movementSpd, 0.0f, m_velocity.z);
+		steering = desiredVel - m_velocity;
+		steering /= 25.0f;
+		m_velocity += steering;
+	}
+	if (m_Position.z < -19.0f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_velocity.x, 0.0f, m_movementSpd);
+		steering = desiredVel - m_velocity;
+		steering /= 25.0f;
+		m_velocity += steering;
+	}
+	else if (m_Position.z > 19.0f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_velocity.x, 0.0f, -m_movementSpd);
+		steering = desiredVel - m_velocity;
+		steering /= 25.0f;
+		m_velocity += steering;
+	}
+	
+	// If there is a wall collide, then bounce it off
+	//if (steering != glm::vec3())
+	//{
+	//	steering /= 25.0f;
+	//	m_velocity += steering;
+	//}
 }
 
 bool CAIMgr::IsNotPanicArea(glm::vec3 _PlayerPos)

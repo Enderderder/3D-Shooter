@@ -45,6 +45,7 @@ private:
 	void AiPursue(CGameObject* _Target);
 	void AiArrival(CGameObject* _Target);
 	void AiWander();
+	void AiWallBounce();
 
 	bool IsNotPanicArea(glm::vec3 _PlayerPos);
 	void SetAngle(glm::vec3& _vector, float _angle);
