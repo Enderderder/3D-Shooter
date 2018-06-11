@@ -39,6 +39,8 @@ public:
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
 
+	std::vector<CGameObject*> m_vEnemey;
+
 private:
 
 	// MemberFunction
@@ -56,7 +58,7 @@ private:
 
 	// Member Variable
 	float m_WanderAngle;
-
+	
 	float m_movementSpd;
 
 	AIType AI;

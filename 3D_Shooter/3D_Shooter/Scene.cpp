@@ -92,7 +92,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Loaded GameObject: Player" << std::endl;
 		m_player = player;
 
-		CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), 
+		/*CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), 
 			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
 		Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
 		std::cout << "Loaded GameObject: Enemy" << std::endl;
@@ -100,7 +100,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"),
 			cAssetMgr->GetProgramID("BlinnPhong"), ARRIVE, player);
 		Instantiate(Enemey2, glm::vec3(11.0f, 0.0f, 13.0f));
-		std::cout << "Loaded GameObject: Enemy" << std::endl;
+		std::cout << "Loaded GameObject: Enemy" << std::endl;*/
 
 		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), 
 			cAssetMgr->GetProgramID("BlinnPhong"));
@@ -183,6 +183,11 @@ void CScene::RenderScene()
 	}
 }
 
+void CScene::ChangeSwitch(int _int)
+{
+	m_AiSwitch = _int;
+}
+
 void CScene::UpdateScene()
 {
 	/*Debbug*************************************************************************/
@@ -217,13 +222,13 @@ void CScene::UpdateScene()
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
-			for (int i = 0; i < 3; i++)
-			{
-
+			//for (int i = 0; i < 3; i++)
+			//{
+			
 
 				int WhichEnemy = rand() % 7;
 
-				switch (0)
+				switch (m_AiSwitch)
 				{
 					//SEEK
 				case 0:
@@ -272,7 +277,7 @@ void CScene::UpdateScene()
 				default:
 					break;
 				}
-			}
+			//}
 
 			t1 = std::chrono::high_resolution_clock::now();
 		}

@@ -46,12 +46,14 @@ public:
 	void DestroyObject(CGameObject* _gameobj);
 
 	void AddScore(int _point);
+	void ChangeSwitch(int _int);
 
 	std::vector<CGameObject*> GetObjectVec() const;
 
 private:
 
 	int m_GameScore;
+	int m_AiSwitch;
   
 	std::chrono::high_resolution_clock::time_point t1;
 	std::chrono::high_resolution_clock::time_point t2;
@@ -60,7 +62,7 @@ private:
 
 	std::vector<CGameObject*> m_vGameObj;
 	std::vector<TextLabel*> m_pText;
-	std::vector<CGameObject*> m_vEnemiesFollow;
+	
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
 	ESCENES m_pCurrentEnum;

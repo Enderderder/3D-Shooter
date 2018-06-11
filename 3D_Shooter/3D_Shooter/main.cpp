@@ -125,6 +125,40 @@ void Update()
 		}
 	}
 
+	if (cSceneMgr->GetCurrentSceneEnum() == GAME)
+	{
+		//SEEK
+		if (cInput->g_cKeyState[(unsigned char)'1'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(0);
+		}
+		//FLEE
+		if (cInput->g_cKeyState[(unsigned char)'2'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(1);
+		}
+		//PURSUE
+		if (cInput->g_cKeyState[(unsigned char)'3'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(1);
+		}
+		//WANDER
+		if (cInput->g_cKeyState[(unsigned char)'4'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(3);
+		}
+		//LEADERFOLLOW
+		if (cInput->g_cKeyState[(unsigned char)'5'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(4);
+		}
+		//ARRIVE
+		if (cInput->g_cKeyState[(unsigned char)'6'] == INPUT_FIRST_PRESS)
+		{
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(5);
+		}
+	}
+
 	if (cSceneMgr->GetCurrentSceneEnum() == GAMEOVER)
 	{
 		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
