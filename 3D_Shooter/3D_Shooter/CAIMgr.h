@@ -48,7 +48,7 @@ private:
 	glm::vec3 AiArrival(CGameObject* _Target);
 	glm::vec3 AiWander();
 	glm::vec3 AiWallBounce();
-  glm::vec3 AiLeaderFollow(glm::vec3 _TargetPoint);
+	glm::vec3 AiLeaderFollow(glm::vec3 _TargetPoint);
 	glm::vec3 Separate(std::vector<CGameObject*> _objVec);
 
 	bool IsNotPanicArea(glm::vec3 _PlayerPos);
