@@ -66,12 +66,12 @@ void CAIMgr::UpdateGameObeject()
 	case ARRIVE:
 	{
 		resultAiSteering += AiArrival(m_pTarget);
-		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
 		break;
 	}
 
 	case FLOCK:
 	{
+		resultAiSteering += AiArrival(m_pTarget);
 		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
 		break;
 	}
