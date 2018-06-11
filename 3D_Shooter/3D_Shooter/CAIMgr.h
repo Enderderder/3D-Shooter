@@ -19,23 +19,19 @@ enum AIType
 {
 	SEEK,
 	FLEE,
+	PURSUE,
 	WANDER,
 	CONTAINMENT
 
 };
 
 // Inherited Include
-#include "Player.h"
-#include "CSeek.h"
-#include "CFlee.h"
-#include "CWander.h"
-#include "CContainment.h"
+#include "PhysicObject.h"
 
 class CAIMgr : public CPhysicObject
 {
 public:
 	CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target);
-	//CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target);
 	~CAIMgr();
 
 	void UpdateGameObeject() override;
@@ -44,25 +40,22 @@ public:
 private:
 
 	// MemberFunction
-	void AiSeek(CGameObject* _Target);
-	void AiFlee(CGameObject* _Target);
+	void AiSeek(glm::vec3 _TargetPoint);
+	void AiFlee(glm::vec3 _TargetPoint);
+	void AiPursue(CGameObject* _Target);
 	void AiArrival(CGameObject* _Target);
 	void AiWander();
 
 	bool IsNotPanicArea(glm::vec3 _PlayerPos);
 	void SetAngle(glm::vec3& _vector, float _angle);
 
+	// Member Variable
 	float m_WanderAngle;
 
 	float m_movementSpd;
 
-	CSeek m_pSeek;
-	CFlee m_pFlee;
-	CWander m_pWander;
 	AIType AI;
 	CGameObject* m_pTarget;
 };
-
-
 
 #endif // !AIMGR_H

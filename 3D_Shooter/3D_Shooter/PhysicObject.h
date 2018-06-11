@@ -28,6 +28,8 @@ public:
 
 	void PhysicsUpdate();
 
+	glm::vec3 GetVelocity() const;
+
 protected:
 
 	glm::vec3 m_directionVec;

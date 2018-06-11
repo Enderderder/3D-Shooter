@@ -12,15 +12,13 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef AIMgr_H
-#define AIMgr_H
-
+// Local Include
 #include "CAIMgr.h"
 #include "SceneMgr.h"
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 	
-	m_movementSpd(0.2f)
+	m_movementSpd(0.5f)
 {
 	m_velocity = glm::vec3(1.0f, 0.0f, -1.0f) * m_movementSpd;
 	m_tag = "Enemy";
@@ -31,61 +29,50 @@ CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AITyp
 	InitializeObject(_mesh, _textureID, _programID);
 }
 
-//CAIMgr::CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target) :
-//
-//
-//	m_movementSpd(1.0f)
-//
-//{
-//	m_tag = "Enemey";
-//	AI = _AIType;
-//	m_pTarget = _Target;
-//	InitializeObject(_model, _programID);
-//}
-
 void CAIMgr::UpdateGameObeject()
 {
-	//glm::vec3 resultMovement(0.0f, 0.0f, 0.0f);
-
 	switch (AI)
 	{
 	case SEEK:
 	{
-		AiSeek(m_pTarget);
+		AiSeek(m_pTarget->GetPosition());
 		if (glm::distance(m_Position, m_pTarget->GetPosition()) < 15.0f)
 		{
 			AI = FLEE;
 		}
-	}
 		break;
+	}
 
 	case FLEE:
 	{
-		AiFlee(m_pTarget);
+		AiFlee(m_pTarget->GetPosition());
 		if (glm::distance(m_Position, m_pTarget->GetPosition()) > 15.0f)
 		{
 			AI = SEEK;
 		}
-	}
 		break;
+	}
+
+	case PURSUE:
+	{
+		AiPursue(m_pTarget);
+
+		break;
+	}
 
 	case WANDER:
 	{
-		//resultMovement = m_pWander.UpdateGameObject(m_pTarget, m_movementSpd, m_velocity);
 		AiWander();
-	}
 		break;
+	}
 
 	case CONTAINMENT:
 	{
 
-	}
 		break;
+	}
 
 	default:
-	{
-	
-	}
 		break;
 	}
 
@@ -97,7 +84,7 @@ void CAIMgr::UpdateGameObeject()
 	this->PhysicsUpdate();
 }
 
-void CAIMgr::OnCollision(CGameObject * _other)
+void CAIMgr::OnCollision(CGameObject* _other)
 {
 	if (_other->GetTag() == "Bullet")
 	{
@@ -110,42 +97,47 @@ void CAIMgr::OnCollision(CGameObject * _other)
 	}
 }
 
-void CAIMgr::AiSeek(CGameObject* _Target)
+void CAIMgr::AiSeek(glm::vec3 _TargetPoint)
 {
-	glm::vec3 desiredVelo = glm::normalize(_Target->GetPosition() - m_Position);
+	glm::vec3 desiredVelo = glm::normalize(_TargetPoint - m_Position);
 	desiredVelo *= m_movementSpd;
 
 	glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + m_velocity);
 	Steering /= 25.0f;
 
+	// Apply the steering force to the agent
 	m_velocity += Steering;
-	if (glm::length(m_velocity) > m_movementSpd && glm::length(m_velocity) != 0.0f)
-	{
-		m_velocity = glm::normalize(m_velocity) * m_movementSpd;
-	}
 }
 
-void CAIMgr::AiFlee(CGameObject* _Target)
+void CAIMgr::AiFlee(glm::vec3 _TargetPoint)
 {
-	if (IsNotPanicArea(_Target->GetPosition()))
+	if (IsNotPanicArea(_TargetPoint))
 	{
 		// Target is not close enough, stop moving
 		m_velocity = glm::vec3();
 	}
-
 	else
 	{
-		glm::vec3 desiredVelo = glm::normalize(m_Position - _Target->GetPosition());
-		desiredVelo *= m_movementSpd;
+		glm::vec3 desiredVel = glm::normalize(m_Position - _TargetPoint);
+		desiredVel *= m_movementSpd;
 
-		glm::vec3 curVelo = m_velocity;
-
-		glm::vec3 Steering = (m_Position + desiredVelo) - (m_Position + curVelo);
+		glm::vec3 Steering = (m_Position + desiredVel) - (m_Position + m_velocity);
 		Steering /= 25.0f;
 
-		// Apply the steering force to the AI
+		// Apply the steering force to the agent
 		m_velocity += Steering;
 	}
+}
+
+void CAIMgr::AiPursue(CGameObject* _Target)
+{
+	// cast the target object to a specified Physics Object which contains the 
+	CPhysicObject* target = dynamic_cast<CPhysicObject*>(_Target);
+
+	// Get the prediction point of the target | certain frames ahead
+	glm::vec3 futurePoint = target->GetPosition() + target->GetVelocity() * 10.0f;
+
+	AiSeek(futurePoint);
 }
 
 void CAIMgr::AiArrival(CGameObject* _Target)
@@ -198,6 +190,3 @@ void CAIMgr::SetAngle(glm::vec3& _vector, float _angle)
 
 CAIMgr::~CAIMgr()
 {}
-
-
-#endif // !AIMgr_H

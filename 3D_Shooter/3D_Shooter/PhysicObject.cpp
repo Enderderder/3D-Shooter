@@ -80,3 +80,8 @@ void CPhysicObject::PhysicsUpdate()
 	// Friction affecting the velocity
 	m_velocity = m_velocity * m_friction;
 }
+
+glm::vec3 CPhysicObject::GetVelocity() const
+{
+	return m_velocity;
+}
