@@ -127,6 +127,13 @@ void Update()
 
 	if (cSceneMgr->GetCurrentSceneEnum() == GAME)
 	{
+		//RESTART
+		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
+		{
+			std::cout << "Restarting...." << std::endl;
+			cSceneMgr->SwapScene(GAME);
+		}
+
 		//SEEK
 		if (cInput->g_cKeyState[(unsigned char)'1'] == INPUT_FIRST_PRESS)
 		{

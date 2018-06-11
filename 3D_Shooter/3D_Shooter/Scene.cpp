@@ -261,8 +261,20 @@ void CScene::UpdateScene()
 				//LEADERFOLLOW
 				case 4:
 				{
-					CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), LEADERFOLLOW, m_player);
-					Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					
+					if (b_isfirst == false)
+					{
+						CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, m_player);
+						Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+						EnemeyTemp = Enemey2;
+						b_isfirst = true;
+					}
+					else
+					{
+						CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, EnemeyTemp);
+						Instantiate(Enemey, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					}
+					
 					break;
 				}
 				//ARRIVE
