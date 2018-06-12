@@ -76,15 +76,13 @@ void CNetworkMgr::StartNetwork()
 
 			_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
 			_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-			ServerMainLoop();
+			
 
 		}
 
 	//	std::thread Thread_obj2(&CNetworkMgr::ServerMainLoop);
 
 		 //End of while network is Online
-		//Thread_obj1.join();
-		//Thread_obj2.join();
 		_ClientReceiveThread.join();
 		_ServerReceiveThread.join();
 
@@ -97,7 +95,7 @@ void CNetworkMgr::StartNetwork()
 
 void CNetworkMgr::ClientMainLoop()
 {
-	while (_rNetwork.IsOnline())
+	if (_rNetwork.IsOnline())
 	{
 		_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
 
@@ -142,7 +140,7 @@ void CNetworkMgr::ClientMainLoop()
 
 void CNetworkMgr::ServerMainLoop()
 {
-	while (_rNetwork.IsOnline())
+	if (_rNetwork.IsOnline())
 	{
 
 		if (_pServer != nullptr)

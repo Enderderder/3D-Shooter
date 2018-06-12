@@ -181,6 +181,10 @@ void Update()
 
 	}
 
+	if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsFS == false)
+	{
+		m_pNetworkMgr.StartNetwork();
+	}
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
 	{
