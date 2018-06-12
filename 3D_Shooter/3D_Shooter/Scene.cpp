@@ -209,11 +209,12 @@ void CScene::UpdateScene()
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
-			//for (int i = 0; i < 3; i++)
-			//{
+			for (int i = 0; i < 3; i++)
+			{
 			
 
 				int WhichEnemy = rand() % 7;
+				m_AiSwitch = rand() % 7;
 
 				switch (m_AiSwitch)
 				{
@@ -267,18 +268,18 @@ void CScene::UpdateScene()
 				//ARRIVE
 				case 5:
 				{
-					for (int i = 0; i < 3; i++)
-					{
+					//for (int i = 0; i < 3; i++)
+					//{
 						CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLOCK, m_player);
 						Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
-					}
+					//}
 					break;
 				}
 
 				default:
 					break;
 				}
-			//}
+			}
 
 			t1 = std::chrono::high_resolution_clock::now();
 		}

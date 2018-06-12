@@ -147,7 +147,7 @@ void Update()
 		//PURSUE
 		if (cInput->g_cKeyState[(unsigned char)'3'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(1);
+			cSceneMgr->GetCurrentScene()->ChangeSwitch(2);
 		}
 		//WANDER
 		if (cInput->g_cKeyState[(unsigned char)'4'] == INPUT_FIRST_PRESS)

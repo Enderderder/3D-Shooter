@@ -129,14 +129,14 @@ void CPlayer::ProcessMovement()
 
 void CPlayer::ProcessShooting()
 {
-	if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_FIRST_PRESS && m_AbleToShoot)
+	if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS && m_AbleToShoot)
 	{
 		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
 		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, glm::vec3(m_Position.x, 1.0f, m_Position.z));
 		m_AbleToShoot = false;
 	}
-	else if (cInput->g_cKeyState[(unsigned char)'k'] == INPUT_RELEASED && !m_AbleToShoot)
+	else if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_RELEASED && !m_AbleToShoot)
 	{
 		m_AbleToShoot = true;
 	}

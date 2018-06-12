@@ -118,13 +118,13 @@ void CAIMgr::OnCollision(CGameObject* _other)
 {
 	if (_other->GetTag() == "Bullet")
 	{
-		//DestroyObject();
+		DestroyObject();
 		
 		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
 	{
-		//DestroyObject();
+		DestroyObject();
 	}
 }
 
