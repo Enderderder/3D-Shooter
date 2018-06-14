@@ -103,13 +103,6 @@ struct DebugTimer
 
 };
 
-enum ESCENES
-{
-	MAINMENU = 0,
-	GAME,
-	GAMEOVER
-};
-
 enum EMESH
 {
 	CUBE,

@@ -28,20 +28,6 @@
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
 
-CPlayer::CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID) :
-	m_health(100),
-	m_attackSpd(1.0f),
-	m_movementSpd(0.25f),
-	m_AbleToShoot(true)
-{
-	m_tag = "Player";
-	m_friction = 0.9f;
-	m_ColliderRad = 2.0f;
-
-	m_IsModel = false;
-	InitializeObject(_mesh, _textureID, _programID);
-}
-
 CPlayer::CPlayer(CModel* _model, GLuint _programID) :
 	m_health(100),
 	m_attackSpd(1.0f),
@@ -50,11 +36,11 @@ CPlayer::CPlayer(CModel* _model, GLuint _programID) :
 {
 	m_tag = "Player";
 	m_friction = 0.9f;
-	m_ColliderRad = 2.0f;
+	m_ColliderRad = 1.5f;
 
 	m_IsModel = true;
 	InitializeObject(_model, _programID);
-	SetScale(glm::vec3(0.3f, 0.3f, 0.3f));
+	SetScale(glm::vec3(0.5f, 0.5f, 0.5f));
 }
 
 CPlayer::~CPlayer()
@@ -73,7 +59,7 @@ void CPlayer::UpdateGameObeject()
 	ProcessBoundary();
 
 	// Check to see if the player dies
-	CheckDeath();
+	//CheckDeath();
 }
 
 void CPlayer::OnCollision(CGameObject* _other)
@@ -205,7 +191,7 @@ void CPlayer::CheckDeath()
 	}
 }
 
-int CPlayer::GetLife() const
+int CPlayer::GetHealth() const
 {
 	return(m_health);
 }

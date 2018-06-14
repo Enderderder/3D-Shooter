@@ -200,10 +200,10 @@ void CScene::UpdateScene()
 
 		CPlayer* other = dynamic_cast<CPlayer*>(m_player);
 		std::ostringstream iLife;
-		iLife << "Life: " << other->GetLife();
+		iLife << "Life: " << other->GetHealth();
 		m_pLife->SetText(iLife.str());
 
-		if (other->GetLife() <= 0)
+		if (other->GetHealth() <= 0)
 		{
 			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
 			return;

@@ -21,8 +21,14 @@
 // Local Include
 #include "Scene.h"
 
-// Forward Declaration
-enum ESCENES;
+// Enum Declare
+enum ESCENES
+{
+	MAINMENU = 0,
+	GAME,
+	MULTIPLAYER,
+	GAMEOVER
+};
 
 class CSceneMgr
 {

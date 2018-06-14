@@ -1,16 +1,16 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
 // New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : networkentity.h
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 #ifndef __NETWORKENTITY_H__
 #define __NETWORKENTITY_H__
@@ -66,7 +66,6 @@ struct TPacket
 		std::string _tempMessageBuffer;
 		getline(iss, _tempMessageBuffer);
 		strcpy_s(MessageContent, _tempMessageBuffer.length() + 1, _tempMessageBuffer.c_str());
-		
 		
 		return *this;
 	}

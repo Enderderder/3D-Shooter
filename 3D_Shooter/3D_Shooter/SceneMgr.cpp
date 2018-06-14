@@ -16,7 +16,7 @@
 #include "SceneMgr.h"
 
 // Local Include
-#include "Utility.h"
+//#include "Utility.h"
 
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;
@@ -41,6 +41,7 @@ void CSceneMgr::InitializeSceneMgr()
 {
 	m_vScenes.push_back(new CScene(MAINMENU));
 	m_vScenes.push_back(new CScene(GAME));
+	m_vScenes.push_back(new CScene(MULTIPLAYER));
 	m_vScenes.push_back(new CScene(GAMEOVER));
 
 	m_eCurrentScene = MAINMENU;

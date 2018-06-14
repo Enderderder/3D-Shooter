@@ -12,9 +12,11 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 */
 
-#pragma once
+#ifndef CNETWORKMGR_H
+#define CNETWORKMGR_H
 
-#include "Utility.h"
+// Library Include
+#include <thread>
 
 // Forward Declare
 enum EEntityType;
@@ -43,3 +45,4 @@ private:
 
 };
 
+#endif // !CNETWORKMGR_H
