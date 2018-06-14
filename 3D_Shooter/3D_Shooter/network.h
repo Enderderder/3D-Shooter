@@ -48,6 +48,7 @@ public:
 	void StartUp(); //A network has an ability to start up
 	void ShutDown(); //& an ability to be shut down
 	bool IsOnline();
+
 	//Accessor methods
 	INetworkEntity* GetNetworkEntity();
 
