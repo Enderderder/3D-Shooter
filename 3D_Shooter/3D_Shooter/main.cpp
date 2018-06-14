@@ -39,11 +39,13 @@ void ResizeWindow(int _width, int _height);
 void FPSCounter();
 
 bool bIsFS;
+bool bIsNet;
 
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
 	bIsFS = false;
+	bIsNet = false;
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
@@ -81,6 +83,10 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
+	// Server Initialization
+
+
+
 	//m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
@@ -107,9 +113,13 @@ void Render()
 
 void Update()
 {
+	// Network Main Loop
+	m_pNetworkMgr.ServerMainLoop();
+
 
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
+
 	//Main Menu controls
 	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
@@ -118,6 +128,14 @@ void Update()
 			std::cout << "Loading...." << std::endl;
 			cSceneMgr->SwapScene(GAME);
 		}
+
+		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsNet == false)
+		{
+			std::cout << "Starting the Network...." << std::endl;
+			m_pNetworkMgr.StartNetwork();
+			bIsNet = true;
+		}
+
 
 		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
 		{
@@ -195,8 +213,6 @@ void Update()
 	{
 		bIsFS = false;
 	}
-
-	
 
 	glutPostRedisplay();
 }

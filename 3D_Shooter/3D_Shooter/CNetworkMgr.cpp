@@ -1,5 +1,19 @@
-#include "CNetworkMgr.h"
+/*
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name    : CNetworkMgr.cpp
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
+// This Include --------------------------------------------------------------------------------
+#include "CNetworkMgr.h"
 
 // Network Include -----------------------------------------------------------------------------
 #include "consoletools.h"
@@ -10,7 +24,6 @@
 #include <functional>
 
 // Global Variable -----------------------------------------------------------------------------
-EEntityType _eNetworkEntityType = SERVER;	//defualt it is a server
 CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
 CNetwork& _rNetwork = CNetwork::GetInstance();
 
@@ -31,66 +44,82 @@ CNetworkMgr::CNetworkMgr()
 
 CNetworkMgr::~CNetworkMgr()
 {
+	//m_ClientReceiveThread.join();
+	//m_ServerReceiveThread.join();
 }
 
 void CNetworkMgr::StartNetwork()
 {
-
+	
 		
-		_pcPacketData = new char[MAX_MESSAGE_LENGTH];
-		strcpy_s(_pcPacketData, strlen("") + 1, "");
-
-		
-
-		unsigned char _ucChoice;
-		
-		std::thread _ClientReceiveThread, _ServerReceiveThread;
-
-		//Get the instance of the network
-		
-		_rNetwork.StartUp();
+	_pcPacketData = new char[MAX_MESSAGE_LENGTH];
+	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
 		
 
-		if (!_rNetwork.GetInstance().Initialise(_eNetworkEntityType))
-		{
-			std::cout << "Unable to initialise the Network........Press any key to continue......";
-			_getch();
-			return;
-		}
+	unsigned char _ucChoice;
+		
+	
 
-		//Run receive on a separate thread so that it does not block the main client thread.
-		if (_eNetworkEntityType == CLIENT) //if network entity is a client
-		{
+	//Get the instance of the network
+		
+	_rNetwork.StartUp();
 
-			_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
-			_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
-			ClientMainLoop();
-			//std::thread Thread_obj1(&CNetworkMgr::ClientMainLoop);
+	// query, is this to be a client or a server?
+	_ucChoice = QueryOption("Do you want to run a client or server (C/S)?", "CS");
+	switch (_ucChoice)
+	{
+	case 'C':
+	{
+		_eNetworkEntityType = CLIENT;
+		break;
+	}
+	case 'S':
+	{
+		_eNetworkEntityType = SERVER;
+		break;
+	}
+	default:
+	{
+		std::cout << "This is not a valid option" << std::endl;
+		break;
+	}
+	}
 
-		}
+	if (!_rNetwork.GetInstance().Initialise(_eNetworkEntityType))
+	{
+		std::cout << "Unable to initialise the Network........Press any key to continue......";
+		_getch();
+		return;
+	}
 
-		//Run receive of server also on a separate thread 
-		else if (_eNetworkEntityType == SERVER) //if network entity is a server
-		{
+	//Run receive on a separate thread so that it does not block the main client thread.
+	if (_eNetworkEntityType == CLIENT) //if network entity is a client
+	{
 
-			_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
-			_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-			
+		_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
+		m_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
+		m_ClientReceiveThread.detach();
+	}
 
-		}
+	//Run receive of server also on a separate thread 
+	else if (_eNetworkEntityType == SERVER) //if network entity is a server
+	{
+		_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
+		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
+		m_ServerReceiveThread.detach();
+	}
 
 	//	std::thread Thread_obj2(&CNetworkMgr::ServerMainLoop);
 
-		 //End of while network is Online
-		_ClientReceiveThread.join();
-		_ServerReceiveThread.join();
+	//End of while network is Online
+	//Thread_obj1.join();
+	//Thread_obj2.join();
+	//Shut Down the Network
+	//_rNetwork.ShutDown();
+	//_rNetwork.DestroyObject();
 
-		//Shut Down the Network
-		_rNetwork.ShutDown();
-		_rNetwork.DestroyObject();
-
-		delete[] _pcPacketData;
+	//delete[] _pcPacketData;
 }
 
 void CNetworkMgr::ClientMainLoop()
@@ -142,7 +171,6 @@ void CNetworkMgr::ServerMainLoop()
 {
 	if (_rNetwork.IsOnline())
 	{
-
 		if (_pServer != nullptr)
 		{
 			if (!_pServer->GetWorkQueue()->empty())
