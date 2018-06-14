@@ -209,11 +209,12 @@ void CScene::UpdateScene()
 		//////////////Timer for enemey spawning/////////////////////////
 		if (duration >= std::chrono::seconds(3))
 		{
-			//for (int i = 0; i < 3; i++)
-			//{
+			for (int i = 0; i < 3; i++)
+			{
 			
 
 				int WhichEnemy = rand() % 7;
+				m_AiSwitch = rand() % 7;
 
 				switch (m_AiSwitch)
 				{
@@ -248,25 +249,37 @@ void CScene::UpdateScene()
 				//LEADERFOLLOW
 				case 4:
 				{
-					CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), LEADERFOLLOW, m_player);
-					Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					
+					if (b_isfirst == false)
+					{
+						CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, m_player);
+						Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+						EnemeyTemp = Enemey2;
+						b_isfirst = true;
+					}
+					else
+					{
+						CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, EnemeyTemp);
+						Instantiate(Enemey, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
+					}
+					
 					break;
 				}
 				//ARRIVE
 				case 5:
 				{
-					for (int i = 0; i < 3; i++)
-					{
+					//for (int i = 0; i < 3; i++)
+					//{
 						CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLOCK, m_player);
 						Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
-					}
+					//}
 					break;
 				}
 
 				default:
 					break;
 				}
-			//}
+			}
 
 			t1 = std::chrono::high_resolution_clock::now();
 		}

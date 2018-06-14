@@ -18,7 +18,7 @@
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 	
-	m_movementSpd(0.5f)
+	m_movementSpd(0.25f)
 {
 	m_velocity = glm::vec3(1.0f, 0.0f, -1.0f) * m_movementSpd;
 	m_tag = "Enemy";
@@ -39,13 +39,15 @@ void CAIMgr::UpdateGameObeject()
 	case SEEK:
 	{
 		resultAiSteering += AiSeek(m_pTarget->GetPosition());
-		
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+
 		break;
 	}
 
 	case FLEE:
 	{
 		resultAiSteering += AiFlee(m_pTarget->GetPosition());
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
 		
 		break;
 	}
@@ -53,6 +55,7 @@ void CAIMgr::UpdateGameObeject()
 	case PURSUE:
 	{
 		resultAiSteering += AiPursue(m_pTarget);
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
 
 		break;
 	}
@@ -115,13 +118,13 @@ void CAIMgr::OnCollision(CGameObject* _other)
 {
 	if (_other->GetTag() == "Bullet")
 	{
-		//DestroyObject();
+		DestroyObject();
 		
 		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
 	{
-		//DestroyObject();
+		DestroyObject();
 	}
 }
 

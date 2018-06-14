@@ -105,7 +105,6 @@ void CNetworkMgr::StartNetwork()
 	//Run receive of server also on a separate thread 
 	else if (_eNetworkEntityType == SERVER) //if network entity is a server
 	{
-
 		_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
 		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
 		m_ServerReceiveThread.detach();
@@ -116,8 +115,6 @@ void CNetworkMgr::StartNetwork()
 	//End of while network is Online
 	//Thread_obj1.join();
 	//Thread_obj2.join();
-
-
 	//Shut Down the Network
 	//_rNetwork.ShutDown();
 	//_rNetwork.DestroyObject();
@@ -127,7 +124,7 @@ void CNetworkMgr::StartNetwork()
 
 void CNetworkMgr::ClientMainLoop()
 {
-	while (_rNetwork.IsOnline())
+	if (_rNetwork.IsOnline())
 	{
 		_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
 
