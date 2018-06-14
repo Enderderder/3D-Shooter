@@ -27,7 +27,7 @@
 #include "network.h"
 
 // Static Variables
-CNetwork* CNetwork::s_pNetwork = 0;
+CNetwork* CNetwork::s_pNetwork = nullptr;
 
 
 CNetwork::CNetwork()
@@ -95,15 +95,15 @@ CNetwork::ShutDown()
 	m_bOnline = false;
 }
 
-CNetwork&
+CNetwork*
 CNetwork::GetInstance()
 {
-	if (s_pNetwork == 0)
+	if (s_pNetwork == nullptr)
 	{
 		s_pNetwork = new CNetwork();
 	}
 
-	return (*s_pNetwork);
+	return (s_pNetwork);
 }
 
 void
@@ -113,13 +113,12 @@ CNetwork::DestroyObject()
 	s_pNetwork = 0;
 }
 
-
-INetworkEntity* CNetwork::GetNetworkEntity()
+INetworkEntity* CNetwork::GetNetworkEntity() const
 {
 	return m_pNetworkEntity;
 }
 
-bool CNetwork::IsOnline()
+bool CNetwork::IsOnline() const
 {
 	return m_bOnline;
 }
