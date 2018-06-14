@@ -44,8 +44,6 @@ bool bIsNet;
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
-	bIsFS = false;
-	bIsNet = false;
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);

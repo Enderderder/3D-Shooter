@@ -36,15 +36,10 @@ public:
 
 private:
 
-	EEntityType _eNetworkEntityType;  //= SERVER; defualt it is a server
-
-	CNetwork& _rNetwork;
+	EEntityType _eNetworkEntityType;
 
 	std::thread m_ClientReceiveThread;
 	std::thread m_ServerReceiveThread;
 
-	//_rNetwork
-	//_pClient
-	//_InputBuffer
 };
 

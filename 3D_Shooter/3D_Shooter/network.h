@@ -47,20 +47,20 @@ public:
 	bool Initialise(EEntityType _eType);
 	void StartUp(); //A network has an ability to start up
 	void ShutDown(); //& an ability to be shut down
-	bool IsOnline();
+	bool IsOnline() const;
 
 	//Accessor methods
-	INetworkEntity* GetNetworkEntity();
+	INetworkEntity* GetNetworkEntity() const;
 
 	// Singleton Methods
-	static CNetwork& GetInstance();
+	static CNetwork* GetInstance();
 	static void DestroyObject();
 
 private:
 	//Make the network class a singleton. There is only one instance of the network running
 	CNetwork();
-	CNetwork(const CNetwork& _kr);
-	CNetwork& operator= (const CNetwork& _kr);
+	CNetwork(const CNetwork& _kr) = delete;
+	CNetwork& operator= (const CNetwork& _kr) = delete;
 
 protected:
 	//A network has a network entity
