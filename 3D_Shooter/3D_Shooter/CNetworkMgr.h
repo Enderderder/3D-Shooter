@@ -18,6 +18,7 @@
 
 // Forward Declare
 enum EEntityType;
+class CNetwork;
 
 class CNetworkMgr
 {
@@ -31,11 +32,13 @@ public:
 	void ClientMainLoop();
 	void ServerMainLoop();
 
-
+	bool IsNetOnline() const;
 
 private:
 
 	EEntityType _eNetworkEntityType;  //= SERVER; defualt it is a server
+
+	CNetwork& _rNetwork;
 
 	std::thread m_ClientReceiveThread;
 	std::thread m_ServerReceiveThread;

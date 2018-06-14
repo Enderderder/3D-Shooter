@@ -25,7 +25,7 @@
 
 // Global Variable -----------------------------------------------------------------------------
 CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
-CNetwork& _rNetwork = CNetwork::GetInstance();
+CNetwork& _rNetwork = nullptr;
 
 //A pointer to hold a client instance
 CClient* _pClient = nullptr;
@@ -39,6 +39,7 @@ char* _pcPacketData = 0; //A local buffer to receive packet data info
 
 CNetworkMgr::CNetworkMgr()
 {
+	_rNetwork = CNetwork::GetInstance();
 }
 
 
@@ -171,6 +172,11 @@ void CNetworkMgr::ServerMainLoop()
 			}
 		}
 	}
+}
+
+bool CNetworkMgr::IsNetOnline() const
+{
+	return _rNetwork.IsOnline();
 }
 
 void CNetworkMgr::SetAsServer()

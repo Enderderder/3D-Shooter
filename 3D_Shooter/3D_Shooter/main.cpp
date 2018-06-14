@@ -83,10 +83,6 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
-	// Server Initialization
-
-
-
 	//m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
@@ -116,7 +112,6 @@ void Update()
 	// Network Main Loop
 	m_pNetworkMgr.ServerMainLoop();
 
-
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
 
@@ -129,11 +124,12 @@ void Update()
 			cSceneMgr->SwapScene(GAME);
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsNet == false)
+		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && !m_pNetworkMgr.IsNetOnline())
 		{
-			std::cout << "Starting the Network...." << std::endl;
+			cInput->g_cKeyState[(unsigned char)'h'] = INPUT_HOLD;
+
+			std::cout << "Starting the Network..." << std::endl;
 			m_pNetworkMgr.StartNetwork();
-			bIsNet = true;
 		}
 
 
@@ -199,19 +195,10 @@ void Update()
 
 	}
 
-	if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsFS == false)
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)
 	{
-		m_pNetworkMgr.StartNetwork();
-	}
-
-	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
-	{
+		cInput->g_cKeyState[(unsigned char)'f'] = INPUT_HOLD;
 		glutFullScreenToggle();
-		bIsFS = true;
-	}
-	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_RELEASED && bIsFS == true)
-	{
-		bIsFS = false;
 	}
 
 	glutPostRedisplay();
