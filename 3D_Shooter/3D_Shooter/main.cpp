@@ -31,6 +31,7 @@ static CInput* cInput = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 TextLabel* m_pTextLabel;
 CSound m_pSound;
+CScene* m_pScene;
 
 void InititializeProgram();
 void Render();
@@ -40,6 +41,26 @@ void FPSCounter();
 
 bool bIsFS;
 bool bIsNet;
+bool bPlaySlected;
+bool bMuiltplayerSlected;
+bool bExitSlected;
+
+
+enum MainMenu
+{
+	Play,
+	Multiplayer,
+	Exit
+};
+
+enum GameOverMenu
+{
+	Restart,
+	GameOverMainMenu
+};
+
+MainMenu MainMenuTracker;
+GameOverMenu GameOverTracker;
 
 int main(int argc, char **argv)
 {
@@ -93,12 +114,16 @@ void InititializeProgram()
 	CMeshMgr::GetInstance()->InitializeMeshes();
 	CModelMgr::GetInstance()->InitializeModels();
 
-	//FPS counter starts at 0 when programs starts up
-	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
-	m_pTextLabel->SetScale(1.0f);
-	m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
-	
-	cSceneMgr->InitializeSceneMgr();
+//Menus Initialization
+MainMenuTracker = Play;
+GameOverTracker = Restart;
+
+//FPS counter starts at 0 when programs starts up
+m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
+m_pTextLabel->SetScale(1.0f);
+m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+
+cSceneMgr->InitializeSceneMgr();
 }
 
 void Render()
@@ -107,7 +132,7 @@ void Render()
 
 	FPSCounter();
 	m_pTextLabel->Render();
-	
+
 	glutSwapBuffers();
 }
 
@@ -123,12 +148,101 @@ void Update()
 	//Main Menu controls
 	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
-		if (cInput->g_cKeyState[(unsigned char)'p'] == INPUT_FIRST_PRESS)
+		switch (MainMenuTracker)
 		{
-			std::cout << "Loading...." << std::endl;
-			cSceneMgr->SwapScene(GAME);
+		case Play:
+		{
+			if (cSceneMgr->GetCurrentScene()->m_pText.size() > 1)
+			{
+				cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+				cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+				cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+
+			break;
+		}
+		case Multiplayer:
+		{
+			if (cSceneMgr->GetCurrentScene()->m_pText.size() > 1)
+			{
+				cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+				cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+				cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			}
+			break;
+		}
+		case Exit:
+		{
+			if (cSceneMgr->GetCurrentScene()->m_pText.size() > 1)
+			{
+				cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+				cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+				cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			}
+			break;
+		}
+		default:
+			break;
 		}
 
+		//Up on Menu
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Exit)
+		{
+			MainMenuTracker = Multiplayer;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+		}
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
+		{
+			MainMenuTracker = Play;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+		}
+
+		//Down on Menu
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Play)
+		{
+			MainMenuTracker = Multiplayer;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
+		{
+			MainMenuTracker = Exit;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+
+		}
+
+
+		//Enter Slection on Menu
+		if(cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		{
+			switch (MainMenuTracker)
+			{
+			case Play:
+			{
+				cSceneMgr->SwapScene(GAME);
+			}
+				break;
+			case Multiplayer:
+			{
+				//cSceneMgr->SwapScene(MultiMenu);
+			}
+				break;
+			case Exit:
+			{
+				glutLeaveMainLoop();
+			}
+				break;
+			default:
+				break;
+			}
+
+
+			cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+		}
+
+
+
+		//Start Network
 		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsNet == false)
 		{
 			std::cout << "Starting the Network...." << std::endl;
@@ -150,6 +264,13 @@ void Update()
 		{
 			std::cout << "Restarting...." << std::endl;
 			cSceneMgr->SwapScene(GAME);
+		}
+
+		//MAINMENU
+		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
+		{
+			std::cout << "Returning to main menu...." << std::endl;
+			cSceneMgr->SwapScene(MAINMENU);
 		}
 
 		//SEEK
@@ -186,22 +307,59 @@ void Update()
 
 	if (cSceneMgr->GetCurrentSceneEnum() == GAMEOVER)
 	{
-		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
+		switch (GameOverTracker)
 		{
-			std::cout << "Loading...." << std::endl;
-			cSceneMgr->SwapScene(GAME);
+		case Restart:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			break;
+		}
+		case GameOverMainMenu:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			break;
+		}
+		default:
+			break;
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && GameOverTracker == GameOverMainMenu)
 		{
-			cSceneMgr->SwapScene(MAINMENU);
+			GameOverTracker = Restart;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
 
-	}
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && GameOverTracker == Restart)
+		{
+			GameOverTracker = GameOverMainMenu;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+		}
+		
+		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		{
 
-	if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsFS == false)
-	{
-		m_pNetworkMgr.StartNetwork();
+
+			switch (GameOverTracker)
+			{
+			case Restart:
+			{
+				cSceneMgr->SwapScene(GAME);
+			}
+				break;
+			case GameOverMainMenu:
+			{
+				cSceneMgr->SwapScene(MAINMENU);
+			}
+				break;
+			default:
+				break;
+			}
+
+			cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+		}
+
 	}
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)

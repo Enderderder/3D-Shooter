@@ -49,6 +49,7 @@ public:
 	void ChangeSwitch(int _int);
 
 	std::vector<CGameObject*> GetObjectVec() const;
+	std::vector<TextLabel*> m_pText;
 
 private:
 
@@ -63,7 +64,7 @@ private:
 	std::chrono::high_resolution_clock::time_point tPowerUp2;
 
 	std::vector<CGameObject*> m_vGameObj;
-	std::vector<TextLabel*> m_pText;
+	
 	
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
