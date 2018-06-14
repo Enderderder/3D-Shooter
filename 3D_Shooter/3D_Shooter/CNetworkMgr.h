@@ -35,7 +35,7 @@ public:
 
 private:
 
-	EEntityType _eNetworkEntityType;  //= SERVER;//defualt it is a server
+	EEntityType _eNetworkEntityType;  //= SERVER; defualt it is a server
 
 	std::thread m_ClientReceiveThread;
 	std::thread m_ServerReceiveThread;

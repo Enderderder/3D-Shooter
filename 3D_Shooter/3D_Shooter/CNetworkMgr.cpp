@@ -33,7 +33,7 @@ CClient* _pClient = nullptr;
 CServer* _pServer = nullptr;
 
 char _cIPAddress[MAX_ADDRESS_LENGTH]; // An array to hold the IP Address as a string
-									  //ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
+//ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
 
 char* _pcPacketData = 0; //A local buffer to receive packet data info
 
@@ -44,23 +44,20 @@ CNetworkMgr::CNetworkMgr()
 
 CNetworkMgr::~CNetworkMgr()
 {
-	//m_ClientReceiveThread.join();
-	//m_ServerReceiveThread.join();
+	//Shut Down the Network
+	_rNetwork.ShutDown();
+	_rNetwork.DestroyObject();
+
+	delete[] _pcPacketData;
 }
 
 void CNetworkMgr::StartNetwork()
 {
-	
-		
 	_pcPacketData = new char[MAX_MESSAGE_LENGTH];
 	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
-		
-
 	unsigned char _ucChoice;
-		
 	
-
 	//Get the instance of the network
 		
 	_rNetwork.StartUp();
@@ -109,17 +106,6 @@ void CNetworkMgr::StartNetwork()
 		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
 		m_ServerReceiveThread.detach();
 	}
-
-	//	std::thread Thread_obj2(&CNetworkMgr::ServerMainLoop);
-
-	//End of while network is Online
-	//Thread_obj1.join();
-	//Thread_obj2.join();
-	//Shut Down the Network
-	//_rNetwork.ShutDown();
-	//_rNetwork.DestroyObject();
-
-	//delete[] _pcPacketData;
 }
 
 void CNetworkMgr::ClientMainLoop()
