@@ -59,8 +59,23 @@ enum GameOverMenu
 	GameOverMainMenu
 };
 
+enum MultiplayerMenu
+{
+	Host,
+	Join,
+	MultiMainMenu
+};
+
+enum Lobby
+{
+	StartGame,
+	LobbyMainMenu
+};
+
 MainMenu MainMenuTracker;
 GameOverMenu GameOverTracker;
+MultiplayerMenu MultiTracker;
+Lobby LobbyTracker;
 
 int main(int argc, char **argv)
 {
@@ -117,6 +132,8 @@ void InititializeProgram()
 //Menus Initialization
 MainMenuTracker = Play;
 GameOverTracker = Restart;
+MultiTracker = Host;
+LobbyTracker = StartGame;
 
 //FPS counter starts at 0 when programs starts up
 m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
@@ -224,7 +241,8 @@ void Update()
 				break;
 			case Multiplayer:
 			{
-				//cSceneMgr->SwapScene(MultiMenu);
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cSceneMgr->SwapScene(MULTIPLAYER);
 			}
 				break;
 			case Exit:
@@ -361,6 +379,150 @@ void Update()
 		}
 
 	}
+
+	if (cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)
+	{
+		switch (MultiTracker)
+		{
+		case Host:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			break;
+		}
+		case Join:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			break;
+		}
+		case MultiMainMenu:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[2]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			break;
+		}
+		default:
+			break;
+		}
+
+		//Up on Menu
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == MultiMainMenu)
+		{
+			MultiTracker = Join;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+		}
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == Join)
+		{
+			MultiTracker = Host;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+		}
+
+		//Down on Menu
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Host)
+		{
+			MultiTracker = Join;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Join)
+		{
+			MultiTracker = MultiMainMenu;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		{
+			switch (MultiTracker)
+			{
+			case Host:
+			{
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				m_pNetworkMgr.StartNetwork();
+				cSceneMgr->SwapScene(LOBBY);
+			}
+				break;
+			case Join:
+			{
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				m_pNetworkMgr.StartNetwork();
+				cSceneMgr->SwapScene(LOBBY);
+			}
+				break;
+			case MultiMainMenu:
+			{
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cSceneMgr->SwapScene(MAINMENU);
+			}
+				break;
+			default:
+				break;
+			}
+
+
+		}
+
+
+	}
+
+	if (cSceneMgr->GetCurrentSceneEnum() == LOBBY)
+	{
+		switch (LobbyTracker)
+		{
+		case StartGame:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[4]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[5]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			break;
+		}
+		case LobbyMainMenu:
+		{
+			cSceneMgr->GetCurrentScene()->m_pText[4]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[5]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			break;
+		}
+		default:
+			break;
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && LobbyTracker == LobbyMainMenu)
+		{
+			LobbyTracker = StartGame;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_RELEASED;
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && LobbyTracker == StartGame)
+		{
+			LobbyTracker = LobbyMainMenu;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_RELEASED;
+		}
+
+		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		{
+			switch (LobbyTracker)
+			{
+			case StartGame:
+			{
+				cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+
+			}
+				break;
+			case LobbyMainMenu:
+			{
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cSceneMgr->SwapScene(MAINMENU);
+			}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
 
 	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS )
 	{
