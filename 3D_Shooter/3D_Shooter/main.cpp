@@ -80,8 +80,6 @@ Lobby LobbyTracker;
 int main(int argc, char **argv)
 {
 	srand(time(NULL));
-	bIsFS = false;
-	bIsNet = false;
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
@@ -119,10 +117,6 @@ int main(int argc, char **argv)
 
 void InititializeProgram()
 {
-	// Server Initialization
-
-
-
 	//m_pSound.PlaySound();
 	cInput->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
@@ -157,7 +151,6 @@ void Update()
 {
 	// Network Main Loop
 	m_pNetworkMgr.ServerMainLoop();
-
 
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
@@ -228,7 +221,6 @@ void Update()
 
 		}
 
-
 		//Enter Slection on Menu
 		if(cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
@@ -261,11 +253,12 @@ void Update()
 
 
 		//Start Network
-		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && bIsNet == false)
+		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && !m_pNetworkMgr.IsNetOnline())
 		{
-			std::cout << "Starting the Network...." << std::endl;
+			cInput->g_cKeyState[(unsigned char)'h'] = INPUT_HOLD;
+
+			std::cout << "Starting the Network..." << std::endl;
 			m_pNetworkMgr.StartNetwork();
-			bIsNet = true;
 		}
 
 	}
@@ -379,7 +372,7 @@ void Update()
 		}
 
 	}
-
+//MULTIPLAYER Menu Functionlity
 	if (cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)
 	{
 		switch (MultiTracker)
@@ -468,7 +461,7 @@ void Update()
 
 
 	}
-
+//LOBBY Menu Functionlity
 	if (cSceneMgr->GetCurrentSceneEnum() == LOBBY)
 	{
 		switch (LobbyTracker)
@@ -527,16 +520,13 @@ void Update()
 	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS )
 	{
 		cSceneMgr->SwapScene(GAMEOVER);
+
 	}
 
-	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)
+	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)
 	{
+		cInput->g_cKeyState[(unsigned char)'f'] = INPUT_HOLD;
 		glutFullScreenToggle();
-		bIsFS = true;
-	}
-	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_RELEASED && bIsFS == true)
-	{
-		bIsFS = false;
 	}
 
 	glutPostRedisplay();
