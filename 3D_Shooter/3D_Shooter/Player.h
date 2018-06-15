@@ -25,25 +25,32 @@ enum EPOWERUPEFFECT;
 class CPlayer : public CPhysicObject
 {
 public:
+
+	// Constructor
 	CPlayer() = default;
-	CPlayer(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	CPlayer(CModel* _model, GLuint _programID);
 	~CPlayer();
 
+	// Derived Function
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
-	void ProcessMovement();
-	void ProcessShooting();
-	void ProcessBoundary();
-	void ProcessPowerUpEffect(EPOWERUPEFFECT);
+
+	// Puclic Functions
 	void CheckDeath();
 
-	int GetLife() const;
+	int GetHealth() const;
 
 private:
 
 	// Private Member Function=================================================
 	
+	// Update Proccess
+	void ProcessMovement();
+	void ProcessShooting();
+	void ProcessBoundary();
+	void ProcessPowerUpEffect(EPOWERUPEFFECT);
+
+	// Check Boader
 	bool CheckBoarderUp(float _posZ);
 	bool CheckBoarderDown(float _posZ);
 	bool CheckBoarderLeft(float _posX);
@@ -53,7 +60,7 @@ private:
 
 	// Private Member Variable=================================================
 	
-	CSound m_pSound;
+	//CSound m_pSound;
 
 	int m_health;
 	float m_movementSpd;

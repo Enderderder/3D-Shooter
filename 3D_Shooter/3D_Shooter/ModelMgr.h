@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -10,14 +10,19 @@
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 #ifndef MODELMGR_H
 #define MODELMGR_H
 
 // Forward Declare
 class CModel;
-enum EMODEL;
+
+// Enum Declare
+enum EMODEL
+{
+	TANK,
+};
 
 class CModelMgr
 {

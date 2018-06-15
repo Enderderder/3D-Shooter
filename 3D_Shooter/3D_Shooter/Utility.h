@@ -103,28 +103,6 @@ struct DebugTimer
 
 };
 
-enum ESCENES
-{
-	MAINMENU = 0,
-	GAME,
-	GAMEOVER,
-	MULTIPLAYER,
-	LOBBY
-};
-
-enum EMESH
-{
-	CUBE,
-	SPHERE,
-	MENUCUBEMAP,
-	GAMECUBEMAP
-};
-
-enum EMODEL
-{
-	TANK,
-};
-
 enum InputState 
 {
 	INPUT_FIRST_RELEASE,	// First frame of Up state 

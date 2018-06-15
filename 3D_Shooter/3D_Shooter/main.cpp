@@ -37,10 +37,9 @@ void InititializeProgram();
 void Render();
 void Update();
 void ResizeWindow(int _width, int _height);
-void FPSCounter();
+void UpdateFPS();
 
 bool bIsFS;
-bool bIsNet;
 bool bPlaySlected;
 bool bMuiltplayerSlected;
 bool bExitSlected;
@@ -94,11 +93,11 @@ int main(int argc, char **argv)
 
 	// Initialize OpenGL Library
 	glewInit();
-
+	// Initialize the Game
 	InititializeProgram();
 
 	//register callbacks
-	//glutReshapeFunc(ResizeWindow);
+	///glutReshapeFunc(ResizeWindow);
 	glutDisplayFunc(Render);
 	
 	glutIdleFunc(Update);
@@ -141,7 +140,6 @@ void Render()
 {
 	cSceneMgr->RenderCurrentScene();
 
-	FPSCounter();
 	m_pTextLabel->Render();
 
 	glutSwapBuffers();
@@ -523,12 +521,16 @@ void Update()
 
 	}
 
+	// Full Screen Control
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)
 	{
 		cInput->g_cKeyState[(unsigned char)'f'] = INPUT_HOLD;
 		glutFullScreenToggle();
 	}
 
+	UpdateFPS();
+
+	// Goes To Render
 	glutPostRedisplay();
 }
 
@@ -537,7 +539,7 @@ void ResizeWindow(int _width, int _height)
 	glutReshapeWindow(util::SCR_WIDTH, util::SCR_HEIGHT);
 }
 
-void FPSCounter()
+void UpdateFPS()
 {
 	static float framesPerSecond = 0.0f;	// This will store our fps
 	static float lastTime = 0.0f;			// This will hold the time from the last frame
@@ -553,5 +555,4 @@ void FPSCounter()
 
 		framesPerSecond = 0;
 	}
-
 }

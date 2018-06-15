@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -7,10 +7,10 @@
 // (c) 2018 Media Design School
 //
 // File Name    : SceneMgr.h
-// Description	: 
+// Description	:
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 #ifndef _SCENEMGR_H
 #define _SCENEMGR_H
@@ -21,8 +21,14 @@
 // Local Include
 #include "Scene.h"
 
-// Forward Declaration
-enum ESCENES;
+// Enum Declare
+enum ESCENES
+{
+	MAINMENU = 0,
+	GAME,
+	MULTIPLAYER,
+	GAMEOVER
+};
 
 class CSceneMgr
 {
@@ -35,7 +41,7 @@ public:
 	void InitializeSceneMgr();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
-	void SwapScene(ESCENES _eSceneNum);
+	void SwapScene(ESCENES);
 	CScene* GetCurrentScene() const;
 	ESCENES GetCurrentSceneEnum() const;
 	
