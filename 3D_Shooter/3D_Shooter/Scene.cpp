@@ -139,12 +139,55 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		TextTemp = new TextLabel("Press r to Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		TextTemp = new TextLabel("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press e to Return to the Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new TextLabel("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
+		TextTemp = new TextLabel("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		break;
+	}
+
+	case MULTIPLAYER:
+	{
+		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
+
+		TextTemp = new TextLabel("Host Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Join Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		m_pText.push_back(TextTemp);
+
+		break;
+	}
+
+	case LOBBY:
+	{
+		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
+
+		TextTemp = new TextLabel("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 200));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 300));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 400));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Start Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
+		m_pText.push_back(TextTemp);
 		break;
 	}
 

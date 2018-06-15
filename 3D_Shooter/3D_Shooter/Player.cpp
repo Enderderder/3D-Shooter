@@ -86,7 +86,7 @@ void CPlayer::OnCollision(CGameObject* _other)
 	}
 	else if (_other->GetTag() == "Enemy")
 	{
-		//m_health -= 10;
+		m_health -= 10;
 	}
 }
 
