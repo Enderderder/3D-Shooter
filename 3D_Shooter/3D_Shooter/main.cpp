@@ -250,11 +250,6 @@ void Update()
 			bIsNet = true;
 		}
 
-
-		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
-		{
-			glutLeaveMainLoop();
-		}
 	}
 
 	if (cSceneMgr->GetCurrentSceneEnum() == GAME)
@@ -271,6 +266,7 @@ void Update()
 		{
 			std::cout << "Returning to main menu...." << std::endl;
 			cSceneMgr->SwapScene(MAINMENU);
+			cInput->g_cKeyState[(unsigned char)27] == INPUT_RELEASED;
 		}
 
 		//SEEK
@@ -328,13 +324,13 @@ void Update()
 		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && GameOverTracker == GameOverMainMenu)
 		{
 			GameOverTracker = Restart;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_RELEASED;
 		}
 
 		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && GameOverTracker == Restart)
 		{
 			GameOverTracker = GameOverMainMenu;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_RELEASED;
 		}
 		
 		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
@@ -346,20 +342,29 @@ void Update()
 			case Restart:
 			{
 				cSceneMgr->SwapScene(GAME);
-			}
+				
 				break;
+			}
+				
 			case GameOverMainMenu:
 			{
 				cSceneMgr->SwapScene(MAINMENU);
-			}
+				
 				break;
+			}
+				
 			default:
 				break;
 			}
 
-			cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+			cInput->g_cKeyState[(unsigned char)' '] == INPUT_RELEASED;
 		}
 
+	}
+
+	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS )
+	{
+		cSceneMgr->SwapScene(GAMEOVER);
 	}
 
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS && bIsFS == false)

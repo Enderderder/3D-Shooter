@@ -139,10 +139,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		TextTemp = new TextLabel("Press r to Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		TextTemp = new TextLabel("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press e to Return to the Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new TextLabel("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		break;
