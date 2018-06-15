@@ -122,18 +122,18 @@ void InititializeProgram()
 	CMeshMgr::GetInstance()->InitializeMeshes();
 	CModelMgr::GetInstance()->InitializeModels();
 
-//Menus Initialization
-MainMenuTracker = Play;
-GameOverTracker = Restart;
-MultiTracker = Host;
-LobbyTracker = StartGame;
+	//Menus Initialization
+	MainMenuTracker = Play;
+	GameOverTracker = Restart;
+	MultiTracker = Host;
+	LobbyTracker = StartGame;
 
-//FPS counter starts at 0 when programs starts up
-m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
-m_pTextLabel->SetScale(1.0f);
-m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	//FPS counter starts at 0 when programs starts up
+	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
+	m_pTextLabel->SetScale(1.0f);
+	m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
-cSceneMgr->InitializeSceneMgr();
+	cSceneMgr->InitializeSceneMgr();
 }
 
 void Render()
@@ -189,8 +189,7 @@ void Update()
 			}
 			break;
 		}
-		default:
-			break;
+		default: break;
 		}
 
 		//Up on Menu
@@ -211,7 +210,6 @@ void Update()
 			MainMenuTracker = Multiplayer;
 			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 		}
-
 		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
 		{
 			MainMenuTracker = Exit;
@@ -222,33 +220,27 @@ void Update()
 		//Enter Slection on Menu
 		if(cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
+			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 			switch (MainMenuTracker)
 			{
 			case Play:
 			{
 				cSceneMgr->SwapScene(GAME);
-			}
 				break;
+			}
 			case Multiplayer:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-				cSceneMgr->SwapScene(MULTIPLAYER);
-			}
+				cSceneMgr->SwapScene(MULTIPLAYERMENU);
 				break;
+			}
 			case Exit:
 			{
 				glutLeaveMainLoop();
-			}
-				break;
-			default:
 				break;
 			}
-
-
-			cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+			default: break;
+			}
 		}
-
-
 
 		//Start Network
 		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && !m_pNetworkMgr.IsNetOnline())
@@ -258,10 +250,10 @@ void Update()
 			std::cout << "Starting the Network..." << std::endl;
 			m_pNetworkMgr.StartNetwork();
 		}
-
 	}
 
-	if (cSceneMgr->GetCurrentSceneEnum() == GAME)
+	// In Game Controls
+	if (cSceneMgr->GetCurrentSceneEnum() == GAME || cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)
 	{
 		//RESTART
 		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
@@ -370,8 +362,8 @@ void Update()
 		}
 
 	}
-//MULTIPLAYER Menu Functionlity
-	if (cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)
+	//MULTIPLAYER Menu Functionlity
+	if (cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYERMENU)
 	{
 		switch (MultiTracker)
 		{
@@ -459,7 +451,7 @@ void Update()
 
 
 	}
-//LOBBY Menu Functionlity
+	//LOBBY Menu Functionlity
 	if (cSceneMgr->GetCurrentSceneEnum() == LOBBY)
 	{
 		switch (LobbyTracker)
@@ -514,12 +506,13 @@ void Update()
 		}
 	}
 
-
-	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS )
+	/// Debug: Goes Straight to Game Over Scene ===============================
+	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
 	{
 		cSceneMgr->SwapScene(GAMEOVER);
 
 	}
+	/// =======================================================================
 
 	// Full Screen Control
 	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)

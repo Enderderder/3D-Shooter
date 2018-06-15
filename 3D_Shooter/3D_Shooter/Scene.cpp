@@ -167,23 +167,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		break;
 	}
 
-	case GAMEOVER:
-	{
-		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
-
-		TextTemp = new TextLabel("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
-		m_pText.push_back(TextTemp);
-
-		TextTemp = new TextLabel("Return to Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
-		m_pText.push_back(TextTemp);
-
-		TextTemp = new TextLabel("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
-		m_pText.push_back(TextTemp);
-
-		break;
-	}
-
-	case MULTIPLAYER:
+	case MULTIPLAYERMENU:
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
@@ -220,6 +204,22 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		TextTemp = new TextLabel("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
 		m_pText.push_back(TextTemp);
+		break;
+	}
+
+	case GAMEOVER:
+	{
+		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
+
+		TextTemp = new TextLabel("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Return to Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new TextLabel("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
 		break;
 	}
 
@@ -387,8 +387,7 @@ void CScene::UpdateScene()
 		}
 	}
 
-	
-	m_cCam->UpdateCamera();
+	//m_cCam->UpdateCamera();
 
 	// Delete the object that should be deleted fron last frame
 	for (auto obj : m_vGameObj)
@@ -396,6 +395,7 @@ void CScene::UpdateScene()
 		if (obj->ShouldDestroyed()) { DestroyObject(obj); }
 	}
 
+	// Get each Object in the Scene and do their own Update Function
 	size_t currVecSize = m_vGameObj.size();
 	for (size_t index = 0; index < currVecSize; ++index)
 	{
