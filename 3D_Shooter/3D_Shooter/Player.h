@@ -44,17 +44,17 @@ private:
 
 	// Private Member Function=================================================
 	
-	// Check Boader
-	bool CheckBoarderUp(float _posZ);
-	bool CheckBoarderDown(float _posZ);
-	bool CheckBoarderLeft(float _posX);
-	bool CheckBoarderRight(float _posX);
-
 	// Update Proccess
 	void ProcessMovement();
 	void ProcessShooting();
 	void ProcessBoundary();
 	void ProcessPowerUpEffect(EPOWERUPEFFECT);
+
+	// Check Boader
+	bool CheckBoarderUp(float _posZ);
+	bool CheckBoarderDown(float _posZ);
+	bool CheckBoarderLeft(float _posX);
+	bool CheckBoarderRight(float _posX);
 
 	// ========================================================================
 

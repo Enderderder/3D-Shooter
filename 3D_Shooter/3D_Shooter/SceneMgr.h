@@ -41,7 +41,7 @@ public:
 	void InitializeSceneMgr();
 	void RenderCurrentScene();
 	void UpdateCurrentScene();
-	void SwapScene(ESCENES _eSceneNum);
+	void SwapScene(ESCENES);
 	CScene* GetCurrentScene() const;
 	ESCENES GetCurrentSceneEnum() const;
 	

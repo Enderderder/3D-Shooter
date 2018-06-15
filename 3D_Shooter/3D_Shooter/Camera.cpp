@@ -75,9 +75,11 @@ glm::vec3 CCamera::GetCameraPosition() const
 	return(m_CameraPosition);
 }
 void CCamera::SetCameraPosition(glm::vec3 _Position)
-
 {
 	m_CameraPosition = _Position;
+
+	CalcViewMatrix();
+	SetProjectionMatrix();
 }
 
 glm::vec3 CCamera::GetCameraFacing() const
@@ -87,6 +89,9 @@ glm::vec3 CCamera::GetCameraFacing() const
 void CCamera::SetCameraFacing(glm::vec3 _Facing)
 {
 	m_CameraFacing = _Facing;
+
+	CalcViewMatrix();
+	SetProjectionMatrix();
 }
 
 glm::vec3 CCamera::GetCameraNormal() const
@@ -96,4 +101,7 @@ glm::vec3 CCamera::GetCameraNormal() const
 void CCamera::SetCameraNormal(glm::vec3 _Normal)
 {
 	m_CameraNormal = _Normal;
+
+	CalcViewMatrix();
+	SetProjectionMatrix();
 }

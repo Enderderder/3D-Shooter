@@ -1,11 +1,16 @@
+/*
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : server.cpp
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 //Library Includes
 #include <WS2tcpip.h>
@@ -136,9 +141,9 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 	{
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...
-			m_pServerSocket->GetSocketHandle(),						// client-end socket being used to read from
-			_buffer,							// incoming packet to be filled
-			MAX_MESSAGE_LENGTH,					   // length of incoming packet to be filled
+			m_pServerSocket->GetSocketHandle(),		// client-end socket being used to read from
+			_buffer,								// incoming packet to be filled
+			MAX_MESSAGE_LENGTH,						// length of incoming packet to be filled
 			0,										// flags
 			reinterpret_cast<sockaddr*>(&m_ClientAddress),	// address to be filled with packet source
 			&iSizeOfAdd								// size of the above address struct.
@@ -166,7 +171,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 	} //End of while (true)
 }
 
-void CServer::GetRemoteIPAddress(char *_pcSendersIP)
+void CServer::GetRemoteIPAddress(char* _pcSendersIP)
 {
 	char _temp[MAX_ADDRESS_LENGTH];
 	int _iAddressLength;

@@ -50,7 +50,6 @@ CScene::~CScene()
 {
 	std::cout << "Cleaning Scene... \n";
 	// Clean up the memory allocated variables inside the class
-
 	// ========================================================
 	delete m_cCam;
 	m_cCubeMap = nullptr;
@@ -83,6 +82,8 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Game Initializing... \n";
 		//==========================================
 
+		m_cCam->SetCameraPosition({ 0.0f, 45.0f, 65.0f });
+
 		// Load in the cube map
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 		
@@ -94,7 +95,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), 
 			cAssetMgr->GetProgramID("BlinnPhong"));
-		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
+		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(40.0f, 0.1f, 40.0f));
 		std::cout << "Loaded GameObject: Platform" << std::endl;
 
 		t1 = std::chrono::high_resolution_clock::now();
@@ -103,6 +104,37 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		std::cout << "Initializing Done... \n";
 		//==========================================
 
+
+		break;
+	}
+
+	case MULTIPLAYER:
+	{
+		//==========================================
+		std::cout << "Multiplayer Initializing... \n";
+		//==========================================
+
+		
+
+		// Load in the cube map
+		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
+
+		// Load in the game objects
+		CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
+		Instantiate(player, glm::vec3(0.0f, 0.0f, 0.0f));
+		std::cout << "Loaded GameObject: Player" << std::endl;
+		m_player = player;
+
+		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"),
+		cAssetMgr->GetProgramID("BlinnPhong"));
+		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(40.0f, 0.1f, 40.0f));
+		std::cout << "Loaded GameObject: Platform" << std::endl;
+
+		t1 = std::chrono::high_resolution_clock::now();
+		tPowerUp1 = std::chrono::high_resolution_clock::now();
+		//==========================================
+		std::cout << "Initializing Done... \n";
+		//==========================================
 
 		break;
 	}
@@ -139,10 +171,10 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		TextTemp = new TextLabel("Press r to Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		TextTemp = new TextLabel("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press e to Return to the Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new TextLabel("Return to Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
 		break;
@@ -180,15 +212,6 @@ void CScene::ChangeSwitch(int _int)
 
 void CScene::UpdateScene()
 {
-	/*Debbug*************************************************************************/
-	/*if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
-	{
-		std::cout << "Loading back to main menu. \n";
-		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
-		return;
-	}*/
-	/*********************************************************************************/
-	
 	auto duration = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
 	auto durationPowerUp = std::chrono::duration_cast<std::chrono::seconds>(tPowerUp2 - tPowerUp1);
 	
@@ -205,8 +228,8 @@ void CScene::UpdateScene()
 
 		if (other->GetHealth() <= 0)
 		{
-			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
-			return;
+			//CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
+			//return;
 		}
 
 		//////////////Timer for enemey spawning/////////////////////////
@@ -214,8 +237,6 @@ void CScene::UpdateScene()
 		{
 			for (int i = 0; i < 3; i++)
 			{
-			
-
 				int WhichEnemy = rand() % 7;
 				m_AiSwitch = rand() % 7;
 
@@ -292,7 +313,7 @@ void CScene::UpdateScene()
 			int WhichPowerUp = rand() % 3;
 			switch (WhichPowerUp)
 			{
-				//MOVESPD Powerup
+			//MOVESPD Powerup
 			case 0:
 			{
 				CGameObject* powerUp = new CPowerUps(MOVESPD);
@@ -316,14 +337,12 @@ void CScene::UpdateScene()
 				tPowerUp1 = std::chrono::high_resolution_clock::now();
 				break;
 			}
-			default:
-				break;
+
+			default: break;
 			}
 			
 		}
 	}
-
-	
 
 	
 	m_cCam->UpdateCamera();

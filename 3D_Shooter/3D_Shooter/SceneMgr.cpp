@@ -15,9 +15,6 @@
 // This Include
 #include "SceneMgr.h"
 
-// Local Include
-//#include "Utility.h"
-
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;
 

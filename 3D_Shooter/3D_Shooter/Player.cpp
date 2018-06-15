@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -7,10 +7,10 @@
 // (c) 2018 Media Design School
 //
 // File Name    : Player.cpp
-// Description	: 
+// Description	:
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 // This Include
 #include "Player.h"
@@ -59,7 +59,7 @@ void CPlayer::UpdateGameObeject()
 	ProcessBoundary();
 
 	// Check to see if the player dies
-	//CheckDeath();
+	CheckDeath();
 }
 
 void CPlayer::OnCollision(CGameObject* _other)
@@ -72,7 +72,7 @@ void CPlayer::OnCollision(CGameObject* _other)
 	}
 	else if (_other->GetTag() == "Enemy")
 	{
-		//m_health -= 10;
+		m_health -= 5;
 	}
 }
 
@@ -97,16 +97,7 @@ void CPlayer::ProcessMovement()
 		resultVec.x += 1;
 	}
 
-
-	// If player actually have movement input
-	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_RELEASED)
-		&& (cInput->g_cKeyState[(unsigned char)'a'] == INPUT_RELEASED)
-		&& (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_RELEASED)
-		&& (cInput->g_cKeyState[(unsigned char)'d'] == INPUT_RELEASED))
-	{
-		this->m_velocity = { 0.0f,0.0f,0.0f };
-	}
-	else if (resultVec != glm::vec3())
+	if (resultVec != glm::vec3())
 	{
 		// Add the speed force to the direction
 		this->m_velocity = glm::normalize(resultVec) * m_movementSpd;
@@ -117,14 +108,11 @@ void CPlayer::ProcessShooting()
 {
 	if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS && m_AbleToShoot)
 	{
+		cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
 		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, glm::vec3(m_Position.x, 1.0f, m_Position.z));
-		m_AbleToShoot = false;
-	}
-	else if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_RELEASED && !m_AbleToShoot)
-	{
-		m_AbleToShoot = true;
+		//m_AbleToShoot = false;
 	}
 }
 
@@ -169,7 +157,11 @@ void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 	}
 	case MOVESPD:
 	{
-		m_movementSpd += 0.1f;
+		m_movementSpd += 0.05f;
+		if (m_movementSpd >= 0.5f) // Cap the movement speed
+		{
+			m_movementSpd = 0.5f;
+		}
 		break;
 	}
 	case ATKSPD:
@@ -187,7 +179,7 @@ void CPlayer::CheckDeath()
 {
 	if (m_health <= 0)
 	{
-		
+		DestroyObject();
 	}
 }
 
