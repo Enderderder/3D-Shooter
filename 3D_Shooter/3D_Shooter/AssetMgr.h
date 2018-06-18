@@ -19,6 +19,9 @@
 #include <glew.h>
 #include <freeglut.h>
 
+// Forward Declare
+class TextLabel;
+
 class CAssetMgr
 {
 public:
@@ -63,6 +66,9 @@ private:
 	GLuint m_programReflectRim;
 	GLuint m_programModelBlinnPhong;
 	GLuint m_programText;
+
+	// TextLable
+	TextLabel* m_textArial;
 };
 
 #endif // !ASSETMGR_H

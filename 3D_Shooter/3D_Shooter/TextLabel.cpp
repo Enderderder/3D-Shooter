@@ -3,6 +3,7 @@
 
 // Local Include
 #include "AssetMgr.h"
+#include "Utility.h"
 
 TextLabel::TextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 {

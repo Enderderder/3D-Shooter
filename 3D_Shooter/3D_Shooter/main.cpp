@@ -510,7 +510,6 @@ void Update()
 	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
 	{
 		cSceneMgr->SwapScene(GAMEOVER);
-
 	}
 	/// =======================================================================
 

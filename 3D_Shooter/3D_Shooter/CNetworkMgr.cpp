@@ -145,10 +145,7 @@ void CNetworkMgr::ClientMainLoop()
 				_pClient->ProcessData(const_cast<char*>(temp.c_str()));
 			}
 		}
-
-
 	}
-
 }
 
 void CNetworkMgr::ServerMainLoop()
