@@ -35,7 +35,6 @@
 #include <cassert>
 #include <thread>
 #include "CSound.h"
-#include "TextLabel.h"
 #include <sstream>
 
 //#include <vld.h> // Memory Leak Detector

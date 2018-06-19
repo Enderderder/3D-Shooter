@@ -18,6 +18,7 @@
 // Local Include
 #include "Utility.h"
 #include "ShaderLoader.h"
+#include "TextLoader.h"
 
 // Static Variable
 CAssetMgr* CAssetMgr::s_pAssetMgr = nullptr;
@@ -55,6 +56,9 @@ void CAssetMgr::InitializeAssets()
 	BindTexture("Resources/Textures/Box.jpg", m_Box);
 	BindTexture("Resources/Textures/Brick.jpg", m_Brick);
 	BindTexture("Resources/Textures/Stone.jpg", m_Stone);
+
+	// Initialize Font/Text
+	m_textArial = new Text("Resources/fonts/arial.ttf");
 }
 
 GLuint CAssetMgr::GetTextureID(const char* _name) const
@@ -115,6 +119,17 @@ GLuint CAssetMgr::GetProgramID(const char* _name) const
 	return NULL;
 }
 
+Text * CAssetMgr::GetTextID(const char* _fontName) const
+{
+	if (_fontName == "Arial")
+	{
+		return m_textArial;
+	}
+
+	std::cout << "Fail to Grab Text " << _fontName << ", program does not exist. \n";
+	return nullptr;
+}
+
 void CAssetMgr::BindTexture(const char* _path, GLuint& _id)
 {
 	glGenTextures(1, &_id);
@@ -152,5 +167,7 @@ CAssetMgr::CAssetMgr()
 
 CAssetMgr::~CAssetMgr()
 {
-
+	// Delete all the Font/Text pointer
+	delete m_textArial;
+	m_textArial = nullptr;
 }

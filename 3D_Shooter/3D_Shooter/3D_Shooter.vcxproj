@@ -170,6 +170,7 @@
     <ClCompile Include="ShpereMesh.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="TextLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt" />
@@ -206,6 +207,7 @@
     <ClInclude Include="ShpereMesh.h" />
     <ClInclude Include="socket.h" />
     <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="TextLoader.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="WorkQueue.h" />
   </ItemGroup>

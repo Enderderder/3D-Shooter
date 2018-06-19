@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -10,7 +10,7 @@
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 // Global Include
 #include "Utility.h"
@@ -30,7 +30,7 @@
 CNetworkMgr m_pNetworkMgr;
 static CInput* cInput = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
-TextLabel* m_pTextLabel;
+Text* m_pTextLabel;
 CSound m_pSound;
 CScene* m_pScene;
 
@@ -130,7 +130,7 @@ void InititializeProgram()
 	LobbyTracker = StartGame;
 
 	//FPS counter starts at 0 when programs starts up
-	m_pTextLabel = new TextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
+	m_pTextLabel = new CTextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
 	m_pTextLabel->SetScale(1.0f);
 	m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 

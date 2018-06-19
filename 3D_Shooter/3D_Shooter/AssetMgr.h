@@ -20,7 +20,7 @@
 #include <freeglut.h>
 
 // Forward Declare
-class TextLabel;
+class Text;
 
 class CAssetMgr
 {
@@ -33,6 +33,7 @@ public:
 	void InitializeAssets();
 	GLuint GetTextureID(const char* _name) const;
 	GLuint GetProgramID(const char* _name) const;
+	Text* GetTextID(const char* _fontName) const;
 
 	void BindTexture(const char* _path, GLuint& _id);
 
@@ -67,8 +68,8 @@ private:
 	GLuint m_programModelBlinnPhong;
 	GLuint m_programText;
 
-	// TextLable
-	TextLabel* m_textArial;
+	// Font/Text Pointer
+	Text* m_textArial;
 };
 
 #endif // !ASSETMGR_H

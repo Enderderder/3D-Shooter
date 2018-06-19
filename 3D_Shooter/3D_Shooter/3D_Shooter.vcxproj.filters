@@ -7,9 +7,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Framework\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="TextLabel.cpp">
-      <Filter>Framework\TextLoader</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -91,6 +88,12 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="TextLoader.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLabel.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -98,9 +101,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Framework\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TextLabel.h">
-      <Filter>Framework\TextLoader</Filter>
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>Framework\ShaderLoader</Filter>
@@ -191,6 +191,12 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLoader.h">
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLabel.h">
+      <Filter>Framework\TextLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
