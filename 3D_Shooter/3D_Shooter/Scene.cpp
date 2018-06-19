@@ -242,7 +242,7 @@ void CScene::RenderScene()
 	{
 		obj->RenderObject(m_cCam);
 	}
-	for (int i = 0; i < m_pText.size(); i++)
+	for (unsigned int i = 0; i < m_pText.size(); i++)
 	{
 		m_pText[i]->Render();
 	}

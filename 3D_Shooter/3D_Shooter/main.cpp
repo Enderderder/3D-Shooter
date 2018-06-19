@@ -78,7 +78,7 @@ Lobby LobbyTracker;
 
 int main(int argc, char **argv)
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	// Create the window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GL_MULTISAMPLE);
@@ -258,6 +258,7 @@ void Update()
 		//RESTART
 		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
 		{
+			cInput->g_cKeyState[(unsigned char)'r'] = INPUT_HOLD;
 			std::cout << "Restarting...." << std::endl;
 			cSceneMgr->SwapScene(GAME);
 		}
@@ -265,9 +266,9 @@ void Update()
 		//MAINMENU
 		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
 		{
+			cInput->g_cKeyState[(unsigned char)27] = INPUT_HOLD;
 			std::cout << "Returning to main menu...." << std::endl;
 			cSceneMgr->SwapScene(MAINMENU);
-			cInput->g_cKeyState[(unsigned char)27] == INPUT_RELEASED;
 		}
 
 		//SEEK
@@ -324,19 +325,19 @@ void Update()
 
 		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && GameOverTracker == GameOverMainMenu)
 		{
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 			GameOverTracker = Restart;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_RELEASED;
 		}
 
 		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && GameOverTracker == Restart)
 		{
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 			GameOverTracker = GameOverMainMenu;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_RELEASED;
 		}
 		
 		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
-
+			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 
 			switch (GameOverTracker)
 			{
@@ -357,11 +358,9 @@ void Update()
 			default:
 				break;
 			}
-
-			cInput->g_cKeyState[(unsigned char)' '] == INPUT_RELEASED;
 		}
-
 	}
+
 	//MULTIPLAYER Menu Functionlity
 	if (cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYERMENU)
 	{
@@ -490,7 +489,7 @@ void Update()
 			{
 			case StartGame:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] == INPUT_HOLD;
+				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 
 			}
 				break;

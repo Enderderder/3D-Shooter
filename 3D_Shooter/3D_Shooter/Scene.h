@@ -17,6 +17,7 @@
 
 // Library Include
 #include <vector>
+#include <chrono>
 
 // Local Include
 #include "TextLabel.h"

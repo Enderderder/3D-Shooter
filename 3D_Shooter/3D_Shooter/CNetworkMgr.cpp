@@ -91,10 +91,8 @@ void CNetworkMgr::StartNetwork()
 	//Run receive on a separate thread so that it does not block the main client thread.
 	if (_eNetworkEntityType == CLIENT) //if network entity is a client
 	{
-
 		_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
 		m_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
-		m_ClientReceiveThread.detach();
 	}
 
 	//Run receive of server also on a separate thread 
@@ -102,7 +100,6 @@ void CNetworkMgr::StartNetwork()
 	{
 		_pServer = static_cast<CServer*>(_rNetwork->GetNetworkEntity());
 		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-		m_ServerReceiveThread.detach();
 	}
 }
 
