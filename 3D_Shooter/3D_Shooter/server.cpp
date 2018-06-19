@@ -152,7 +152,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 		{
 			int _iError = WSAGetLastError();
 			ErrorRoutines::PrintWSAErrorInfo(_iError);
-			//return false;
+			return;
 		}
 		else
 		{

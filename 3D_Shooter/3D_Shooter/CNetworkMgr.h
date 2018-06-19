@@ -28,7 +28,7 @@ public:
 	CNetworkMgr();
 	~CNetworkMgr();
 
-	void StartNetwork();
+	void StartNetwork(EEntityType);
 	void SetAsServer();
 	void SetAsClient();
 	void ClientMainLoop();

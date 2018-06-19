@@ -19,10 +19,11 @@
 #include "ModelMgr.h"
 #include "AssetMgr.h"
 #include "CNetworkMgr.h"
+#include "network.h"
 #include "Input.h"
 
 
-// make sure the winsock lib is included...
+// Make sure the winsock lib is included...
 #pragma comment(lib,"ws2_32.lib")
 
 //Class Pointers
@@ -149,6 +150,7 @@ void Update()
 {
 	// Network Main Loop
 	m_pNetworkMgr.ServerMainLoop();
+	m_pNetworkMgr.ClientMainLoop();
 
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
@@ -240,15 +242,6 @@ void Update()
 			}
 			default: break;
 			}
-		}
-
-		//Start Network
-		if (cInput->g_cKeyState[(unsigned char)'h'] == INPUT_FIRST_PRESS && !m_pNetworkMgr.IsNetOnline())
-		{
-			cInput->g_cKeyState[(unsigned char)'h'] = INPUT_HOLD;
-
-			std::cout << "Starting the Network..." << std::endl;
-			m_pNetworkMgr.StartNetwork();
 		}
 	}
 
@@ -424,14 +417,14 @@ void Update()
 			case Host:
 			{
 				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-				m_pNetworkMgr.StartNetwork();
+				m_pNetworkMgr.StartNetwork(SERVER);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;
 			case Join:
 			{
 				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-				m_pNetworkMgr.StartNetwork();
+				m_pNetworkMgr.StartNetwork(CLIENT);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;

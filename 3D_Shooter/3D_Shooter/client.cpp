@@ -86,7 +86,7 @@ bool CClient::Initialise()
 	m_pClientSocket = new CSocket();
 	
 	//Get the port number to bind the socket to
-	unsigned short _usClientPort = QueryPortNumber(DEFAULT_CLIENT_PORT);
+	unsigned short _usClientPort = DEFAULT_CLIENT_PORT;
 	//Initialise the socket to the port number
 	if (!m_pClientSocket->Initialise(_usClientPort))
 	{
@@ -101,81 +101,36 @@ bool CClient::Initialise()
 
 	do {
 #pragma region _GETSERVER_
-		unsigned char _ucChoice = QueryOption("Do you want to broadcast for servers or manually connect (B/M)?", "BM");
 
-		switch (_ucChoice)
+		m_bDoBroadcast = true;
+		m_pClientSocket->EnableBroadcast();
+		BroadcastForServers();
+		if (m_vecServerAddr.size() == 0)
 		{
-		case 'B':
-		{
-			//Question 7: Broadcast to detect server
-			m_bDoBroadcast = true;
-			m_pClientSocket->EnableBroadcast();
-			BroadcastForServers();
-			if (m_vecServerAddr.size() == 0)
-			{
-				std::cout << "No Servers Found " << std::endl;
-				continue;
-			}
-			else {
-
-				//Give a list of servers for the user to choose from :
-				for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
-				{
-					std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
-				}
-				std::cout << "Choose a server number to connect to :";
-				gets_s(_cServerChosen);
-
-				_uiServerIndex = atoi(_cServerChosen);
-				m_ServerSocketAddress.sin_family = AF_INET;
-				m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
-				m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
-				std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
-				std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
-				_bServerChosen = true;
-			}
-			m_bDoBroadcast = false;
-			m_pClientSocket->DisableBroadcast();
-			break;
+			std::cout << "No Servers Found " << std::endl;
+			continue;
 		}
-		case 'M':
-		{
-			std::cout << "Enter server IP or empty for localhost: ";
+		else {
 
-			gets_s(_cServerIPAddress);
-			if (_cServerIPAddress[0] == 0)
+			//Give a list of servers for the user to choose from :
+			for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
 			{
-				strcpy_s(_cServerIPAddress, "127.0.0.1");
+				std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
 			}
-			//Get the Port Number of the server
-			std::cout << "Enter server's port number or empty for default server port: ";
-			gets_s(_cServerPort);
-			//std::cin >> _usServerPort;
+			std::cout << "Choose a server number to connect to :";
+			gets_s(_cServerChosen);
 
-			if (_cServerPort[0] == 0)
-			{
-				_usServerPort = DEFAULT_SERVER_PORT;
-			}
-			else
-			{
-				_usServerPort = atoi(_cServerPort);
-			}
-			//Fill in the details of the server's socket address structure.
-			//This will be used when stamping address on outgoing packets
+			_uiServerIndex = atoi(_cServerChosen);
 			m_ServerSocketAddress.sin_family = AF_INET;
-			m_ServerSocketAddress.sin_port = htons(_usServerPort);
-			inet_pton(AF_INET, _cServerIPAddress, &m_ServerSocketAddress.sin_addr);
+			m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
+			m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
+			std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
+			std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
 			_bServerChosen = true;
-			std::cout << "Attempting to connect to server at " << _cServerIPAddress << ":" << _usServerPort << std::endl;
-			break;
 		}
-		default:
-		{
-			std::cout << "This is not a valid option" << std::endl;
-			return false;
-			break;
-		}
-		}
+		m_bDoBroadcast = false;
+		m_pClientSocket->DisableBroadcast();
+
 #pragma endregion _GETSERVER_
 
 	} while (_bServerChosen == false);

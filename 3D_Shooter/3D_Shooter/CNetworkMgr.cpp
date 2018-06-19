@@ -49,37 +49,13 @@ CNetworkMgr::~CNetworkMgr()
 	delete[] _pcPacketData;
 }
 
-void CNetworkMgr::StartNetwork()
+void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 {
 	_pcPacketData = new char[MAX_MESSAGE_LENGTH];
 	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
-	unsigned char _ucChoice;
-	
 	//Get the instance of the network
-		
 	_rNetwork->StartUp();
-
-	// query, is this to be a client or a server?
-	_ucChoice = QueryOption("Do you want to run a client or server (C/S)?", "CS");
-	switch (_ucChoice)
-	{
-	case 'C':
-	{
-		_eNetworkEntityType = CLIENT;
-		break;
-	}
-	case 'S':
-	{
-		_eNetworkEntityType = SERVER;
-		break;
-	}
-	default:
-	{
-		std::cout << "This is not a valid option" << std::endl;
-		break;
-	}
-	}
 
 	if (!_rNetwork->Initialise(_eNetworkEntityType))
 	{
@@ -107,26 +83,26 @@ void CNetworkMgr::ClientMainLoop()
 {
 	if (_rNetwork->IsOnline())
 	{
-		_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
+		//_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
 
 		//Prepare for reading input from the user
-		_InputBuffer.PrintToScreenTop();
+		//_InputBuffer.PrintToScreenTop();
 
 		//Get input from the user
-		if (_InputBuffer.Update())
-		{
-			// we completed a message, lets send it:
-			int _iMessageSize = static_cast<int>(strlen(_InputBuffer.GetString()));
+		//if (_InputBuffer.Update())
+		//{
+		//	// we completed a message, lets send it:
+		//	int _iMessageSize = static_cast<int>(strlen(_InputBuffer.GetString()));
 
-			//Put the message into a packet structure
-			TPacket _packet;
-			_packet.Serialize(DATA, const_cast<char*>(_InputBuffer.GetString())); //Hardcoded username; change to name as taken in via user input.
-			_rNetwork->GetNetworkEntity()->SendData(_packet.PacketData);
-			//Clear the Input Buffer
-			_InputBuffer.ClearString();
-			//Print To Screen Top
-			_InputBuffer.PrintToScreenTop();
-		}
+		//	//Put the message into a packet structure
+		//	TPacket _packet;
+		//	_packet.Serialize(DATA, const_cast<char*>(_InputBuffer.GetString())); //Hardcoded username; change to name as taken in via user input.
+		//	_rNetwork->GetNetworkEntity()->SendData(_packet.PacketData);
+		//	//Clear the Input Buffer
+		//	_InputBuffer.ClearString();
+		//	//Print To Screen Top
+		//	_InputBuffer.PrintToScreenTop();
+		//}
 		if (_pClient != nullptr)
 		{
 			//If the message queue is empty 
