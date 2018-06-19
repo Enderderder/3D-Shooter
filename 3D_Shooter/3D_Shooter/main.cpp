@@ -21,6 +21,7 @@
 #include "CNetworkMgr.h"
 #include "network.h"
 #include "Input.h"
+#include "TextLabel.h"
 
 
 // Make sure the winsock lib is included...
@@ -30,7 +31,7 @@
 CNetworkMgr m_pNetworkMgr;
 static CInput* cInput = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
-Text* m_pTextLabel;
+CTextLabel* g_FPSLabel;
 CSound m_pSound;
 CScene* m_pScene;
 
@@ -109,7 +110,7 @@ int main(int argc, char **argv)
 		CAssetMgr::GetInstance()->DestroyInstance();
 		CMeshMgr::GetInstance()->DestroyInstance();
 		CModelMgr::GetInstance()->DestroyInstance();
-		delete m_pTextLabel;
+		delete g_FPSLabel;
 	}); // Clean up the memory when closing the program
 
 	glutMainLoop(); // Must be called last
@@ -130,9 +131,9 @@ void InititializeProgram()
 	LobbyTracker = StartGame;
 
 	//FPS counter starts at 0 when programs starts up
-	m_pTextLabel = new CTextLabel("0", "Resources/fonts/arial.ttf", glm::vec2(1305.0f, 2.0f));
-	m_pTextLabel->SetScale(1.0f);
-	m_pTextLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
+	g_FPSLabel = new CTextLabel("Arial");
+	g_FPSLabel->SetPosition(glm::vec2(1305.0f, 2.0f));
+	g_FPSLabel->SetColor(glm::vec3(1.0f, 1.0f, 0.2f));
 
 	cSceneMgr->InitializeSceneMgr();
 }
@@ -141,7 +142,7 @@ void Render()
 {
 	cSceneMgr->RenderCurrentScene();
 
-	m_pTextLabel->Render();
+	g_FPSLabel->RenderTextLabel();
 
 	glutSwapBuffers();
 }
@@ -501,6 +502,7 @@ void Update()
 	/// Debug: Goes Straight to Game Over Scene ===============================
 	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
 	{
+		cInput->g_cKeyState[(unsigned char)'e'] = INPUT_HOLD;
 		cSceneMgr->SwapScene(GAMEOVER);
 	}
 	/// =======================================================================
@@ -535,7 +537,7 @@ void UpdateFPS()
 
 		std::ostringstream iConvert;
 		iConvert << framesPerSecond;
-		m_pTextLabel->SetText(iConvert.str());
+		g_FPSLabel->SetText(iConvert.str());
 
 		framesPerSecond = 0;
 	}

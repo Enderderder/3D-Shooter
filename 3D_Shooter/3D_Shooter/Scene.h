@@ -50,7 +50,7 @@ public:
 	void ChangeSwitch(int _int);
 
 	std::vector<CGameObject*> GetObjectVec() const;
-	std::vector<Text*> m_pText;
+	std::vector<CTextLabel*> m_pText;
 
 private:
 
@@ -66,14 +66,13 @@ private:
 
 	std::vector<CGameObject*> m_vGameObj;
 	
-	
 	CCamera* m_cCam;
 	CCubeMap* m_cCubeMap;
 	ESCENES m_pCurrentEnum;
 	CGameObject* m_player;
 	
-	Text* m_pScore = new Text("Score: 0", "Resources/fonts/arial.ttf", glm::vec2(1000.0f, 700.0f));
-	Text* m_pLife = new Text("Life: 0", "Resources/fonts/arial.ttf", glm::vec2(0.0f, 700.0f));
+	CTextLabel* m_pScore = new CTextLabel("Arial", "Score: 0", glm::vec2(1000.0f, 700.0f));
+	CTextLabel* m_pLife = new CTextLabel("Arial", "Life: 0", glm::vec2(0.0f, 700.0f));
 };
 
 #endif // !SCENE_H

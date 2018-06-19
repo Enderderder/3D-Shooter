@@ -29,7 +29,7 @@
 #include "CAIMgr.h"
 
 // Global Variables
-Text* TextTemp;
+CTextLabel* TextTemp;
 
 // Manager Pointer
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
@@ -148,16 +148,16 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new Text("Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Play", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Multiplayer", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new CTextLabel("Arial", "Multiplayer", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		TextTemp = new CTextLabel("Arial", "Exit", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Space to Enter", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		//==========================================
@@ -171,13 +171,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new Text("Host Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Host Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Join Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new CTextLabel("Arial", "Join Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		TextTemp = new CTextLabel("Arial", "Main Menu", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
 		m_pText.push_back(TextTemp);
 
 		break;
@@ -187,23 +187,24 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new Text("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
+		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 200));
+		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 200));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 300));
+		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 300));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Not Connected", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 400));
+		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 400));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Start Game", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
+		TextTemp = new CTextLabel("Arial", "Start Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
+		TextTemp = new CTextLabel("Arial", "Main Menu", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
 		m_pText.push_back(TextTemp);
+
 		break;
 	}
 
@@ -211,13 +212,13 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		TextTemp = new Text("Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Restart", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Return to Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new CTextLabel("Arial", "Return to Main Menu", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new Text("Space to Enter", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Space to Enter", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		break;
@@ -233,8 +234,8 @@ void CScene::RenderScene()
 
 	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
 	{
-		m_pScore->Render();
-		m_pLife->Render();
+		m_pScore->RenderTextLabel();
+		m_pLife->RenderTextLabel();
 	}
 	
 
@@ -244,7 +245,7 @@ void CScene::RenderScene()
 	}
 	for (unsigned int i = 0; i < m_pText.size(); i++)
 	{
-		m_pText[i]->Render();
+		m_pText[i]->RenderTextLabel();
 	}
 }
 
