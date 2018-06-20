@@ -15,29 +15,33 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+// OpenGL Include
+#include <glew.h>
+#include <freeglut.h>
+#include <glm.hpp>
+
 // Library Include
 #include <vector>
 #include <chrono>
-
-// Local Include
-#include "TextLabel.h"
-#include "CubeMap.h"
 
 // Forward Declaration
 enum ESCENES;
 class CGameObject;
 class CCamera;
+class CCubeMap;
+class CTextLabel;
 
 class CScene
 {
 public:
-	CScene() = default;
+	CScene();
 	CScene(ESCENES _eSceneNum);
 	~CScene();
 
-	void InitialiseScene(ESCENES _eSceneNum);
-	void RenderScene();
-	void UpdateScene();
+	virtual void InitialiseScene(ESCENES _eSceneNum);
+	virtual void RenderScene();
+	virtual void UpdateScene();
+
 	void CheckCollision();
 
 	void Instantiate(CGameObject* _gameobj);
@@ -46,35 +50,27 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
 	void DestroyObject(CGameObject* _gameobj);
 
-	void AddScore(int _point);
-	void ChangeSwitch(int _int);
-
 	std::vector<CGameObject*> GetObjectVec() const;
-	std::vector<CTextLabel*> m_pText;
+	
 
 	CTextLabel* TextTemp;
+	std::vector<CTextLabel*> m_pText;
 
-private:
+protected:
+	ESCENES m_pCurrentEnum;
 
-	int m_GameScore;
-	int m_AiSwitch;
-	CGameObject* EnemeyTemp = nullptr;
-	bool b_isfirst = false;
-  
-	std::chrono::high_resolution_clock::time_point t1;
-	std::chrono::high_resolution_clock::time_point t2;
-	std::chrono::high_resolution_clock::time_point tPowerUp1;
-	std::chrono::high_resolution_clock::time_point tPowerUp2;
+	CCamera* m_MainCamera;
+
+	CCubeMap * m_cCubeMap;
 
 	std::vector<CGameObject*> m_vGameObj;
+private:
+
+	//std::vector<CGameObject*> m_vGameObj;
 	
-	CCamera* m_cCam;
-	CCubeMap* m_cCubeMap;
-	ESCENES m_pCurrentEnum;
-	CGameObject* m_player;
-	
-	CTextLabel* m_pScore = new CTextLabel("Arial", "Score: 0", glm::vec2(1000.0f, 700.0f));
-	CTextLabel* m_pLife = new CTextLabel("Arial", "Life: 0", glm::vec2(0.0f, 700.0f));
+	//CCamera* m_MainCamera;
+	//CCubeMap* m_cCubeMap;
+	//ESCENES m_pCurrentEnum;
 };
 
 #endif // !SCENE_H

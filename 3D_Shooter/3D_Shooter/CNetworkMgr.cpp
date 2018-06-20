@@ -23,6 +23,9 @@
 #include "InputLineBuffer.h"
 #include <functional>
 
+// Static Variable -----------------------------------------------------------------------------
+CNetworkMgr* CNetworkMgr::s_pNetworkMgr = nullptr;
+
 // Global Variable -----------------------------------------------------------------------------
 CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
 static CNetwork* _rNetwork = CNetwork::GetInstance();
@@ -42,11 +45,37 @@ CNetworkMgr::CNetworkMgr()
 
 CNetworkMgr::~CNetworkMgr()
 {
+	if (_eNetworkEntityType == CLIENT)
+	{
+		m_ClientReceiveThread.detach();
+		//m_ClientReceiveThread.join();
+	}
+	else 
+	{
+		m_ServerReceiveThread.detach();
+		//m_ServerReceiveThread.join();
+	}
 	//Shut Down the Network
-	_rNetwork->ShutDown();
-	_rNetwork->DestroyObject();
+	//_rNetwork->ShutDown();
+	//_rNetwork->DestroyObject();
 
 	delete[] _pcPacketData;
+}
+
+CNetworkMgr * CNetworkMgr::GetInstance()
+{
+	if (s_pNetworkMgr == nullptr)
+	{
+		s_pNetworkMgr = new CNetworkMgr();
+	}
+
+	return s_pNetworkMgr;
+}
+
+void CNetworkMgr::DestroyInstance()
+{
+	delete s_pNetworkMgr;
+	s_pNetworkMgr = nullptr;
 }
 
 void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
@@ -69,6 +98,7 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	{
 		_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
 		m_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
+		//m_ClientReceiveThread.detach();
 	}
 
 	//Run receive of server also on a separate thread 
@@ -76,6 +106,7 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	{
 		_pServer = static_cast<CServer*>(_rNetwork->GetNetworkEntity());
 		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
+		//m_ServerReceiveThread.detach();
 	}
 }
 
@@ -84,30 +115,11 @@ EEntityType CNetworkMgr::GetEntityType()
 	return _eNetworkEntityType;
 
 }
+
 void CNetworkMgr::ClientMainLoop()
 {
 	if (_rNetwork->IsOnline())
 	{
-		//_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
-
-		//Prepare for reading input from the user
-		//_InputBuffer.PrintToScreenTop();
-
-		//Get input from the user
-		//if (_InputBuffer.Update())
-		//{
-		//	// we completed a message, lets send it:
-		//	int _iMessageSize = static_cast<int>(strlen(_InputBuffer.GetString()));
-
-		//	//Put the message into a packet structure
-		//	TPacket _packet;
-		//	_packet.Serialize(DATA, const_cast<char*>(_InputBuffer.GetString())); //Hardcoded username; change to name as taken in via user input.
-		//	_rNetwork->GetNetworkEntity()->SendData(_packet.PacketData);
-		//	//Clear the Input Buffer
-		//	_InputBuffer.ClearString();
-		//	//Print To Screen Top
-		//	_InputBuffer.PrintToScreenTop();
-		//}
 		if (_pClient != nullptr)
 		{
 			//If the message queue is empty 

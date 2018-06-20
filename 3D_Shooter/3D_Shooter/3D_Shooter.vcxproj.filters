@@ -94,6 +94,12 @@
     <ClCompile Include="TextLabel.cpp">
       <Filter>Framework\TextLoader</Filter>
     </ClCompile>
+    <ClCompile Include="SinglePlayerScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -197,6 +203,12 @@
     </ClInclude>
     <ClInclude Include="TextLabel.h">
       <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="SinglePlayerScene.h">
+      <Filter>Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Game\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +357,9 @@
     </Filter>
     <Filter Include="Framework\AssetLoader">
       <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{547dab91-af83-4e51-82ab-56ea7ddc97b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

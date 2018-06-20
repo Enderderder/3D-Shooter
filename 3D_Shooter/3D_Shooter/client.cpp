@@ -25,6 +25,7 @@
 #include "network.h"
 #include "networkentity.h"
 #include "socket.h"
+#include "TextLabel.h"
 
 //This includes
 #include "client.h"
@@ -147,8 +148,8 @@ bool CClient::Initialise()
 	} while (_cUserName[0] == 0);
 
 	TPacket _packet;
-	_packet.Serialize(HANDSHAKE, _cUserName); 
-	SendData(_packet.PacketData);
+	//_packet.Serialize(HANDSHAKE, _cUserName); 
+	//SendData(_packet.PacketData);
 
 	_packet.Serialize(LOBBYTYPE, _cUserName);
 	SendData(_packet.PacketData);
@@ -334,7 +335,7 @@ void CClient::ProcessData(char* _pcDataReceived)
 			IsDoneLobby = true;
 		}
 		
-			i++;
+		i++;
 		break;
 	}
 	case HANDSHAKE:
@@ -380,7 +381,6 @@ void CClient::ProcessData(char* _pcDataReceived)
 		} while (_cUserName[0] == 0);
 
 		TPacket _packettemp;
-
 		_packettemp.Serialize(HANDSHAKE, _cUserName);
 		SendData(_packettemp.PacketData);
 

@@ -15,6 +15,7 @@
 // Local Include
 #include "CAIMgr.h"
 #include "SceneMgr.h"
+#include "SinglePlayerScene.h"
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
 	
@@ -120,7 +121,8 @@ void CAIMgr::OnCollision(CGameObject* _other)
 	{
 		DestroyObject();
 		
-		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
+		CSinglePlayerScene* temp = dynamic_cast<CSinglePlayerScene*>(CSceneMgr::GetInstance()->GetCurrentScene());
+		temp->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
 	{

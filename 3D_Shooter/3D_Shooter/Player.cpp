@@ -24,6 +24,7 @@
 #include "CBullet.h"
 #include "PowerUps.h"
 #include "CAIMgr.h"
+#include "SinglePlayerScene.h"
 
 // Class Pointer
 static CInput* cInput = CInput::GetInstance();
@@ -152,7 +153,8 @@ void CPlayer::ProcessPowerUpEffect(EPOWERUPEFFECT _effect)
 	}
 	case SCORE:
 	{
-		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(300);
+		CSinglePlayerScene* temp = dynamic_cast<CSinglePlayerScene*>(CSceneMgr::GetInstance()->GetCurrentScene());
+		temp->AddScore(300);
 		break;
 	}
 	case MOVESPD:
