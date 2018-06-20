@@ -62,6 +62,9 @@ private:
 
 	int IsHELP;
 	int IsQUIT;
+	int i = 0;
+
+	bool IsDoneLobby = false;
 
 private:
 	//A buffer to contain all packet data for the client

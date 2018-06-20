@@ -52,6 +52,8 @@ public:
 	std::vector<CGameObject*> GetObjectVec() const;
 	std::vector<CTextLabel*> m_pText;
 
+	CTextLabel* TextTemp;
+
 private:
 
 	int m_GameScore;

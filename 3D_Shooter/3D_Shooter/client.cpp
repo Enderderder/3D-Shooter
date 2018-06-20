@@ -28,6 +28,9 @@
 
 //This includes
 #include "client.h"
+#include "SceneMgr.h"
+
+static CSceneMgr* cSceneMgrs = CSceneMgr::GetInstance();
 
 
 CClient::CClient()
@@ -145,6 +148,9 @@ bool CClient::Initialise()
 
 	TPacket _packet;
 	_packet.Serialize(HANDSHAKE, _cUserName); 
+	SendData(_packet.PacketData);
+
+	_packet.Serialize(LOBBYTYPE, _cUserName);
 	SendData(_packet.PacketData);
 	return true;
 }
@@ -310,11 +316,27 @@ void CClient::ReceiveData(char* _pcBufferToReceiveData)
 
 void CClient::ProcessData(char* _pcDataReceived)
 {
-
+	
 	TPacket _packetRecvd;
 	_packetRecvd = _packetRecvd.Deserialize(_pcDataReceived);
 	switch (_packetRecvd.MessageType)
 	{
+	case LOBBYTYPE:
+	{
+		if (IsDoneLobby == false)
+		{
+			
+			cSceneMgrs->GetCurrentScene()->TextTemp = new CTextLabel("Arial", _packetRecvd.MessageContent, glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - (100 * i) - 100));
+			cSceneMgrs->GetCurrentScene()->TextTemp->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
+			cSceneMgrs->GetCurrentScene()->m_pText.push_back(cSceneMgrs->GetCurrentScene()->TextTemp);
+			
+			
+			IsDoneLobby = true;
+		}
+		
+			i++;
+		break;
+	}
 	case HANDSHAKE:
 	{
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
@@ -358,8 +380,11 @@ void CClient::ProcessData(char* _pcDataReceived)
 		} while (_cUserName[0] == 0);
 
 		TPacket _packettemp;
+
 		_packettemp.Serialize(HANDSHAKE, _cUserName);
 		SendData(_packettemp.PacketData);
+
+		
 		
 		break;
 	}
@@ -367,6 +392,7 @@ void CClient::ProcessData(char* _pcDataReceived)
 		break;
 
 	}
+	
 }
 
 void CClient::GetRemoteIPAddress(char *_pcSendersIP)

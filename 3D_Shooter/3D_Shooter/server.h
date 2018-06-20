@@ -71,6 +71,7 @@ private:
 
 	int charCompereHelp;
 	int charCompereQuit;
+	int i = 0;
 
 private:
 	//A Buffer to contain all packet data for the server

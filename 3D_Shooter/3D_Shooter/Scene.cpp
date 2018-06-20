@@ -29,7 +29,7 @@
 #include "CAIMgr.h"
 
 // Global Variables
-CTextLabel* TextTemp;
+
 
 // Manager Pointer
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
@@ -187,7 +187,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
+		/*TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
 		m_pText.push_back(TextTemp);
 
 		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 200));
@@ -197,7 +197,7 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		m_pText.push_back(TextTemp);
 
 		TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 400));
-		m_pText.push_back(TextTemp);
+		m_pText.push_back(TextTemp);*/
 
 		TextTemp = new CTextLabel("Arial", "Start Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
 		m_pText.push_back(TextTemp);
