@@ -198,7 +198,6 @@ void CServer::ProcessData(char* _pcDataReceived)
 	
 	case HANDSHAKE:
 	{
-		
 		if (AddClient(_packetRecvd.MessageContent))
 		{
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
@@ -209,7 +208,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
 
-					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					std::string stringtemp = "Welcome " + m_pClientName + " to the game";
 					strcpy_s(charNameptr, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, charNameptr);
 					SendData(_packetToSend.PacketData);
@@ -228,17 +227,43 @@ void CServer::ProcessData(char* _pcDataReceived)
 	}
 	case LOBBYTYPE:
 	{
+		std::cout << "I get a lobby type \n";
 
-			cSceneMgr->GetCurrentScene()->TextTemp = new CTextLabel("Arial", "Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - (100 * i) - 100));
-			cSceneMgr->GetCurrentScene()->TextTemp->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
-			cSceneMgr->GetCurrentScene()->m_pText.push_back(cSceneMgr->GetCurrentScene()->TextTemp);
+		if (AddClient(_packetRecvd.MessageContent))
+		{
+			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
+			SendData(_packetToSend.PacketData);
+			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+			{
+				if (it->first == ToString(m_ClientAddress))
+				{
+					m_ClientAddress = it->second.m_ClientAddress;
 
-			std::stringstream strs;
-			strs << /*m_pConnectedClients->end()->second.m_strName <<*/ "Connected";
-			std::string stringtemp = strs.str();
-			strcpy_s(charNameptr, stringtemp.c_str());
+					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					strcpy_s(charNameptr, stringtemp.c_str());
+					_packetToSend.Serialize(DATA, charNameptr);
+					SendData(_packetToSend.PacketData);
+				}
+			}
+			CurrentUsers(_packetToSend);
 
-			i++;
+		}
+		else
+		{
+			_packetToSend.Serialize(USERNAME, "Username is already taken");
+			SendData(_packetToSend.PacketData);
+		}
+
+		cSceneMgr->GetCurrentScene()->TextTemp = new CTextLabel("Arial", "Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - (100 * i) - 100));
+		cSceneMgr->GetCurrentScene()->TextTemp->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
+		cSceneMgr->GetCurrentScene()->m_pText.push_back(cSceneMgr->GetCurrentScene()->TextTemp);
+
+		std::stringstream strs;
+		strs << /*m_pConnectedClients->end()->second.m_strName <<*/ "Connected";
+		std::string stringtemp = strs.str();
+		strcpy_s(charNameptr, stringtemp.c_str());
+
+		i++;
 
 		_packetToSend.Serialize(LOBBYTYPE, charNameptr);
 		SendData(_packetToSend.PacketData);

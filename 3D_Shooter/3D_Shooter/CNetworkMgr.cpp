@@ -47,11 +47,13 @@ CNetworkMgr::~CNetworkMgr()
 {
 	if (_eNetworkEntityType == CLIENT)
 	{
-
+		m_ClientReceiveThread.detach();
+		//m_ClientReceiveThread.join();
 	}
 	else 
 	{
-
+		m_ServerReceiveThread.detach();
+		//m_ServerReceiveThread.join();
 	}
 	//Shut Down the Network
 	//_rNetwork->ShutDown();
