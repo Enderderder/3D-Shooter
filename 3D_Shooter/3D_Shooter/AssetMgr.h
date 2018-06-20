@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -7,10 +7,10 @@
 // (c) 2018 Media Design School
 //
 // File Name    : AssetMgr.h
-// Description	: 
+// Description	:
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 #ifndef ASSETMGR_H
 #define ASSETMGR_H
@@ -18,6 +18,9 @@
 // OpenGL Library Include
 #include <glew.h>
 #include <freeglut.h>
+
+// Forward Declare
+class Text;
 
 class CAssetMgr
 {
@@ -30,6 +33,7 @@ public:
 	void InitializeAssets();
 	GLuint GetTextureID(const char* _name) const;
 	GLuint GetProgramID(const char* _name) const;
+	Text* GetTextID(const char* _fontName) const;
 
 	void BindTexture(const char* _path, GLuint& _id);
 
@@ -63,6 +67,9 @@ private:
 	GLuint m_programReflectRim;
 	GLuint m_programModelBlinnPhong;
 	GLuint m_programText;
+
+	// Font/Text Pointer
+	Text* m_textArial;
 };
 
 #endif // !ASSETMGR_H

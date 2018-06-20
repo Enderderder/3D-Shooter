@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -10,13 +10,15 @@
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 // This Include
 #include "SceneMgr.h"
 
 // Local Include
 #include "Utility.h"
+#include "SinglePlayerScene.h"
+#include "LobbyScene.h"
 
 // Static Variable
 CSceneMgr* CSceneMgr::s_pSceneMgr = nullptr;
@@ -31,7 +33,7 @@ CSceneMgr* CSceneMgr::GetInstance()
 	return s_pSceneMgr;
 }
 
-void CSceneMgr::DestroyObject()
+void CSceneMgr::DestroyInstance()
 {
 	delete s_pSceneMgr;
 	s_pSceneMgr = nullptr;
@@ -39,9 +41,12 @@ void CSceneMgr::DestroyObject()
 
 void CSceneMgr::InitializeSceneMgr()
 {
-	m_vScenes.push_back(new CScene(MAINMENU));
-	m_vScenes.push_back(new CScene(GAME));
-	m_vScenes.push_back(new CScene(GAMEOVER));
+	m_vScenes.push_back(new CScene());
+	m_vScenes.push_back(new CScene());
+	m_vScenes.push_back(new CSinglePlayerScene());
+	m_vScenes.push_back(new CScene());
+	m_vScenes.push_back(new CScene());
+	m_vScenes.push_back(new CLobbyScene());
 
 	m_eCurrentScene = MAINMENU;
 	m_vScenes[m_eCurrentScene]->InitialiseScene(m_eCurrentScene);
@@ -64,7 +69,7 @@ void CSceneMgr::SwapScene(ESCENES _eSceneNum)
 {
 	// Reset the current scene
 	delete m_vScenes[m_eCurrentScene];
-	m_vScenes[m_eCurrentScene] = new CScene(m_eCurrentScene);
+	m_vScenes[m_eCurrentScene] = new CScene();
 
 	// Jump to another scene and initialise it
 	m_eCurrentScene = _eSceneNum;

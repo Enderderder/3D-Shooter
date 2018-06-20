@@ -59,11 +59,6 @@ public:
 	bool ShouldDestroyed() const;
 	float GetCollisionRad() const;
 
-	glm::vec3 GetPosistion(CGameObject* _Player) const
-	{
-		return(_Player->m_Position);
-	}
-
 protected:
 	void InitializeObject(CMesh* _mesh, GLuint _textureID, GLuint _programID);
 	void InitializeObject(CModel* _model, GLuint _programID);

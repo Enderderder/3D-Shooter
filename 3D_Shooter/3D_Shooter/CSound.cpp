@@ -58,7 +58,7 @@ const bool CSound::LoadAudio()
 	FMOD_RESULT result;
 	// Sound Effects -------------------------------------------------------------------------------
 	
-		for (int i = 0; i < m_pSoundPointers.size(); i++)
+		for (unsigned int i = 0; i < m_pSoundPointers.size(); i++)
 		{
 			result = audioMgr->createSound(m_pSoundAdress[i], FMOD_DEFAULT, 0, &m_pSoundPointers[i]);
 		}
@@ -83,7 +83,7 @@ void CSound::PlaySound()
 	audioMgr->playSound(bgmTheme, 0, false, &channel);	//main theme loop
 	channel->setVolume(1);	//master volume
 
-	for (int i = 0; i < m_pSoundPointers.size(); i++)
+	for (unsigned int i = 0; i < m_pSoundPointers.size(); i++)
 	{
 		audioMgr->playSound(m_pSoundPointers[i], 0, false, &channel);	//sound FX
 		m_pSoundPointers.clear();

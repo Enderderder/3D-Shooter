@@ -12,92 +12,117 @@
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
 //
 
-#ifndef AIMgr_H
-#define AIMgr_H
-
+// Local Include
 #include "CAIMgr.h"
 #include "SceneMgr.h"
+#include "SinglePlayerScene.h"
 
 CAIMgr::CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target) :
-
-
-	m_movementSpd(0.1f)
-
+	
+	m_movementSpd(0.25f)
 {
+	m_velocity = glm::vec3(1.0f, 0.0f, -1.0f) * m_movementSpd;
 	m_tag = "Enemy";
 	m_ColliderRad = 1.0f;
+	m_friction = 1.0f;
 	AI = _AIType;
 	m_pTarget = _Target;
 	InitializeObject(_mesh, _textureID, _programID);
-}
-
-CAIMgr::CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target) :
-
-
-	m_movementSpd(0.01f)
-
-{
-	m_tag = "Enemey";
-	AI = _AIType;
-	m_pTarget = _Target;
-	InitializeObject(_model, _programID);
+	
 }
 
 void CAIMgr::UpdateGameObeject()
 {
-	glm::vec3 resultMovement(0.0f, 0.0f, 0.0f);
+	glm::vec3 resultAiSteering;
 
 	switch (AI)
 	{
 	case SEEK:
 	{
-		resultMovement = m_pSeek.UpdateGameObject(m_pTarget, m_movementSpd, this->m_Position);
-	}
+		resultAiSteering += AiSeek(m_pTarget->GetPosition());
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+
 		break;
+	}
 
 	case FLEE:
 	{
-		resultMovement = m_pFlee.UpdateGameObject(m_pTarget, m_movementSpd, this->m_Position);
-	}
+		resultAiSteering += AiFlee(m_pTarget->GetPosition());
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		
 		break;
+	}
+
+	case PURSUE:
+	{
+		resultAiSteering += AiPursue(m_pTarget);
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+
+		break;
+	}
 
 	case WANDER:
 	{
-		resultMovement = m_pWander.UpdateGameObject(m_pTarget, m_movementSpd, this->m_Position);
-	}
+		resultAiSteering += AiWander();
 		break;
+	}
 
-	case CONTAINMENT:
+	case ARRIVE:
 	{
-
-	}
+		resultAiSteering += AiArrival(m_pTarget);
 		break;
+	}
+
+	case FLOCK:
+	{
+		resultAiSteering += AiArrival(m_pTarget);
+		resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		break;
+	}
+
+	case LEADERFOLLOW:
+	{
+		if (this == m_vEnemey[0])
+		{
+			resultAiSteering += resultAiSteering += AiSeek(m_pTarget->GetPosition());
+			resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		}
+		else
+		{
+			resultAiSteering += resultAiSteering += AiSeek(m_vEnemey[0]->GetPosition());
+			resultAiSteering += Separate(CSceneMgr::GetInstance()->GetCurrentScene()->GetObjectVec());
+		}
+		break;
+	}
 
 	default:
-	{
-	
-	}
 		break;
 	}
 
+	// Apply the steering force to the object
+	m_velocity += resultAiSteering;
 
-	float fMag = sqrtf(powf(resultMovement.x, 2) + powf(resultMovement.z, 2));
-	if (fMag != 0.0f)
+	// Make sure the speed of the agent does not go beyong the limit
+	if (glm::length(m_velocity) > m_movementSpd && glm::length(m_velocity) != 0.0f)
 	{
-		glm::vec3 uniVec = resultMovement / fMag;
-		resultMovement = uniVec * m_movementSpd;
-		this->AddPosition(resultMovement);
+		m_velocity = glm::normalize(m_velocity) * m_movementSpd;
 	}
 
+	// Test no matter what in the game if the AI touches a wall
+	m_velocity += AiWallBounce();
 
+
+	this->PhysicsUpdate();
 }
 
-void CAIMgr::OnCollision(CGameObject * _other)
+void CAIMgr::OnCollision(CGameObject* _other)
 {
 	if (_other->GetTag() == "Bullet")
 	{
 		DestroyObject();
-		CSceneMgr::GetInstance()->GetCurrentScene()->AddScore(100);
+		
+		CSinglePlayerScene* temp = dynamic_cast<CSinglePlayerScene*>(CSceneMgr::GetInstance()->GetCurrentScene());
+		temp->AddScore(100);
 	}
 	if (_other->GetTag() == "Player")
 	{
@@ -105,10 +130,181 @@ void CAIMgr::OnCollision(CGameObject * _other)
 	}
 }
 
-CAIMgr::~CAIMgr()
+glm::vec3 CAIMgr::AiSeek(glm::vec3 _TargetPoint)
 {
+	glm::vec3 desiredVel = glm::normalize(_TargetPoint - m_Position);
+	desiredVel *= m_movementSpd;
 
+	glm::vec3 steering = (desiredVel) - (m_velocity);
+	steering /= 25.0f;
+
+	// Apply the steering force to the agent
+	return steering;
 }
 
+glm::vec3 CAIMgr::AiFlee(glm::vec3 _TargetPoint)
+{
+	if (IsNotPanicArea(_TargetPoint))
+	{
+		// Target is not close enough, stop moving
+		return glm::vec3();
+	}
+	else
+	{
+		glm::vec3 desiredVel = glm::normalize(m_Position - _TargetPoint);
+		desiredVel *= m_movementSpd;
 
-#endif // !AIMgr_H
+		glm::vec3 steering = (m_Position + desiredVel) - (m_Position + m_velocity);
+		steering /= 25.0f;
+
+		// Apply the steering force to the agent
+		return steering;
+	}
+}
+
+glm::vec3 CAIMgr::AiLeaderFollow(glm::vec3 _TargetPoint)
+{
+	
+
+	return glm::vec3();
+}
+
+glm::vec3 CAIMgr::AiPursue(CGameObject* _Target)
+{
+	// cast the target object to a specified Physics Object which contains the 
+	CPhysicObject* target = dynamic_cast<CPhysicObject*>(_Target);
+
+	// Get the prediction point of the target | certain frames ahead
+	glm::vec3 futurePoint = target->GetPosition() + target->GetVelocity() * 10.0f;
+
+	return AiSeek(futurePoint);
+}
+
+glm::vec3 CAIMgr::AiArrival(CGameObject* _Target)
+{
+	glm::vec3 desiredVel = glm::normalize(_Target->GetPosition() - m_Position);
+	desiredVel *= m_movementSpd;
+
+	float PlayerRadius = 15.0f;
+	if (glm::distance(_Target->GetPosition(), m_Position) < PlayerRadius)
+	{
+		desiredVel *= glm::distance(_Target->GetPosition(), m_Position) / PlayerRadius;
+	}
+
+	glm::vec3 Steering = (m_Position + desiredVel) - (m_Position + m_velocity);
+	Steering /= 25.0f;
+	
+	return Steering;
+}
+
+glm::vec3 CAIMgr::AiWander()
+{
+	// Calc where the circle is
+	glm::vec3 circleCentre = glm::normalize(m_velocity)* 1.0f; // CIRCLE_DIS
+
+	// Calc displacement length on the circle
+	glm::vec3 displacement(0.0f, 0.0f, -1.0f);
+	displacement = displacement * 5.0f; // CIRCLE_RAD
+
+	// Set the angle on to the circle
+	SetAngle(displacement, m_WanderAngle);
+
+	// Randomly add some angle to the agent
+	m_WanderAngle += -5 + float(rand() % 10);
+	//std::cout << m_WanderAngle << std::endl;
+
+	// Calc the final wander force thats been add to the agent
+	glm::vec3 wanderForce = circleCentre + displacement;
+
+	return wanderForce;
+}
+
+glm::vec3 CAIMgr::AiWallBounce()
+{
+	glm::vec3 steering;
+
+	if (m_Position.x < -18.5f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_movementSpd, 0.0f, m_velocity.z);
+		steering = desiredVel - m_velocity;
+	}
+	else if (m_Position.x > 18.5f)
+	{
+		glm::vec3 desiredVel = glm::vec3(-m_movementSpd, 0.0f, m_velocity.z);
+		steering = desiredVel - m_velocity;
+	}
+	if (m_Position.z < -18.5f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_velocity.x, 0.0f, m_movementSpd);
+		steering = desiredVel - m_velocity;
+	}
+	else if (m_Position.z > 18.5f)
+	{
+		glm::vec3 desiredVel = glm::vec3(m_velocity.x, 0.0f, -m_movementSpd);
+		steering = desiredVel - m_velocity;
+	}
+	
+	//If there is a wall collide, then bounce it off
+	if (steering != glm::vec3())
+	{
+		steering /= 25.0f;
+		return steering;
+	}
+	else return glm::vec3();
+}
+
+glm::vec3 CAIMgr::Separate(std::vector<CGameObject*> _objVec)
+{
+	float desiredSeparateDis = 2.0f;
+	glm::vec3 sumVec;
+	int counter = 0;
+
+	for (auto _other : _objVec)
+	{
+		if (_other->GetTag() == "Enemy")
+		{
+			float distance = glm::distance(m_Position, _other->GetPosition());
+
+			if ((distance > 0.0f) && (distance < desiredSeparateDis))
+			{
+				glm::vec3 dir = glm::normalize(m_Position - _other->GetPosition());
+				sumVec += dir;
+				counter++;
+			}
+		}
+	}
+
+	if (counter > 0)
+	{
+		sumVec /= counter;
+		sumVec = glm::normalize(sumVec) * m_movementSpd;
+
+		glm::vec3 steering = sumVec + m_velocity;
+		steering /= 0.25f;
+
+		return steering;
+	}
+
+	return glm::vec3();
+}
+
+bool CAIMgr::IsNotPanicArea(glm::vec3 _PlayerPos)
+{
+	if (glm::distance(_PlayerPos, m_Position) > 10.0f)
+	{
+		return true;
+	}
+	return false;
+}
+
+// Use the angle value to turn the vector
+void CAIMgr::SetAngle(glm::vec3& _vector, float _angle)
+{
+	float length = glm::length(_vector);
+
+	_vector.x = cosf(glm::radians(_angle)) * length;
+	_vector.z = sinf(glm::radians(_angle)) * length;
+}
+
+CAIMgr::~CAIMgr()
+{}

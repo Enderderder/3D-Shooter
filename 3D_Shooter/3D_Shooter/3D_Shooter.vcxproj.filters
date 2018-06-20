@@ -7,9 +7,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Framework\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="TextLabel.cpp">
-      <Filter>Framework\TextLoader</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -73,18 +70,6 @@
     <ClCompile Include="ModelMgr.cpp">
       <Filter>Framework\Model</Filter>
     </ClCompile>
-    <ClCompile Include="CSeek.cpp">
-      <Filter>Game\AI\Seek</Filter>
-    </ClCompile>
-    <ClCompile Include="CFlee.cpp">
-      <Filter>Game\AI\Flee</Filter>
-    </ClCompile>
-    <ClCompile Include="CContainment.cpp">
-      <Filter>Game\AI\Containment</Filter>
-    </ClCompile>
-    <ClCompile Include="CWander.cpp">
-      <Filter>Game\AI\Wander</Filter>
-    </ClCompile>
     <ClCompile Include="CAIMgr.cpp">
       <Filter>Game\AI\AIMgr</Filter>
     </ClCompile>
@@ -103,6 +88,18 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Game\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="TextLoader.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="TextLabel.cpp">
+      <Filter>Framework\TextLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="SinglePlayerScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="LobbyScene.cpp">
+      <Filter>Game\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -110,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Framework\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="TextLabel.h">
-      <Filter>Framework\TextLoader</Filter>
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>Framework\ShaderLoader</Filter>
@@ -195,18 +189,6 @@
     <ClInclude Include="AssetMgr.h">
       <Filter>Framework\AssetLoader</Filter>
     </ClInclude>
-    <ClInclude Include="CSeek.h">
-      <Filter>Game\AI\Seek</Filter>
-    </ClInclude>
-    <ClInclude Include="CFlee.h">
-      <Filter>Game\AI\Flee</Filter>
-    </ClInclude>
-    <ClInclude Include="CContainment.h">
-      <Filter>Game\AI\Containment</Filter>
-    </ClInclude>
-    <ClInclude Include="CWander.h">
-      <Filter>Game\AI\Wander</Filter>
-    </ClInclude>
     <ClInclude Include="CAIMgr.h">
       <Filter>Game\AI\AIMgr</Filter>
     </ClInclude>
@@ -215,6 +197,18 @@
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Game\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLoader.h">
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="TextLabel.h">
+      <Filter>Framework\TextLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="SinglePlayerScene.h">
+      <Filter>Game\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LobbyScene.h">
+      <Filter>Game\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -346,18 +340,6 @@
     <Filter Include="Game\Bullet">
       <UniqueIdentifier>{eaf76748-5ee8-4a9e-8572-e8755688fec7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\AI\Seek">
-      <UniqueIdentifier>{09f016a7-afd3-4973-9580-351da036c979}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\AI\Flee">
-      <UniqueIdentifier>{61542f01-ef13-4006-8848-8acc96f015dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\AI\Containment">
-      <UniqueIdentifier>{43474863-aa1b-40cf-a840-a558872f983b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\AI\Wander">
-      <UniqueIdentifier>{11ffaec4-495c-40fb-81d7-a994d0b072a4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\AI\AIMgr">
       <UniqueIdentifier>{6386d43e-fdcf-4614-81d6-7b243b6c2f75}</UniqueIdentifier>
     </Filter>
@@ -375,6 +357,9 @@
     </Filter>
     <Filter Include="Framework\AssetLoader">
       <UniqueIdentifier>{df6a1132-91e8-417a-9071-047646bbcd46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scenes">
+      <UniqueIdentifier>{547dab91-af83-4e51-82ab-56ea7ddc97b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

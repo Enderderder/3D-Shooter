@@ -1,5 +1,19 @@
-#include "CNetworkMgr.h"
+/*
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name    : CNetworkMgr.cpp
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
+// This Include --------------------------------------------------------------------------------
+#include "CNetworkMgr.h"
 
 // Network Include -----------------------------------------------------------------------------
 #include "consoletools.h"
@@ -9,10 +23,12 @@
 #include "InputLineBuffer.h"
 #include <functional>
 
+// Static Variable -----------------------------------------------------------------------------
+CNetworkMgr* CNetworkMgr::s_pNetworkMgr = nullptr;
+
 // Global Variable -----------------------------------------------------------------------------
-EEntityType _eNetworkEntityType = SERVER;	//defualt it is a server
 CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
-CNetwork& _rNetwork = CNetwork::GetInstance();
+static CNetwork* _rNetwork = CNetwork::GetInstance();
 
 //A pointer to hold a client instance
 CClient* _pClient = nullptr;
@@ -20,105 +36,90 @@ CClient* _pClient = nullptr;
 CServer* _pServer = nullptr;
 
 char _cIPAddress[MAX_ADDRESS_LENGTH]; // An array to hold the IP Address as a string
-									  //ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
+//ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
 
 char* _pcPacketData = 0; //A local buffer to receive packet data info
 
 CNetworkMgr::CNetworkMgr()
-{
-}
-
+{}
 
 CNetworkMgr::~CNetworkMgr()
 {
+	if (_eNetworkEntityType == CLIENT)
+	{
+		m_ClientReceiveThread.detach();
+		//m_ClientReceiveThread.join();
+	}
+	else 
+	{
+		m_ServerReceiveThread.detach();
+		//m_ServerReceiveThread.join();
+	}
+	//Shut Down the Network
+	//_rNetwork->ShutDown();
+	//_rNetwork->DestroyObject();
+
+	delete[] _pcPacketData;
 }
 
-void CNetworkMgr::StartNetwork()
+CNetworkMgr * CNetworkMgr::GetInstance()
 {
+	if (s_pNetworkMgr == nullptr)
+	{
+		s_pNetworkMgr = new CNetworkMgr();
+	}
 
-		
-		_pcPacketData = new char[MAX_MESSAGE_LENGTH];
-		strcpy_s(_pcPacketData, strlen("") + 1, "");
+	return s_pNetworkMgr;
+}
 
-		
+void CNetworkMgr::DestroyInstance()
+{
+	delete s_pNetworkMgr;
+	s_pNetworkMgr = nullptr;
+}
 
-		unsigned char _ucChoice;
-		
-		std::thread _ClientReceiveThread, _ServerReceiveThread;
+void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
+{
+	_pcPacketData = new char[MAX_MESSAGE_LENGTH];
+	strcpy_s(_pcPacketData, strlen("") + 1, "");
 
-		//Get the instance of the network
-		
-		_rNetwork.StartUp();
+	//Get the instance of the network
+	_rNetwork->StartUp();
 
-		
+	if (!_rNetwork->Initialise(_eNetworkEntityType))
+	{
+		std::cout << "Unable to initialise the Network........Press any key to continue......";
+		_getch();
+		return;
+	}
 
-		if (!_rNetwork.GetInstance().Initialise(_eNetworkEntityType))
-		{
-			std::cout << "Unable to initialise the Network........Press any key to continue......";
-			_getch();
-			return;
-		}
+	//Run receive on a separate thread so that it does not block the main client thread.
+	if (_eNetworkEntityType == CLIENT) //if network entity is a client
+	{
+		_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
+		m_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
+		//m_ClientReceiveThread.detach();
+	}
 
-		//Run receive on a separate thread so that it does not block the main client thread.
-		if (_eNetworkEntityType == CLIENT) //if network entity is a client
-		{
+	//Run receive of server also on a separate thread 
+	else if (_eNetworkEntityType == SERVER) //if network entity is a server
+	{
+		_pServer = static_cast<CServer*>(_rNetwork->GetNetworkEntity());
+		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
+		//m_ServerReceiveThread.detach();
+	}
+}
 
-			_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
-			_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
-			ClientMainLoop();
-			//std::thread Thread_obj1(&CNetworkMgr::ClientMainLoop);
+EEntityType CNetworkMgr::GetEntityType()
+{
+	return _eNetworkEntityType;
 
-		}
-
-		//Run receive of server also on a separate thread 
-		else if (_eNetworkEntityType == SERVER) //if network entity is a server
-		{
-
-			_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
-			_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-			ServerMainLoop();
-
-		}
-
-	//	std::thread Thread_obj2(&CNetworkMgr::ServerMainLoop);
-
-		 //End of while network is Online
-		//Thread_obj1.join();
-		//Thread_obj2.join();
-		_ClientReceiveThread.join();
-		_ServerReceiveThread.join();
-
-		//Shut Down the Network
-		_rNetwork.ShutDown();
-		_rNetwork.DestroyObject();
-
-		delete[] _pcPacketData;
 }
 
 void CNetworkMgr::ClientMainLoop()
 {
-	while (_rNetwork.IsOnline())
+	if (_rNetwork->IsOnline())
 	{
-		_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
-
-		//Prepare for reading input from the user
-		_InputBuffer.PrintToScreenTop();
-
-		//Get input from the user
-		if (_InputBuffer.Update())
-		{
-			// we completed a message, lets send it:
-			int _iMessageSize = static_cast<int>(strlen(_InputBuffer.GetString()));
-
-			//Put the message into a packet structure
-			TPacket _packet;
-			_packet.Serialize(DATA, const_cast<char*>(_InputBuffer.GetString())); //Hardcoded username; change to name as taken in via user input.
-			_rNetwork.GetInstance().GetNetworkEntity()->SendData(_packet.PacketData);
-			//Clear the Input Buffer
-			_InputBuffer.ClearString();
-			//Print To Screen Top
-			_InputBuffer.PrintToScreenTop();
-		}
 		if (_pClient != nullptr)
 		{
 			//If the message queue is empty 
@@ -134,24 +135,20 @@ void CNetworkMgr::ClientMainLoop()
 				_pClient->ProcessData(const_cast<char*>(temp.c_str()));
 			}
 		}
-
-
 	}
-
 }
 
 void CNetworkMgr::ServerMainLoop()
 {
-	while (_rNetwork.IsOnline())
+	if (_rNetwork->IsOnline())
 	{
-
 		if (_pServer != nullptr)
 		{
 			if (!_pServer->GetWorkQueue()->empty())
 			{
-				_rNetwork.GetInstance().GetNetworkEntity()->GetRemoteIPAddress(_cIPAddress);
-				//std::cout << _cIPAddress
-				//<< ":" << _rNetwork.GetInstance().GetNetworkEntity()->GetRemotePort() << "> " << _pcPacketData << std::endl;
+				_rNetwork->GetNetworkEntity()->GetRemoteIPAddress(_cIPAddress);
+				std::cout << _cIPAddress
+				<< ":" << _rNetwork->GetNetworkEntity()->GetRemotePort() << "> " << _pcPacketData << std::endl;
 
 				//Retrieve off a message from the queue and process it
 				_pServer->GetWorkQueue()->pop(_pcPacketData);
@@ -159,6 +156,11 @@ void CNetworkMgr::ServerMainLoop()
 			}
 		}
 	}
+}
+
+bool CNetworkMgr::IsNetOnline() const
+{
+	return _rNetwork->IsOnline();
 }
 
 void CNetworkMgr::SetAsServer()

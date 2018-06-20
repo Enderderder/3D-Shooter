@@ -1,4 +1,4 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -10,7 +10,7 @@
 // Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-//
+*/
 
 #ifndef UTILITY_H
 #define UTILITY_H
@@ -35,7 +35,6 @@
 #include <cassert>
 #include <thread>
 #include "CSound.h"
-#include "TextLabel.h"
 #include <sstream>
 
 //#include <vld.h> // Memory Leak Detector
@@ -101,26 +100,6 @@ struct DebugTimer
 		std::cout << "Debug Timer took " << ms << " ms \n";
 	}
 
-};
-
-enum ESCENES
-{
-	MAINMENU = 0,
-	GAME,
-	GAMEOVER
-};
-
-enum EMESH
-{
-	CUBE,
-	SPHERE,
-	MENUCUBEMAP,
-	GAMECUBEMAP
-};
-
-enum EMODEL
-{
-	TANK,
 };
 
 enum InputState 

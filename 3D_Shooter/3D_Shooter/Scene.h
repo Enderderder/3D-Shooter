@@ -15,28 +15,33 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+// OpenGL Include
+#include <glew.h>
+#include <freeglut.h>
+#include <glm.hpp>
+
 // Library Include
 #include <vector>
-
-// Local Include
-#include "TextLabel.h"
-#include "CubeMap.h"
+#include <chrono>
 
 // Forward Declaration
 enum ESCENES;
 class CGameObject;
 class CCamera;
+class CCubeMap;
+class CTextLabel;
 
 class CScene
 {
 public:
-	CScene() = default;
+	CScene();
 	CScene(ESCENES _eSceneNum);
 	~CScene();
 
-	void InitialiseScene(ESCENES _eSceneNum);
-	void RenderScene();
-	void UpdateScene();
+	virtual void InitialiseScene(ESCENES _eSceneNum);
+	virtual void RenderScene();
+	virtual void UpdateScene();
+
 	void CheckCollision();
 
 	void Instantiate(CGameObject* _gameobj);
@@ -45,26 +50,27 @@ public:
 	void Instantiate(CGameObject* _gameobj, glm::vec3 _pos, glm::vec3 _scale, glm::vec3 _rotation);
 	void DestroyObject(CGameObject* _gameobj);
 
-	void AddScore(int _point);
+	std::vector<CGameObject*> GetObjectVec() const;
+	
 
-private:
+	CTextLabel* TextTemp;
+	std::vector<CTextLabel*> m_pText;
 
-	int m_GameScore;
-  
-	std::chrono::high_resolution_clock::time_point t1;
-	std::chrono::high_resolution_clock::time_point t2;
-	std::chrono::high_resolution_clock::time_point tPowerUp1;
-	std::chrono::high_resolution_clock::time_point tPowerUp2;
+protected:
+	ESCENES m_pCurrentEnum;
+
+	CCamera* m_MainCamera;
+
+	CCubeMap * m_cCubeMap;
 
 	std::vector<CGameObject*> m_vGameObj;
-	std::vector<TextLabel*> m_pText;
-	CCamera* m_cCam;
-	CCubeMap* m_cCubeMap;
-	ESCENES m_pCurrentEnum;
-	CGameObject* m_player;
+private:
+
+	//std::vector<CGameObject*> m_vGameObj;
 	
-	TextLabel* m_pScore = new TextLabel("Score: 0", "Resources/fonts/arial.ttf", glm::vec2(1000.0f, 700.0f));
-	TextLabel* m_pLife = new TextLabel("Life: 0", "Resources/fonts/arial.ttf", glm::vec2(0.0f, 700.0f));
+	//CCamera* m_MainCamera;
+	//CCubeMap* m_cCubeMap;
+	//ESCENES m_pCurrentEnum;
 };
 
 #endif // !SCENE_H

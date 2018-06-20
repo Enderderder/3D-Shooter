@@ -19,38 +19,50 @@ enum AIType
 {
 	SEEK,
 	FLEE,
+	PURSUE,
 	WANDER,
-	CONTAINMENT
+	LEADERFOLLOW,
+	ARRIVE,
+  FLOCK
 
 };
 
 // Inherited Include
-#include "Player.h"
-#include "CSeek.h"
-#include "CFlee.h"
-#include "CWander.h"
-#include "CContainment.h"
+#include "PhysicObject.h"
 
 class CAIMgr : public CPhysicObject
 {
 public:
 	CAIMgr(CMesh* _mesh, GLuint _textureID, GLuint _programID, AIType _AIType, CGameObject* _Target);
-	CAIMgr(CModel* _model, GLuint _programID, AIType _AIType, CGameObject* _Target);
 	~CAIMgr();
 
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
 
+	std::vector<CGameObject*> m_vEnemey;
+
 private:
+
+	// MemberFunction
+	glm::vec3 AiSeek(glm::vec3 _TargetPoint);
+	glm::vec3 AiFlee(glm::vec3 _TargetPoint);
+	glm::vec3 AiPursue(CGameObject* _Target);
+	glm::vec3 AiArrival(CGameObject* _Target);
+	glm::vec3 AiWander();
+	glm::vec3 AiWallBounce();
+	glm::vec3 AiLeaderFollow(glm::vec3 _TargetPoint);
+	glm::vec3 Separate(std::vector<CGameObject*> _objVec);
+
+	bool IsNotPanicArea(glm::vec3 _PlayerPos);
+	void SetAngle(glm::vec3& _vector, float _angle);
+
+	// Member Variable
+	float m_WanderAngle;
+	
 	float m_movementSpd;
 
-	CSeek m_pSeek;
-	CFlee m_pFlee;
-	CWander m_pWander;
 	AIType AI;
 	CGameObject* m_pTarget;
 };
-
-
 
 #endif // !AIMGR_H

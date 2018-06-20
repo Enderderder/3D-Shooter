@@ -25,8 +25,8 @@ enum EEntityType
 //constants
 namespace
 {
-	unsigned const DEFAULT_SERVER_PORT = 50012;
-	unsigned const DEFAULT_CLIENT_PORT = 60013;
+	unsigned const DEFAULT_SERVER_PORT = 12855;
+	unsigned const DEFAULT_CLIENT_PORT = 13803;
 	unsigned const MAX_MESSAGE_LENGTH = 256;
 	unsigned const MAX_ADDRESS_LENGTH = 32;
 }
@@ -47,19 +47,20 @@ public:
 	bool Initialise(EEntityType _eType);
 	void StartUp(); //A network has an ability to start up
 	void ShutDown(); //& an ability to be shut down
-	bool IsOnline();
+	bool IsOnline() const;
+
 	//Accessor methods
-	INetworkEntity* GetNetworkEntity();
+	INetworkEntity* GetNetworkEntity() const;
 
 	// Singleton Methods
-	static CNetwork& GetInstance();
+	static CNetwork* GetInstance();
 	static void DestroyObject();
 
 private:
 	//Make the network class a singleton. There is only one instance of the network running
 	CNetwork();
-	CNetwork(const CNetwork& _kr);
-	CNetwork& operator= (const CNetwork& _kr);
+	CNetwork(const CNetwork& _kr) = delete;
+	CNetwork& operator= (const CNetwork& _kr) = delete;
 
 protected:
 	//A network has a network entity

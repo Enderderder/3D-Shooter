@@ -1,11 +1,16 @@
+/*
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : server.cpp
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 //Library Includes
 #include <WS2tcpip.h>
@@ -13,6 +18,7 @@
 #include <utility>
 #include <thread>
 #include <chrono>
+#include <sstream>
 
 
 //Local Includes
@@ -20,10 +26,13 @@
 #include "network.h"
 #include "consoletools.h"
 #include "socket.h"
-
+#include "TextLabel.h"
 
 //Local Includes
 #include "server.h"
+#include "SceneMgr.h"
+
+static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 
 CServer::CServer()
 	:m_pcPacketData(0),
@@ -136,9 +145,9 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 	{
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...
-			m_pServerSocket->GetSocketHandle(),						// client-end socket being used to read from
-			_buffer,							// incoming packet to be filled
-			MAX_MESSAGE_LENGTH,					   // length of incoming packet to be filled
+			m_pServerSocket->GetSocketHandle(),		// client-end socket being used to read from
+			_buffer,								// incoming packet to be filled
+			MAX_MESSAGE_LENGTH,						// length of incoming packet to be filled
 			0,										// flags
 			reinterpret_cast<sockaddr*>(&m_ClientAddress),	// address to be filled with packet source
 			&iSizeOfAdd								// size of the above address struct.
@@ -147,7 +156,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 		{
 			int _iError = WSAGetLastError();
 			ErrorRoutines::PrintWSAErrorInfo(_iError);
-			//return false;
+			return;
 		}
 		else
 		{
@@ -166,7 +175,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 	} //End of while (true)
 }
 
-void CServer::GetRemoteIPAddress(char *_pcSendersIP)
+void CServer::GetRemoteIPAddress(char* _pcSendersIP)
 {
 	char _temp[MAX_ADDRESS_LENGTH];
 	int _iAddressLength;
@@ -186,11 +195,10 @@ void CServer::ProcessData(char* _pcDataReceived)
 	_packetRecvd = _packetRecvd.Deserialize(_pcDataReceived);
 	switch (_packetRecvd.MessageType)
 	{
+	
 	case HANDSHAKE:
 	{
-		
 		if (AddClient(_packetRecvd.MessageContent))
-
 		{
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
 			SendData(_packetToSend.PacketData);
@@ -200,7 +208,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
 
-					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					std::string stringtemp = "Welcome " + m_pClientName + " to the game";
 					strcpy_s(charNameptr, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, charNameptr);
 					SendData(_packetToSend.PacketData);
@@ -217,6 +225,51 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 		break;
 	}
+	case LOBBYTYPE:
+	{
+		std::cout << "I get a lobby type \n";
+
+		if (AddClient(_packetRecvd.MessageContent))
+		{
+			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
+			SendData(_packetToSend.PacketData);
+			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+			{
+				if (it->first == ToString(m_ClientAddress))
+				{
+					m_ClientAddress = it->second.m_ClientAddress;
+
+					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					strcpy_s(charNameptr, stringtemp.c_str());
+					_packetToSend.Serialize(DATA, charNameptr);
+					SendData(_packetToSend.PacketData);
+				}
+			}
+			CurrentUsers(_packetToSend);
+
+		}
+		else
+		{
+			_packetToSend.Serialize(USERNAME, "Username is already taken");
+			SendData(_packetToSend.PacketData);
+		}
+
+		cSceneMgr->GetCurrentScene()->TextTemp = new CTextLabel("Arial", "Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - (100 * i) - 100));
+		cSceneMgr->GetCurrentScene()->TextTemp->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
+		cSceneMgr->GetCurrentScene()->m_pText.push_back(cSceneMgr->GetCurrentScene()->TextTemp);
+
+		std::stringstream strs;
+		strs << /*m_pConnectedClients->end()->second.m_strName <<*/ "Connected";
+		std::string stringtemp = strs.str();
+		strcpy_s(charNameptr, stringtemp.c_str());
+
+		i++;
+
+		_packetToSend.Serialize(LOBBYTYPE, charNameptr);
+		SendData(_packetToSend.PacketData);
+
+		break;
+	} 
 	case DATA:
 	{
 

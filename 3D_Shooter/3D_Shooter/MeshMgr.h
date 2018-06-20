@@ -18,7 +18,15 @@
 // Forward Declare
 class CMesh;
 class CCubeMap;
-enum EMESH;
+
+// Enum Declare
+enum EMESH
+{
+	CUBE,
+	SPHERE,
+	MENUCUBEMAP,
+	GAMECUBEMAP
+};
 
 class CMeshMgr
 {

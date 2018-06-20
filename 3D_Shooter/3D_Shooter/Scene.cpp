@@ -27,32 +27,32 @@
 #include "Input.h"
 #include "Camera.h"
 #include "CAIMgr.h"
-
-// Global Variables
-TextLabel* TextTemp;
+#include "CubeMap.h"
+#include "TextLabel.h"
 
 // Manager Pointer
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
 static CModelMgr* cModelMgr = CModelMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
-CScene::CScene(ESCENES _eSceneNum)
+CScene::CScene()
 {
 	m_vGameObj.resize(0);
 	m_pText.resize(0);
 
-	m_cCam = nullptr;
+	m_MainCamera = nullptr;
 	m_cCubeMap = nullptr;
-	m_player = nullptr;
 }
+
+CScene::CScene(ESCENES _eSceneNum)
+{}
 
 CScene::~CScene()
 {
 	std::cout << "Cleaning Scene... \n";
 	// Clean up the memory allocated variables inside the class
-
 	// ========================================================
-	delete m_cCam;
+	delete m_MainCamera;
 	m_cCubeMap = nullptr;
 
 	for (auto obj : m_vGameObj)
@@ -73,43 +73,39 @@ CScene::~CScene()
 
 void CScene::InitialiseScene(ESCENES _eSceneNum)
 {
-	m_cCam = new CCamera();
+	m_MainCamera = new CCamera();
 
 	switch (_eSceneNum)
 	{
-	case GAME:
+	case GAME: break;
+
+	case MULTIPLAYER:
 	{
-		//==========================================
-		std::cout << "Game Initializing... \n";
-		//==========================================
+		////==========================================
+		//std::cout << "Multiplayer Initializing... \n";
+		////==========================================
 
-		// Load in the cube map
-		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
-		
-		// Load in the game objects
-		CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
-		Instantiate(player, glm::vec3(0.0f, 0.0f, 0.0f));
-		std::cout << "Loaded GameObject: Player" << std::endl;
-		m_player = player;
+		//
 
-		//CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, player);
-		//Instantiate(Enemey, glm::vec3(12.0f, 0.0f, 12.0f));
+		//// Load in the cube map
+		//m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		//std::cout << "Loaded GameObject: Enemy" << std::endl;
+		//// Load in the game objects
+		//CGameObject* player = new CPlayer(cModelMgr->GetMesh(TANK), cAssetMgr->GetProgramID("ModelBlinnPhong"));
+		//Instantiate(player, glm::vec3(0.0f, 0.0f, 0.0f));
+		//std::cout << "Loaded GameObject: Player" << std::endl;
+		//m_player = player;
 
-		CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"), cAssetMgr->GetProgramID("BlinnPhong"));
-		Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(20.0f, 0.1f, 20.0f));
-		std::cout << "Loaded GameObject: Platform" << std::endl;
+		//CGameObject* platform = new CGameObject(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("STONE"),
+		//cAssetMgr->GetProgramID("BlinnPhong"));
+		//Instantiate(platform, glm::vec3(0.0f, -0.1f, 0.0f), glm::vec3(40.0f, 0.1f, 40.0f));
+		//std::cout << "Loaded GameObject: Platform" << std::endl;
 
-		//CGameObject* powerUp = new CPowerUps(SCORE);
-		//Instantiate(powerUp, glm::vec3(5.0f, 1.0f, 5.0f));
-
-		t1 = std::chrono::high_resolution_clock::now();
-		tPowerUp1 = std::chrono::high_resolution_clock::now();
-		//==========================================
-		std::cout << "Initializing Done... \n";
-		//==========================================
-
+		//t1 = std::chrono::high_resolution_clock::now();
+		//tPowerUp1 = std::chrono::high_resolution_clock::now();
+		////==========================================
+		//std::cout << "Initializing Done... \n";
+		////==========================================
 
 		break;
 	}
@@ -123,13 +119,16 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
-		TextTemp = new TextLabel("Press P to Play", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Play", glm::vec2(util::SCR_WIDTH/2, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press Esc to Exit", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new CTextLabel("Arial", "Multiplayer", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press F for Fullscreen", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		TextTemp = new CTextLabel("Arial", "Exit", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new CTextLabel("Arial", "Space to Enter", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		//==========================================
@@ -139,14 +138,35 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 		break;
 	}
 
+	case MULTIPLAYERMENU:
+	{
+		m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
+
+		TextTemp = new CTextLabel("Arial", "Host Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new CTextLabel("Arial", "Join Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new CTextLabel("Arial", "Main Menu", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT / 2 - 200));
+		m_pText.push_back(TextTemp);
+
+		break;
+	}
+
+	case LOBBY: break;
+
 	case GAMEOVER:
 	{
 		m_cCubeMap = cMeshMgr->GetCubeMap(GAMECUBEMAP);
 
-		TextTemp = new TextLabel("Press r to Restart", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
+		TextTemp = new CTextLabel("Arial", "Restart", glm::vec2(util::SCR_WIDTH / 2- 200, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
-		TextTemp = new TextLabel("Press e to Return to the Main Menu", "Resources/fonts/arial.ttf", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		TextTemp = new CTextLabel("Arial", "Return to Main Menu", glm::vec2(util::SCR_WIDTH / 2 - 200, util::SCR_HEIGHT / 2 - 100));
+		m_pText.push_back(TextTemp);
+
+		TextTemp = new CTextLabel("Arial", "Space to Enter", glm::vec2(util::SCR_WIDTH / 8, util::SCR_HEIGHT / 2));
 		m_pText.push_back(TextTemp);
 
 		break;
@@ -158,111 +178,21 @@ void CScene::InitialiseScene(ESCENES _eSceneNum)
 
 void CScene::RenderScene()
 {
-	m_cCubeMap->Render(m_cCam);
-
-	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
-	{
-		m_pScore->Render();
-		m_pLife->Render();
-	}
-	
+	m_cCubeMap->Render(m_MainCamera);
 
 	for (auto obj : m_vGameObj)
 	{
-		obj->RenderObject(m_cCam);
+		obj->RenderObject(m_MainCamera);
 	}
-	for (int i = 0; i < m_pText.size(); i++)
+	for (unsigned int i = 0; i < m_pText.size(); i++)
 	{
-		m_pText[i]->Render();
+		m_pText[i]->RenderTextLabel();
 	}
 }
 
 void CScene::UpdateScene()
 {
-	/*Debbug*************************************************************************/
-	/*if (CInput::GetInstance()->g_cKeyState[(unsigned int)'h'] == INPUT_FIRST_PRESS)
-	{
-		std::cout << "Loading back to main menu. \n";
-		CSceneMgr::GetInstance()->SwapScene(MAINMENU);
-		return;
-	}*/
-	/*********************************************************************************/
-	
-	auto duration = std::chrono::duration_cast<std::chrono::seconds>(t2 - t1);
-	auto durationPowerUp = std::chrono::duration_cast<std::chrono::seconds>(tPowerUp2 - tPowerUp1);
-	
-	if (CSceneMgr::GetInstance()->GetCurrentSceneEnum() == GAME)
-	{
-		std::ostringstream iScore;
-		iScore << "Score: " << m_GameScore;
-		m_pScore->SetText(iScore.str());
-
-		CPlayer* other = dynamic_cast<CPlayer*>(m_player);
-		std::ostringstream iLife;
-		iLife << "Life: " << other->GetLife();
-		m_pLife->SetText(iLife.str());
-
-		if (other->GetLife() <= 0)
-		{
-			CSceneMgr::GetInstance()->SwapScene(GAMEOVER);
-			return;
-		}
-
-		//////////////Timer for enemey spawning/////////////////////////
-		if (duration >= std::chrono::seconds(3))
-		{
-			CGameObject* Enemey = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("BOX"), cAssetMgr->GetProgramID("BlinnPhong"), SEEK, m_player);
-			Instantiate(Enemey, glm::vec3(-19 + rand()%  (30), 0.0f, -19 + rand() % (30)));
-
-			CGameObject* Enemey2 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("Bullet"), cAssetMgr->GetProgramID("BlinnPhong"), FLEE, m_player);
-			Instantiate(Enemey2, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
-
-			CGameObject* Enemey3 = new CAIMgr(cMeshMgr->GetMesh(CUBE), cAssetMgr->GetTextureID("TITANFALL"), cAssetMgr->GetProgramID("BlinnPhong"), WANDER, m_player);
-			Instantiate(Enemey3, glm::vec3(-19 + rand() % (30), 0.0f, -19 + rand() % (30)));
-
-			t1 = std::chrono::high_resolution_clock::now();
-		}
-		//////////////Timer for PowerUp/////////////////////////
-		if (durationPowerUp >= std::chrono::seconds(10))
-		{
-			int WhichPowerUp = rand() % 3;
-			switch (WhichPowerUp)
-			{
-				//MOVESPD Powerup
-			case 0:
-			{
-				CGameObject* powerUp = new CPowerUps(MOVESPD);
-				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
-				tPowerUp1 = std::chrono::high_resolution_clock::now();
-				break;
-			}
-			//HEALTH Powerup
-			case 1:
-			{
-				CGameObject* powerUp = new CPowerUps(HEAL);
-				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
-				tPowerUp1 = std::chrono::high_resolution_clock::now();
-				break;
-			}
-			//SCORE Powerup
-			case 2:
-			{
-				CGameObject* powerUp = new CPowerUps(SCORE);
-				Instantiate(powerUp, glm::vec3(-19 + rand() % (30), 1.0f, -19 + rand() % (30)));
-				tPowerUp1 = std::chrono::high_resolution_clock::now();
-				break;
-			}
-			default:
-				break;
-			}
-			
-		}
-	}
-
-	
-
-	
-	m_cCam->UpdateCamera();
+	m_MainCamera->UpdateCamera();
 
 	// Delete the object that should be deleted fron last frame
 	for (auto obj : m_vGameObj)
@@ -270,6 +200,7 @@ void CScene::UpdateScene()
 		if (obj->ShouldDestroyed()) { DestroyObject(obj); }
 	}
 
+	// Get each Object in the Scene and do their own Update Function
 	size_t currVecSize = m_vGameObj.size();
 	for (size_t index = 0; index < currVecSize; ++index)
 	{
@@ -278,9 +209,6 @@ void CScene::UpdateScene()
 	}
 
 	CheckCollision();
-	t2 = std::chrono::high_resolution_clock::now();
-	tPowerUp2 = std::chrono::high_resolution_clock::now();
-	
 }
 
 void CScene::CheckCollision()
@@ -358,7 +286,7 @@ void CScene::DestroyObject(CGameObject* _gameobj)
 	}
 }
 
-void CScene::AddScore(int _point)
+std::vector<CGameObject*> CScene::GetObjectVec() const
 {
-	m_GameScore += _point;
+	return m_vGameObj;
 }

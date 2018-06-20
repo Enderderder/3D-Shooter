@@ -87,7 +87,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
@@ -110,7 +110,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -143,21 +143,18 @@
     <ClCompile Include="AssetMgr.cpp" />
     <ClCompile Include="CAIMgr.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CContainment.cpp" />
-    <ClCompile Include="CFlee.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CNetworkMgr.cpp" />
-    <ClCompile Include="CSeek.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="client.cpp" />
     <ClCompile Include="consoletools.cpp" />
     <ClCompile Include="CSound.cpp" />
     <ClCompile Include="CubeMesh.cpp" />
-    <ClCompile Include="CWander.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="inputlinebuffer.cpp" />
+    <ClCompile Include="LobbyScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshMgr.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -172,8 +169,10 @@
     <ClCompile Include="server.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="ShpereMesh.cpp" />
+    <ClCompile Include="SinglePlayerScene.cpp" />
     <ClCompile Include="socket.cpp" />
     <ClCompile Include="TextLabel.cpp" />
+    <ClCompile Include="TextLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Commenting Header.txt" />
@@ -182,21 +181,18 @@
     <ClInclude Include="AssetMgr.h" />
     <ClInclude Include="CAIMgr.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CContainment.h" />
-    <ClInclude Include="CFlee.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CNetworkMgr.h" />
-    <ClInclude Include="CSeek.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="client.h" />
     <ClInclude Include="consoletools.h" />
     <ClInclude Include="CSound.h" />
     <ClInclude Include="CubeMesh.h" />
-    <ClInclude Include="CWander.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputLineBuffer.h" />
+    <ClInclude Include="LobbyScene.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMgr.h" />
     <ClInclude Include="Model.h" />
@@ -212,8 +208,10 @@
     <ClInclude Include="server.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="ShpereMesh.h" />
+    <ClInclude Include="SinglePlayerScene.h" />
     <ClInclude Include="socket.h" />
     <ClInclude Include="TextLabel.h" />
+    <ClInclude Include="TextLoader.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="WorkQueue.h" />
   </ItemGroup>

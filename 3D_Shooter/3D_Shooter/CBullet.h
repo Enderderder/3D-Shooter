@@ -22,17 +22,17 @@ class CBullet : public CPhysicObject
 {
 public:
 	CBullet() = default;
-	CBullet(glm::vec3 _dirVec, float _damage);
+	CBullet(glm::vec3 _dirVec, int _damage);
 	~CBullet();
 
 	void UpdateGameObeject() override;
 	void OnCollision(CGameObject* _other) override;
 
-	float GetDamage() const;
+	int GetDamage() const;
 
 private:
 
-	float m_damage;
+	int m_damage;
 	float m_bulletSpeed;
 	int m_counter;
 };
