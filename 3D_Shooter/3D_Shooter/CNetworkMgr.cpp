@@ -79,6 +79,11 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	}
 }
 
+EEntityType CNetworkMgr::GetEntityType()
+{
+	return _eNetworkEntityType;
+
+}
 void CNetworkMgr::ClientMainLoop()
 {
 	if (_rNetwork->IsOnline())

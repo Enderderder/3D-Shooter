@@ -451,14 +451,14 @@ void Update()
 		{
 		case StartGame:
 		{
-			cSceneMgr->GetCurrentScene()->m_pText[4]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
-			cSceneMgr->GetCurrentScene()->m_pText[5]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 			break;
 		}
 		case LobbyMainMenu:
 		{
-			cSceneMgr->GetCurrentScene()->m_pText[4]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-			cSceneMgr->GetCurrentScene()->m_pText[5]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
 			break;
 		}
 		default:

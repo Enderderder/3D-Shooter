@@ -18,6 +18,7 @@
 #include <utility>
 #include <thread>
 #include <chrono>
+#include <sstream>
 
 
 //Local Includes
@@ -29,6 +30,9 @@
 
 //Local Includes
 #include "server.h"
+#include "SceneMgr.h"
+
+static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 
 CServer::CServer()
 	:m_pcPacketData(0),
@@ -191,6 +195,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 	_packetRecvd = _packetRecvd.Deserialize(_pcDataReceived);
 	switch (_packetRecvd.MessageType)
 	{
+	
 	case HANDSHAKE:
 	{
 		
@@ -222,6 +227,25 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 		break;
 	}
+	case LOBBYTYPE:
+	{
+
+			cSceneMgr->GetCurrentScene()->TextTemp = new CTextLabel("Arial", "Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - (100 * i) - 100));
+			cSceneMgr->GetCurrentScene()->TextTemp->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
+			cSceneMgr->GetCurrentScene()->m_pText.push_back(cSceneMgr->GetCurrentScene()->TextTemp);
+
+			std::stringstream strs;
+			strs << /*m_pConnectedClients->end()->second.m_strName <<*/ "Connected";
+			std::string stringtemp = strs.str();
+			strcpy_s(charNameptr, stringtemp.c_str());
+
+			i++;
+
+		_packetToSend.Serialize(LOBBYTYPE, charNameptr);
+		SendData(_packetToSend.PacketData);
+
+		break;
+	} 
 	case DATA:
 	{
 
