@@ -152,7 +152,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 		{
 			int _iError = WSAGetLastError();
 			ErrorRoutines::PrintWSAErrorInfo(_iError);
-			//return false;
+			return;
 		}
 		else
 		{
@@ -195,7 +195,6 @@ void CServer::ProcessData(char* _pcDataReceived)
 	{
 		
 		if (AddClient(_packetRecvd.MessageContent))
-
 		{
 			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
 			SendData(_packetToSend.PacketData);

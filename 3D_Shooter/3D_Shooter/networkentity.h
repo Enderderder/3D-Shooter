@@ -28,6 +28,12 @@ enum EMessageType : unsigned char
 	BROADCAST
 };
 
+struct GameInfo
+{
+	float position;
+	int health;
+};
+
 struct TPacket 
 {
 	unsigned short MessageType;

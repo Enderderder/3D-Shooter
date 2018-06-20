@@ -24,7 +24,7 @@
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
 
-CBullet::CBullet(glm::vec3 _dirVec, float _damage) :
+CBullet::CBullet(glm::vec3 _dirVec, int _damage) :
 	m_damage(_damage),
 	m_counter(500),
 	m_bulletSpeed(0.5f)
@@ -69,7 +69,7 @@ void CBullet::OnCollision(CGameObject* _other)
 	}
 }
 
-float CBullet::GetDamage() const
+int CBullet::GetDamage() const
 {
 	return m_damage;
 }
