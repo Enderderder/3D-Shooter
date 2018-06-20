@@ -100,9 +100,8 @@ int main(int argc, char **argv)
 
 	//register callbacks
 	///glutReshapeFunc(ResizeWindow);
-	glutDisplayFunc(Render);
-	
 	glutIdleFunc(Update);
+	glutDisplayFunc(Render);
 
 	glutCloseFunc([]() {
 		cInput->DestroyObject();

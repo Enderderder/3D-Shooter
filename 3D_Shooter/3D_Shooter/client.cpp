@@ -284,6 +284,10 @@ void CClient::ReceiveData(char* _pcBufferToReceiveData)
 		{
 			//Error in receiving data 
 			//std::cout << "recvfrom failed with error " << WSAGetLastError();
+			if (WSAGetLastError() == WSAECONNRESET)
+			{
+				m_pWorkQueue->push("server shutdown");
+			}
 			_pcBufferToReceiveData = 0;
 		}
 		else if (_iNumOfBytesReceived == 0)
