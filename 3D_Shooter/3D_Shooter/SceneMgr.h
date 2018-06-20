@@ -18,7 +18,7 @@
 // Library Include
 #include <vector>
 
-// Local Include
+// Forawrd Declare
 #include "Scene.h"
 
 // Enum Declare
@@ -37,7 +37,7 @@ class CSceneMgr
 public:
 	// Singleton Methods
 	static CSceneMgr* GetInstance();
-	static void DestroyObject();
+	static void DestroyInstance();
 
 	// Member Functions
 	void InitializeSceneMgr();

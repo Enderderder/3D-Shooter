@@ -25,6 +25,7 @@
 #include "network.h"
 #include "networkentity.h"
 #include "socket.h"
+#include "TextLabel.h"
 
 //This includes
 #include "client.h"
@@ -380,7 +381,6 @@ void CClient::ProcessData(char* _pcDataReceived)
 		} while (_cUserName[0] == 0);
 
 		TPacket _packettemp;
-
 		_packettemp.Serialize(HANDSHAKE, _cUserName);
 		SendData(_packettemp.PacketData);
 

@@ -15,6 +15,7 @@
 // Global Include
 #include "Utility.h"
 #include "SceneMgr.h"
+#include "SinglePlayerScene.h"
 #include "MeshMgr.h"
 #include "ModelMgr.h"
 #include "AssetMgr.h"
@@ -28,7 +29,7 @@
 #pragma comment(lib,"ws2_32.lib")
 
 //Class Pointers
-CNetworkMgr m_pNetworkMgr;
+static CNetworkMgr* cNetworkMgr = CNetworkMgr::GetInstance();
 static CInput* cInput = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 CTextLabel* g_FPSLabel;
@@ -104,8 +105,9 @@ int main(int argc, char **argv)
 	glutDisplayFunc(Render);
 
 	glutCloseFunc([]() {
-		cInput->DestroyObject();
-		cSceneMgr->DestroyObject();
+		cInput->DestroyInstance();
+		cSceneMgr->DestroyInstance();
+		cNetworkMgr->DestroyInstance();
 		CAssetMgr::GetInstance()->DestroyInstance();
 		CMeshMgr::GetInstance()->DestroyInstance();
 		CModelMgr::GetInstance()->DestroyInstance();
@@ -149,8 +151,8 @@ void Render()
 void Update()
 {
 	// Network Main Loop
-	m_pNetworkMgr.ServerMainLoop();
-	m_pNetworkMgr.ClientMainLoop();
+	cNetworkMgr->ServerMainLoop();
+	cNetworkMgr->ClientMainLoop();
 
 	// Update whats currently running
 	cSceneMgr->UpdateCurrentScene();
@@ -248,6 +250,8 @@ void Update()
 	// In Game Controls
 	if (cSceneMgr->GetCurrentSceneEnum() == GAME || cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)
 	{
+		CSinglePlayerScene* thisScene = dynamic_cast<CSinglePlayerScene*>(cSceneMgr->GetCurrentScene());
+
 		//RESTART
 		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
 		{
@@ -267,32 +271,32 @@ void Update()
 		//SEEK
 		if (cInput->g_cKeyState[(unsigned char)'1'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(0);
+			thisScene->ChangeSwitch(0);
 		}
 		//FLEE
 		if (cInput->g_cKeyState[(unsigned char)'2'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(1);
+			thisScene->ChangeSwitch(1);
 		}
 		//PURSUE
 		if (cInput->g_cKeyState[(unsigned char)'3'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(2);
+			thisScene->ChangeSwitch(2);
 		}
 		//WANDER
 		if (cInput->g_cKeyState[(unsigned char)'4'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(3);
+			thisScene->ChangeSwitch(3);
 		}
 		//LEADERFOLLOW
 		if (cInput->g_cKeyState[(unsigned char)'5'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(4);
+			thisScene->ChangeSwitch(4);
 		}
 		//ARRIVE
 		if (cInput->g_cKeyState[(unsigned char)'6'] == INPUT_FIRST_PRESS)
 		{
-			cSceneMgr->GetCurrentScene()->ChangeSwitch(5);
+			thisScene->ChangeSwitch(5);
 		}
 	}
 
@@ -417,14 +421,14 @@ void Update()
 			case Host:
 			{
 				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-				m_pNetworkMgr.StartNetwork(SERVER);
+				cNetworkMgr->StartNetwork(SERVER);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;
 			case Join:
 			{
 				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-				m_pNetworkMgr.StartNetwork(CLIENT);
+				cNetworkMgr->StartNetwork(CLIENT);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;
@@ -467,33 +471,32 @@ void Update()
 		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && LobbyTracker == LobbyMainMenu)
 		{
 			LobbyTracker = StartGame;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_RELEASED;
+			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
 
 		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && LobbyTracker == StartGame)
 		{
 			LobbyTracker = LobbyMainMenu;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_RELEASED;
+			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 		}
 
 		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
+			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 			switch (LobbyTracker)
 			{
 			case StartGame:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 
-			}
+
 				break;
+			}
 			case LobbyMainMenu:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 				cSceneMgr->SwapScene(MAINMENU);
+				break;
 			}
-				break;
-			default:
-				break;
+			default: break;
 			}
 		}
 	}

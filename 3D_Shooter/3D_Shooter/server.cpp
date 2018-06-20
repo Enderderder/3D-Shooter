@@ -26,7 +26,7 @@
 #include "network.h"
 #include "consoletools.h"
 #include "socket.h"
-
+#include "TextLabel.h"
 
 //Local Includes
 #include "server.h"

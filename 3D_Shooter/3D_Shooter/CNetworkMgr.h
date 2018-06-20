@@ -25,9 +25,11 @@ class CNetwork;
 class CNetworkMgr
 {
 public:
-	CNetworkMgr();
-	~CNetworkMgr();
+	// Singleton Methods
+	static CNetworkMgr* GetInstance();
+	static void DestroyInstance();
 
+	// Member Functions
 	void StartNetwork(EEntityType);
 	void SetAsServer();
 	void SetAsClient();
@@ -38,12 +40,25 @@ public:
 	bool IsNetOnline() const;
 
 private:
+	// Make singleton by set the constructor inside private
+	CNetworkMgr();
+	~CNetworkMgr();
+
+	// Make this class non-copyable
+	CNetworkMgr(const CNetworkMgr& _kr) = delete;
+	CNetworkMgr& operator= (const CNetworkMgr& _kr) = delete;
+
+protected:
+	// Singleton Object
+	static CNetworkMgr* s_pNetworkMgr;
+
+private:
+	// Member Variables
 
 	EEntityType _eNetworkEntityType;
 
 	std::thread m_ClientReceiveThread;
 	std::thread m_ServerReceiveThread;
-
 };
 
 #endif // !CNETWORKMGR_H
