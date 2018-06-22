@@ -27,7 +27,7 @@
 #include "SinglePlayerScene.h"
 
 // Class Pointer
-static CInput* cInput = CInput::GetInstance();
+static CInput* cInputMgr = CInput::GetInstance();
 
 CPlayer::CPlayer(CModel* _model, GLuint _programID) :
 	m_health(100),
@@ -81,19 +81,19 @@ void CPlayer::ProcessMovement()
 {
 	glm::vec3 resultVec;
 
-	if ((cInput->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
+	if ((cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_HOLD || cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.z -= 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
+	if ((cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_HOLD || cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.z += 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
+	if ((cInputMgr->g_cKeyState[(unsigned char)'a'] == INPUT_HOLD || cInputMgr->g_cKeyState[(unsigned char)'a'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x -= 1;
 	}
-	if ((cInput->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInput->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
+	if ((cInputMgr->g_cKeyState[(unsigned char)'d'] == INPUT_HOLD || cInputMgr->g_cKeyState[(unsigned char)'d'] == INPUT_FIRST_PRESS))
 	{
 		resultVec.x += 1;
 	}
@@ -107,9 +107,9 @@ void CPlayer::ProcessMovement()
 
 void CPlayer::ProcessShooting()
 {
-	if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS && m_AbleToShoot)
+	if (cInputMgr->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS && m_AbleToShoot)
 	{
-		cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+		cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 		//m_pSound.SetSoundAdress("Resources/Sound/TankFiring.wav");
 		CBullet* bullet = new CBullet(m_velocity, 10);
 		CSceneMgr::GetInstance()->GetCurrentScene()->Instantiate(bullet, glm::vec3(m_Position.x, 1.0f, m_Position.z));

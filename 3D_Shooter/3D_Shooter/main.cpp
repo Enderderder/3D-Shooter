@@ -24,13 +24,12 @@
 #include "Input.h"
 #include "TextLabel.h"
 
-
 // Make sure the winsock lib is included...
 #pragma comment(lib,"ws2_32.lib")
 
 //Class Pointers
 static CNetworkMgr* cNetworkMgr = CNetworkMgr::GetInstance();
-static CInput* cInput = CInput::GetInstance();
+static CInput* cInputMgr = CInput::GetInstance();
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 CTextLabel* g_FPSLabel;
 CSound m_pSound;
@@ -68,16 +67,11 @@ enum MultiplayerMenu
 	MultiMainMenu
 };
 
-enum Lobby
-{
-	StartGame,
-	LobbyMainMenu
-};
+
 
 MainMenu MainMenuTracker;
 GameOverMenu GameOverTracker;
 MultiplayerMenu MultiTracker;
-Lobby LobbyTracker;
 
 int main(int argc, char **argv)
 {
@@ -105,7 +99,7 @@ int main(int argc, char **argv)
 	glutDisplayFunc(Render);
 
 	glutCloseFunc([]() {
-		cInput->DestroyInstance();
+		cInputMgr->DestroyInstance();
 		cSceneMgr->DestroyInstance();
 		cNetworkMgr->DestroyInstance();
 		CAssetMgr::GetInstance()->DestroyInstance();
@@ -120,7 +114,7 @@ int main(int argc, char **argv)
 void InititializeProgram()
 {
 	//m_pSound.PlaySound();
-	cInput->InitializeInput();
+	cInputMgr->InitializeInput();
 	CAssetMgr::GetInstance()->InitializeAssets();
 	CMeshMgr::GetInstance()->InitializeMeshes();
 	CModelMgr::GetInstance()->InitializeModels();
@@ -129,7 +123,6 @@ void InititializeProgram()
 	MainMenuTracker = Play;
 	GameOverTracker = Restart;
 	MultiTracker = Host;
-	LobbyTracker = StartGame;
 
 	//FPS counter starts at 0 when programs starts up
 	g_FPSLabel = new CTextLabel("Arial");
@@ -197,34 +190,34 @@ void Update()
 		}
 
 		//Up on Menu
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Exit)
+		if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Exit)
 		{
 			MainMenuTracker = Multiplayer;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
+		if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
 		{
 			MainMenuTracker = Play;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
 
 		//Down on Menu
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Play)
+		if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Play)
 		{
 			MainMenuTracker = Multiplayer;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 		}
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
+		if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MainMenuTracker == Multiplayer)
 		{
 			MainMenuTracker = Exit;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 
 		}
 
 		//Enter Slection on Menu
-		if(cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		if(cInputMgr->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
-			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 			switch (MainMenuTracker)
 			{
 			case Play:
@@ -253,48 +246,48 @@ void Update()
 		CSinglePlayerScene* thisScene = dynamic_cast<CSinglePlayerScene*>(cSceneMgr->GetCurrentScene());
 
 		//RESTART
-		if (cInput->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'r'] == INPUT_FIRST_PRESS)
 		{
-			cInput->g_cKeyState[(unsigned char)'r'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'r'] = INPUT_HOLD;
 			std::cout << "Restarting...." << std::endl;
 			cSceneMgr->SwapScene(GAME);
 		}
 
 		//MAINMENU
-		if (cInput->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)27] == INPUT_FIRST_PRESS)
 		{
-			cInput->g_cKeyState[(unsigned char)27] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)27] = INPUT_HOLD;
 			std::cout << "Returning to main menu...." << std::endl;
 			cSceneMgr->SwapScene(MAINMENU);
 		}
 
 		//SEEK
-		if (cInput->g_cKeyState[(unsigned char)'1'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'1'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(0);
 		}
 		//FLEE
-		if (cInput->g_cKeyState[(unsigned char)'2'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'2'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(1);
 		}
 		//PURSUE
-		if (cInput->g_cKeyState[(unsigned char)'3'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'3'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(2);
 		}
 		//WANDER
-		if (cInput->g_cKeyState[(unsigned char)'4'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'4'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(3);
 		}
 		//LEADERFOLLOW
-		if (cInput->g_cKeyState[(unsigned char)'5'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'5'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(4);
 		}
 		//ARRIVE
-		if (cInput->g_cKeyState[(unsigned char)'6'] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)'6'] == INPUT_FIRST_PRESS)
 		{
 			thisScene->ChangeSwitch(5);
 		}
@@ -320,21 +313,21 @@ void Update()
 			break;
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && GameOverTracker == GameOverMainMenu)
+		if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && GameOverTracker == GameOverMainMenu)
 		{
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 			GameOverTracker = Restart;
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && GameOverTracker == Restart)
+		if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && GameOverTracker == Restart)
 		{
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 			GameOverTracker = GameOverMainMenu;
 		}
 		
-		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
-			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 
 			switch (GameOverTracker)
 			{
@@ -389,52 +382,52 @@ void Update()
 		}
 
 		//Up on Menu
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == MultiMainMenu)
+		if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == MultiMainMenu)
 		{
 			MultiTracker = Join;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == Join)
+		if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && MultiTracker == Join)
 		{
 			MultiTracker = Host;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
 		}
 
 		//Down on Menu
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Host)
+		if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Host)
 		{
 			MultiTracker = Join;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Join)
+		if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && MultiTracker == Join)
 		{
 			MultiTracker = MultiMainMenu;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+			cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
 
 		}
 
-		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+		if (cInputMgr->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
 		{
 			switch (MultiTracker)
 			{
 			case Host:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 				cNetworkMgr->StartNetwork(SERVER);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;
 			case Join:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 				cNetworkMgr->StartNetwork(CLIENT);
 				cSceneMgr->SwapScene(LOBBY);
 			}
 				break;
 			case MultiMainMenu:
 			{
-				cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+				cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
 				cSceneMgr->SwapScene(MAINMENU);
 			}
 				break;
@@ -447,72 +440,20 @@ void Update()
 
 
 	}
-	//LOBBY Menu Functionlity
-	if (cSceneMgr->GetCurrentSceneEnum() == LOBBY)
-	{
-		switch (LobbyTracker)
-		{
-		case StartGame:
-		{
-			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
-			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-			break;
-		}
-		case LobbyMainMenu:
-		{
-			cSceneMgr->GetCurrentScene()->m_pText[0]->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-			cSceneMgr->GetCurrentScene()->m_pText[1]->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
-			break;
-		}
-		default:
-			break;
-		}
 
-		if (cInput->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS && LobbyTracker == LobbyMainMenu)
-		{
-			LobbyTracker = StartGame;
-			cInput->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
-		}
-
-		if (cInput->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS && LobbyTracker == StartGame)
-		{
-			LobbyTracker = LobbyMainMenu;
-			cInput->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
-		}
-
-		if (cInput->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
-		{
-			cInput->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
-			switch (LobbyTracker)
-			{
-			case StartGame:
-			{
-
-
-				break;
-			}
-			case LobbyMainMenu:
-			{
-				cSceneMgr->SwapScene(MAINMENU);
-				break;
-			}
-			default: break;
-			}
-		}
-	}
 
 	/// Debug: Goes Straight to Game Over Scene ===============================
-	if (cInput->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
+	if (cInputMgr->g_cKeyState[(unsigned char)'e'] == INPUT_FIRST_PRESS)
 	{
-		cInput->g_cKeyState[(unsigned char)'e'] = INPUT_HOLD;
+		cInputMgr->g_cKeyState[(unsigned char)'e'] = INPUT_HOLD;
 		cSceneMgr->SwapScene(GAMEOVER);
 	}
 	/// =======================================================================
 
 	// Full Screen Control
-	if (cInput->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)
+	if (cInputMgr->g_cKeyState[(unsigned char)'f'] == INPUT_FIRST_PRESS)
 	{
-		cInput->g_cKeyState[(unsigned char)'f'] = INPUT_HOLD;
+		cInputMgr->g_cKeyState[(unsigned char)'f'] = INPUT_HOLD;
 		glutFullScreenToggle();
 	}
 
@@ -533,7 +474,7 @@ void UpdateFPS()
 	static float lastTime = 0.0f;			// This will hold the time from the last frame
 	float currentTime = GetTickCount() * 0.001f;
 	++framesPerSecond;
-	if (currentTime - lastTime > 1.0f)
+	if (currentTime - lastTime >= 1.0f)
 	{
 		lastTime = currentTime;
 

@@ -17,23 +17,23 @@
 
 // Local Include
 #include "Utility.h"
+
 #include "GameObject.h"
-#include "Player.h"
-#include "PowerUps.h"
 #include "AssetMgr.h"
 #include "MeshMgr.h"
 #include "ModelMgr.h"
 #include "SceneMgr.h"
 #include "Input.h"
 #include "Camera.h"
-#include "CAIMgr.h"
 #include "CubeMap.h"
 #include "TextLabel.h"
 
 // Manager Pointer
+static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
 static CModelMgr* cModelMgr = CModelMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
+static CInput* cInputMgr =	CInput::GetInstance();
 
 CLobbyScene::CLobbyScene()
 {}
@@ -48,6 +48,9 @@ void CLobbyScene::InitialiseScene(ESCENES _eSceneNum)
 	m_MainCamera = new CCamera();
 
 	m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
+
+	ChangeSelection(StartGame);
+
 
 	/*TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
 	m_pText.push_back(TextTemp);
@@ -106,5 +109,64 @@ void CLobbyScene::UpdateScene()
 
 void CLobbyScene::MenuControl()
 {
+	// When user choose to select up
+	if (cInputMgr->g_cKeyState[(unsigned char)'w'] == INPUT_FIRST_PRESS 
+		&& m_LobbyTracker == LobbyMainMenu)
+	{
+		cInputMgr->g_cKeyState[(unsigned char)'w'] = INPUT_HOLD;
+		ChangeSelection(StartGame);
+	}
 
+	// When user choose to select down
+	if (cInputMgr->g_cKeyState[(unsigned char)'s'] == INPUT_FIRST_PRESS 
+		&& m_LobbyTracker == StartGame)
+	{
+		cInputMgr->g_cKeyState[(unsigned char)'s'] = INPUT_HOLD;
+		ChangeSelection(LobbyMainMenu);
+	}
+
+	// When user press space to select
+	if (cInputMgr->g_cKeyState[(unsigned char)' '] == INPUT_FIRST_PRESS)
+	{
+		cInputMgr->g_cKeyState[(unsigned char)' '] = INPUT_HOLD;
+
+		// Base on the current selection
+		switch (m_LobbyTracker)
+		{
+		case StartGame:
+		{
+
+
+			break;
+		}
+		case LobbyMainMenu:
+		{
+			cSceneMgr->SwapScene(MAINMENU);
+			break;
+		}
+		default: break;
+		}
+	}
+}
+
+void CLobbyScene::ChangeSelection(LOBBYBUTTON _selection)
+{
+	m_LobbyTracker = _selection;
+
+	switch (_selection)
+	{
+	case StartGame:
+	{
+		m_tStartGame->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+		m_tMainMenu->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+		break;
+	}
+	case LobbyMainMenu:
+	{
+		m_tStartGame->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+		m_tMainMenu->SetColor(glm::vec3(1.0f, 0.0f, 0.5f));
+		break;
+	}
+	default: break;
+	}
 }

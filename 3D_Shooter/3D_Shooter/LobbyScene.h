@@ -18,6 +18,13 @@
 // Inherited Include
 #include "Scene.h"
 
+// Enum Declare
+enum LOBBYBUTTON
+{
+	StartGame,
+	LobbyMainMenu
+};
+
 // Forward Declaration
 enum ESCENES;
 class CGameObject;
@@ -39,6 +46,14 @@ private:
 
 	// Private Member Function
 	void MenuControl();
+	void ChangeSelection(LOBBYBUTTON);
+
+	// Member Variable
+	LOBBYBUTTON m_LobbyTracker;
+
+	// Menu Text
+	CTextLabel* m_tStartGame;
+	CTextLabel* m_tMainMenu;
 };
 
 #endif // !LOBBYSCENE_H
