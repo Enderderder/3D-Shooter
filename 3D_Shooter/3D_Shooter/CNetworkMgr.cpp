@@ -25,10 +25,10 @@
 
 // Static Variable -----------------------------------------------------------------------------
 CNetworkMgr* CNetworkMgr::s_pNetworkMgr = nullptr;
+static CNetwork* _rNetwork = CNetwork::GetInstance();
 
 // Global Variable -----------------------------------------------------------------------------
 CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
-static CNetwork* _rNetwork = CNetwork::GetInstance();
 
 //A pointer to hold a client instance
 CClient* _pClient = nullptr;
@@ -47,13 +47,13 @@ CNetworkMgr::~CNetworkMgr()
 {
 	if (_eNetworkEntityType == CLIENT)
 	{
-		m_ClientReceiveThread.detach();
-		//m_ClientReceiveThread.join();
+		//m_ClientReceiveThread.detach();
+		m_ClientReceiveThread.join();
 	}
 	else 
 	{
-		m_ServerReceiveThread.detach();
-		//m_ServerReceiveThread.join();
+		//m_ServerReceiveThread.detach();
+		m_ServerReceiveThread.join();
 	}
 	//Shut Down the Network
 	//_rNetwork->ShutDown();
@@ -110,7 +110,7 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	}
 }
 
-EEntityType CNetworkMgr::GetEntityType()
+EEntityType CNetworkMgr::GetEntityType() const
 {
 	return _eNetworkEntityType;
 

@@ -1,16 +1,16 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
 // New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : server.h
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 #ifndef __SERVER_H__
 #define __SERVER_H__
@@ -81,12 +81,11 @@ private:
 	// Make a member variable to extract the IP and port number of the sender from whom we are receiving
 	//Since it is a UDP socket capable of receiving from multiple clients; these details will change depending on who has sent the packet we are currently processing.
 	sockaddr_in m_ClientAddress; 
+	std::string m_pClientName;
 
-	//Qs 2 : Make a map to hold the details of all the client who have connected. 
 	//The structure maps client addresses to client details
 	std::map<std::string, TClientDetails>* m_pConnectedClients;
 
-	std::string m_pClientName;
 	//A workQueue to distribute messages between the main thread and Receive thread.
 	CWorkQueue<char*>* m_pWorkQueue;
 };

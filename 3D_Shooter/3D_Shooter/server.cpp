@@ -32,7 +32,9 @@
 #include "server.h"
 #include "SceneMgr.h"
 
+// Static Pointers
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
+static CNetwork* _rNetwork = CNetwork::GetInstance();
 
 CServer::CServer()
 	:m_pcPacketData(0),
@@ -60,32 +62,30 @@ bool CServer::Initialise()
 {
 	m_pcPacketData = new char[MAX_MESSAGE_LENGTH];
 	
-	//Create a work queue to distribute messages between the main  thread and the receive thread.
+	// Create a work queue to distribute messages between the main  thread and the receive thread.
 	m_pWorkQueue = new CWorkQueue<char*>();
 
-	//Create a socket object
+	// Create a socket object
 	m_pServerSocket = new CSocket();
 
-	//Get the port number to bind the socket to
+	// Get the port number to bind the socket to
 	unsigned short _usServerPort = DEFAULT_SERVER_PORT;
 	//unsigned short _usServerPort = QueryPortNumber(DEFAULT_SERVER_PORT);	//To ask user to enter server port
 
-	//Initialise the socket to the local loop back address and port number
+	// Initialise the socket to the local loop back address and port number
 	if (!m_pServerSocket->Initialise(_usServerPort))
 	{
 		return false;
 	}
 
-	//Qs 2: Create the map to hold details of all connected clients
-	m_pConnectedClients = new std::map < std::string, TClientDetails >() ;
+	// Creates a map that includes the connected client name and address
+	m_pConnectedClients = new std::map < std::string, TClientDetails >();
 
 	return true;
 }
 
 bool CServer::AddClient(std::string _strClientName)
 {
-	//TO DO : Add the code to add a client to the map here...
-	std::string stringtemp;
 	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 	{
 		//Check to see that the client to be added does not already exist in the map, 
@@ -99,6 +99,7 @@ bool CServer::AddClient(std::string _strClientName)
 			return false;
 		}
 	}
+
 	//Add the client to the map.
 	TClientDetails _clientToAdd;
 	m_pClientName = _strClientName;
@@ -141,7 +142,7 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 	//Make a thread local buffer to receive data into
 	char _buffer[MAX_MESSAGE_LENGTH];
 
-	while (true)
+	while (_rNetwork->IsOnline())
 	{
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...
@@ -170,9 +171,8 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData)
 			//Push this packet data into the WorkQ
 			m_pWorkQueue->push(_pcBufferToReceiveData);
 		}
-		//std::this_thread::yield();
 		
-	} //End of while (true)
+	} //End of while loop
 }
 
 void CServer::GetRemoteIPAddress(char* _pcSendersIP)
@@ -225,21 +225,20 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 		break;
 	}
-	case LOBBYTYPE:
+	case LOGGIN:
 	{
-		std::cout << "I get a lobby type \n";
-
 		if (AddClient(_packetRecvd.MessageContent))
 		{
-			_packetToSend.Serialize(HANDSHAKE, "Handshake Received");
+			_packetToSend.Serialize(DATA, "Access Granted");
 			SendData(_packetToSend.PacketData);
+
 			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 			{
 				if (it->first == ToString(m_ClientAddress))
 				{
 					m_ClientAddress = it->second.m_ClientAddress;
 
-					std::string stringtemp = "Welcome " + m_pClientName + " to the chat";
+					std::string stringtemp = m_pClientName + " has join the lobby.";
 					strcpy_s(charNameptr, stringtemp.c_str());
 					_packetToSend.Serialize(DATA, charNameptr);
 					SendData(_packetToSend.PacketData);
@@ -265,7 +264,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 		i++;
 
-		_packetToSend.Serialize(LOBBYTYPE, charNameptr);
+		_packetToSend.Serialize(LOGGIN, charNameptr);
 		SendData(_packetToSend.PacketData);
 
 		break;
@@ -367,24 +366,19 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 			}
 		}
-		
-
-		/*_packetToSend.Serialize(DATA, "TEST MESSAGE");
-		SendData(_packetToSend.PacketData);*/
 
 		break;
 	}
 
 	case BROADCAST:
 	{
-		std::cout << "Received a broadcast packet" << std::endl;
-		//Just send out a packet to the back to the client again which will have the server's IP and port in it's sender fields
-		_packetToSend.Serialize(BROADCAST, "I'm here!");
-		SendData(_packetToSend.PacketData);
+		std::cout << "Received a broadcast search." << std::endl;
+
 		break;
 	}
 	case KEEPALIVE:
 	{
+		_packetToSend.Serialize(KEEPALIVE, "");
 
 		break;
 	}

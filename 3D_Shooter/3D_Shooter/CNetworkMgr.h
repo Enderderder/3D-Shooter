@@ -33,7 +33,7 @@ public:
 	void StartNetwork(EEntityType);
 	void SetAsServer();
 	void SetAsClient();
-	EEntityType GetEntityType();
+	EEntityType GetEntityType() const;
 	void ClientMainLoop();
 	void ServerMainLoop();
 

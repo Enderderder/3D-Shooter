@@ -1,16 +1,16 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
 // New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : network.h
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 #ifndef __NETWORK_H__
 #define __NETWORK_H__
@@ -42,8 +42,6 @@ class INetworkEntity;
 class CNetwork
 {
 public:
-	~CNetwork();
-	
 	bool Initialise(EEntityType _eType);
 	void StartUp(); //A network has an ability to start up
 	void ShutDown(); //& an ability to be shut down
@@ -59,15 +57,21 @@ public:
 private:
 	//Make the network class a singleton. There is only one instance of the network running
 	CNetwork();
+	~CNetwork();
 	CNetwork(const CNetwork& _kr) = delete;
 	CNetwork& operator= (const CNetwork& _kr) = delete;
 
 protected:
-	//A network has a network entity
-	INetworkEntity* m_pNetworkEntity;
-	bool m_bOnline;
-
 	// Singleton Instance
 	static CNetwork* s_pNetwork;
+
+private:
+
+	// Private Member Variable
+
+	//A network has a network entity
+	INetworkEntity * m_pNetworkEntity;
+
+	bool m_bOnline;
 };
 #endif

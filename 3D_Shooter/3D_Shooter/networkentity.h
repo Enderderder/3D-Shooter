@@ -25,7 +25,7 @@ enum EMessageType : unsigned char
 	USERNAME,
 	KEEPALIVE,
 	COMMAND,
-	LOBBYTYPE,
+	LOGGIN,
 	BROADCAST
 };
 

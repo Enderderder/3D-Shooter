@@ -23,6 +23,8 @@
 #include "MeshMgr.h"
 #include "ModelMgr.h"
 #include "SceneMgr.h"
+#include "CNetworkMgr.h"
+#include "network.h"
 #include "Input.h"
 #include "Camera.h"
 #include "CubeMap.h"
@@ -30,6 +32,7 @@
 
 // Manager Pointer
 static CSceneMgr* cSceneMgr = CSceneMgr::GetInstance();
+static CNetworkMgr* cNetworkMgr = CNetworkMgr::GetInstance();
 static CAssetMgr* cAssetMgr = CAssetMgr::GetInstance();
 static CModelMgr* cModelMgr = CModelMgr::GetInstance();
 static CMeshMgr* cMeshMgr = CMeshMgr::GetInstance();
@@ -50,7 +53,6 @@ void CLobbyScene::InitialiseScene(ESCENES _eSceneNum)
 	m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
 	ChangeSelection(StartGame);
-
 
 	/*TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
 	m_pText.push_back(TextTemp);
@@ -135,7 +137,10 @@ void CLobbyScene::MenuControl()
 		{
 		case StartGame:
 		{
+			if (cNetworkMgr->GetEntityType() == EEntityType::SERVER)
+			{
 
+			}
 
 			break;
 		}

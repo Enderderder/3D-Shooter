@@ -1,16 +1,16 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
 // New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : client.h
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
@@ -81,7 +81,6 @@ private:
 	//Local variable to hold client's name
 	char _cUserName[50];
 
-	//Question 7
 	//A vector to hold all the servers found after broadcasting
 	std::vector<sockaddr_in> m_vecServerAddr;
 	bool m_bDoBroadcast;

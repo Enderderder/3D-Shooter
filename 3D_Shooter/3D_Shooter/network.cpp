@@ -1,16 +1,16 @@
-//
+/*
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
 // New Zealand
 //
-// (c) 2015 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name	: 
-// Description	: 
-// Author		: Your Name
-// Mail			: your.name@mediadesign.school.nz
-//
+// File Name    : network.cpp
+// Description	:
+// Author       : Richard Wulansari & Jacob Dewse
+// Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
+*/
 
 //Library Includes
 #include <WinSock2.h>
@@ -61,7 +61,8 @@ CNetwork::Initialise(EEntityType _eType)
 		}
 	default:
 		{
-			//Add some error handling in here
+			
+			std::cout << "Fk, this not one of the option my friend? \n";
 			break;
 		}
 	}
@@ -90,7 +91,7 @@ CNetwork::ShutDown()
 	if (WSACleanup() != 0)
 	{
 		_iError = WSAGetLastError();
-		//Diagnostic error messages to be added!!
+		ErrorRoutines::PrintWSAErrorInfo(_iError);
 	}
 	m_bOnline = false;
 }
@@ -110,7 +111,7 @@ void
 CNetwork::DestroyObject()
 {
 	delete s_pNetwork;
-	s_pNetwork = 0;
+	s_pNetwork = nullptr;
 }
 
 INetworkEntity* CNetwork::GetNetworkEntity() const

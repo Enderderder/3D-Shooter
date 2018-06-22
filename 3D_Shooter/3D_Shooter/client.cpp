@@ -31,8 +31,9 @@
 #include "client.h"
 #include "SceneMgr.h"
 
+// Static Pointers
 static CSceneMgr* cSceneMgrs = CSceneMgr::GetInstance();
-
+static CNetwork* _rNetwork = CNetwork::GetInstance();
 
 CClient::CClient()
 	:m_pcPacketData(0)
@@ -138,9 +139,6 @@ bool CClient::Initialise()
 #pragma endregion _GETSERVER_
 
 	} while (_bServerChosen == false);
-
-	//Send a hanshake message to the server as part of the Client's Initialization process.
-	//Step1: Create a handshake packet
 	
 	do{
 		std::cout << "Please enter a username : ";
@@ -151,7 +149,7 @@ bool CClient::Initialise()
 	//_packet.Serialize(HANDSHAKE, _cUserName); 
 	//SendData(_packet.PacketData);
 
-	_packet.Serialize(LOBBYTYPE, _cUserName);
+	_packet.Serialize(LOGGIN, _cUserName);
 	SendData(_packet.PacketData);
 	return true;
 }
@@ -322,7 +320,7 @@ void CClient::ProcessData(char* _pcDataReceived)
 	_packetRecvd = _packetRecvd.Deserialize(_pcDataReceived);
 	switch (_packetRecvd.MessageType)
 	{
-	case LOBBYTYPE:
+	case LOGGIN:
 	{
 		if (IsDoneLobby == false)
 		{
