@@ -99,7 +99,7 @@ bool CClient::Initialise()
 	}
 
 	//Set the client's online status to true
-	m_bOnline = true;
+	_rNetwork->SetOnline(true);
 
 	//Use a boolean flag to determine if a valid server has been chosen by the client or not
 	bool _bServerChosen = false;
@@ -158,7 +158,7 @@ bool CClient::BroadcastForServers()
 {
 	//Make a broadcast packet
 	TPacket _packet;
-	_packet.Serialize(BROADCAST, "Broadcast to Detect Server");
+	_packet.Serialize(BROADCAST, "Broadcast Server Search");
 
 	char _pcTempBuffer[MAX_MESSAGE_LENGTH];
 	//Send out a broadcast message using the broadcast address
@@ -272,7 +272,7 @@ void CClient::ReceiveData(char* _pcBufferToReceiveData)
 	//For debugging purpose only, convert the Address structure to a string.
 	char _pcAddress[50];
 	ZeroMemory(&_pcAddress, 50);
-	while(m_bOnline)
+	while(_rNetwork->IsOnline())
 	{
 		// pull off the packet(s) using recvfrom()
 		_iNumOfBytesReceived = recvfrom(			// pulls a packet from a single source...

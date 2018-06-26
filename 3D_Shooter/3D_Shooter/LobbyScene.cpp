@@ -52,6 +52,12 @@ void CLobbyScene::InitialiseScene(ESCENES _eSceneNum)
 
 	m_cCubeMap = cMeshMgr->GetCubeMap(MENUCUBEMAP);
 
+	m_tStartGame = std::make_shared<CTextLabel>("Arial", "Start Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
+	m_vTextLabel.push_back(m_tStartGame);
+
+	m_tMainMenu = std::make_shared<CTextLabel>("Arial", "Main Menu", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
+	m_vTextLabel.push_back(m_tMainMenu);
+
 	ChangeSelection(StartGame);
 
 	/*TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 100));
@@ -65,13 +71,6 @@ void CLobbyScene::InitialiseScene(ESCENES _eSceneNum)
 
 	TextTemp = new CTextLabel("Arial", "Not Connected", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 400));
 	m_pText.push_back(TextTemp);*/
-
-
-	TextTemp = new CTextLabel("Arial", "Start Game", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 600));
-	m_pText.push_back(TextTemp);
-
-	TextTemp = new CTextLabel("Arial", "Main Menu", glm::vec2(util::SCR_WIDTH / 2, util::SCR_HEIGHT - 700));
-	m_pText.push_back(TextTemp);
 }
 
 void CLobbyScene::RenderScene()
@@ -82,10 +81,12 @@ void CLobbyScene::RenderScene()
 	{
 		obj->RenderObject(m_MainCamera);
 	}
-	for (unsigned int i = 0; i < m_pText.size(); i++)
+
+	for (auto text : m_vTextLabel)
 	{
-		m_pText[i]->RenderTextLabel();
+		text->RenderTextLabel();
 	}
+
 }
 
 void CLobbyScene::UpdateScene()
@@ -107,6 +108,8 @@ void CLobbyScene::UpdateScene()
 	}
 
 	CheckCollision();
+
+	MenuControl();
 }
 
 void CLobbyScene::MenuControl()
@@ -139,7 +142,7 @@ void CLobbyScene::MenuControl()
 		{
 			if (cNetworkMgr->GetEntityType() == EEntityType::SERVER)
 			{
-
+				  
 			}
 
 			break;

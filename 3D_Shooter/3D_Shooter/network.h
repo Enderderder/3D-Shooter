@@ -43,8 +43,10 @@ class CNetwork
 {
 public:
 	bool Initialise(EEntityType _eType);
-	void StartUp(); //A network has an ability to start up
-	void ShutDown(); //& an ability to be shut down
+	void StartUp();			// A network has an ability to start up
+	void ShutDown();		// & an ability to be shut down
+
+	void SetOnline(bool);	// Ability to set status to online or offline
 	bool IsOnline() const;
 
 	//Accessor methods

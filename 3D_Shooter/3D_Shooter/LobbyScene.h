@@ -52,8 +52,8 @@ private:
 	LOBBYBUTTON m_LobbyTracker;
 
 	// Menu Text
-	CTextLabel* m_tStartGame;
-	CTextLabel* m_tMainMenu;
+	std::shared_ptr< CTextLabel > m_tStartGame;
+	std::shared_ptr< CTextLabel > m_tMainMenu;
 };
 
 #endif // !LOBBYSCENE_H

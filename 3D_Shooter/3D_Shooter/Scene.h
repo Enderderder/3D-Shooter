@@ -23,6 +23,7 @@
 // Library Include
 #include <vector>
 #include <chrono>
+#include <memory>
 
 // Forward Declaration
 enum ESCENES;
@@ -54,7 +55,7 @@ public:
 	
 
 	CTextLabel* TextTemp;
-	std::vector<CTextLabel*> m_pText;
+	std::vector< CTextLabel* > m_pText;
 
 protected:
 	ESCENES m_pCurrentEnum;
@@ -64,6 +65,9 @@ protected:
 	CCubeMap * m_cCubeMap;
 
 	std::vector<CGameObject*> m_vGameObj;
+
+	std::vector< std::shared_ptr<CTextLabel> > m_vTextLabel;
+
 private:
 
 	//std::vector<CGameObject*> m_vGameObj;

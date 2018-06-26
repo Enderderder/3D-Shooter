@@ -41,7 +41,7 @@ CNetwork::CNetwork()
 CNetwork::~CNetwork()
 {
 	delete m_pNetworkEntity;
-	m_pNetworkEntity = 0;
+	m_pNetworkEntity = nullptr;
 }
 
 bool
@@ -61,7 +61,6 @@ CNetwork::Initialise(EEntityType _eType)
 		}
 	default:
 		{
-			
 			std::cout << "Fk, this not one of the option my friend? \n";
 			break;
 		}
@@ -117,6 +116,15 @@ CNetwork::DestroyObject()
 INetworkEntity* CNetwork::GetNetworkEntity() const
 {
 	return m_pNetworkEntity;
+}
+
+void CNetwork::SetOnline(bool _online)
+{
+	if (_online)
+	{
+		m_bOnline = true;
+	}
+	else m_bOnline = false;
 }
 
 bool CNetwork::IsOnline() const

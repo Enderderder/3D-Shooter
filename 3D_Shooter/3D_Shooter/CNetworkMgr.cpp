@@ -27,9 +27,6 @@
 CNetworkMgr* CNetworkMgr::s_pNetworkMgr = nullptr;
 static CNetwork* _rNetwork = CNetwork::GetInstance();
 
-// Global Variable -----------------------------------------------------------------------------
-CInputLineBuffer _InputBuffer(MAX_MESSAGE_LENGTH);
-
 //A pointer to hold a client instance
 CClient* _pClient = nullptr;
 //A pointer to hold a server instance
@@ -38,7 +35,7 @@ CServer* _pServer = nullptr;
 char _cIPAddress[MAX_ADDRESS_LENGTH]; // An array to hold the IP Address as a string
 //ZeroMemory(&_cIPAddress, strlen(_cIPAddress));
 
-char* _pcPacketData = 0; //A local buffer to receive packet data info
+char* _pcPacketData = nullptr; //A local buffer to receive packet data info
 
 CNetworkMgr::CNetworkMgr()
 {}
@@ -56,8 +53,8 @@ CNetworkMgr::~CNetworkMgr()
 		m_ServerReceiveThread.join();
 	}
 	//Shut Down the Network
-	//_rNetwork->ShutDown();
-	//_rNetwork->DestroyObject();
+	_rNetwork->ShutDown();
+	_rNetwork->DestroyObject();
 
 	delete[] _pcPacketData;
 }
@@ -98,7 +95,6 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	{
 		_pClient = static_cast<CClient*>(_rNetwork->GetNetworkEntity());
 		m_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
-		//m_ClientReceiveThread.detach();
 	}
 
 	//Run receive of server also on a separate thread 
@@ -106,7 +102,6 @@ void CNetworkMgr::StartNetwork(EEntityType _eNetworkEntityType)
 	{
 		_pServer = static_cast<CServer*>(_rNetwork->GetNetworkEntity());
 		m_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
-		//m_ServerReceiveThread.detach();
 	}
 }
 
