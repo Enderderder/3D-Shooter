@@ -151,7 +151,7 @@ void Update()
 	cSceneMgr->UpdateCurrentScene();
 
 	//Main Menu controls
-	if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
+	/*if (cSceneMgr->GetCurrentSceneEnum() == MAINMENU)
 	{
 		switch (MainMenuTracker)
 		{
@@ -238,7 +238,7 @@ void Update()
 			default: break;
 			}
 		}
-	}
+	}*/
 
 	// In Game Controls
 	if (cSceneMgr->GetCurrentSceneEnum() == GAME || cSceneMgr->GetCurrentSceneEnum() == MULTIPLAYER)

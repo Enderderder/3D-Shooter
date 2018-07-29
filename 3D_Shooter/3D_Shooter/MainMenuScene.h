@@ -1,4 +1,4 @@
-/*
+//
 // Bachelor of Software Engineering
 // Media Design School
 // Auckland
@@ -6,33 +6,34 @@
 //
 // (c) 2018 Media Design School
 //
-// File Name    : LobbyScene.h
-// Description	:
+// File Name    : MainMenuScene.h
+// Description	: 
 // Author       : Richard Wulansari & Jacob Dewse
 // Mail         : richard.wul7481@mediadesign.school.nz, jacob.dew7364@mediadesign.school.nz
-*/
+//
 
-#ifndef LOBBYSCENE_H
-#define LOBBYSCENE_H
+#ifndef MAINMENUSCENE_H
+#define MAINMENUSCENE_H
 
 // Inherited Include
 #include "Scene.h"
 
 // Enum Declare
-enum LOBBYBUTTON
+enum MAINMENUBUTTON
 {
-	StartGame,
-	LobbyMainMenu
+	Play,
+	Multiplayer,
+	Exit
 };
 
 // Forward Declaration
 enum ESCENES;
 
-class CLobbyScene : public CScene
+class CMainMenuScene : public CScene
 {
 public:
-	CLobbyScene();
-	~CLobbyScene();
+	CMainMenuScene();
+	~CMainMenuScene();
 
 	// Inherited Function
 	void InitialiseScene(ESCENES _eSceneNum) override;
@@ -43,14 +44,15 @@ private:
 
 	// Private Member Function
 	void MenuControl();
-	void ChangeSelection(LOBBYBUTTON);
+	void ChangeSelection(MAINMENUBUTTON);
 
 	// Member Variable
-	LOBBYBUTTON m_LobbyTracker;
+	MAINMENUBUTTON m_MainMenuTracker;
 
 	// Menu Text
-	std::shared_ptr< CTextLabel > m_tStartGame;
-	std::shared_ptr< CTextLabel > m_tMainMenu;
+	std::shared_ptr< CTextLabel > m_tSinglePlayer;
+	std::shared_ptr< CTextLabel > m_tMultiPlayer;
+	std::shared_ptr< CTextLabel > m_tExitGame;
 };
 
-#endif // !LOBBYSCENE_H
+#endif // !MAINMENUSCENE_H

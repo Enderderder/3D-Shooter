@@ -70,11 +70,7 @@ protected:
 
 private:
 
-	//std::vector<CGameObject*> m_vGameObj;
-	
-	//CCamera* m_MainCamera;
-	//CCubeMap* m_cCubeMap;
-	//ESCENES m_pCurrentEnum;
+
 };
 
 #endif // !SCENE_H

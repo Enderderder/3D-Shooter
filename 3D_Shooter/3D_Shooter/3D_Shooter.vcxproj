@@ -155,6 +155,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="inputlinebuffer.cpp" />
     <ClCompile Include="LobbyScene.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshMgr.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="InputLineBuffer.h" />
     <ClInclude Include="LobbyScene.h" />
+    <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshMgr.h" />
     <ClInclude Include="Model.h" />

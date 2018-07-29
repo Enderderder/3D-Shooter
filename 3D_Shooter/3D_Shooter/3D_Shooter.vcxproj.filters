@@ -100,6 +100,7 @@
     <ClCompile Include="LobbyScene.cpp">
       <Filter>Game\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SceneMgr.h">
@@ -210,6 +211,7 @@
     <ClInclude Include="LobbyScene.h">
       <Filter>Game\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="MainMenuScene.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Ex_10.fs">
